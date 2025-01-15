@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
-    Optional<UserEntity> findByUserName(String username);
+    Optional<UserEntity> findByUsername(String username);
 
     @Query("select u from UserEntity u where u.username = ?1")
     Optional<UserEntity> getName(String username);
