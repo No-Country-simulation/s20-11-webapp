@@ -1,7 +1,7 @@
-package no.country.eduplanner.course.persitence.repositories;
+package no.country.eduplanner.courses.persitence.repositories;
 
-import no.country.eduplanner.course.persitence.entities.CourseEntity;
-import no.country.eduplanner.course.persitence.entities.StudentEntity;
+import no.country.eduplanner.courses.persitence.entities.CourseEntity;
+import no.country.eduplanner.courses.persitence.entities.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

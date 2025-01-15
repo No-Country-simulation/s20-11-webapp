@@ -1,4 +1,4 @@
-package no.country.eduplanner.course.persitence.entities;
+package no.country.eduplanner.courses.persitence.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

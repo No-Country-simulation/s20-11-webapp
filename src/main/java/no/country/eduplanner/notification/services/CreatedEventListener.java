@@ -5,8 +5,8 @@ import no.country.eduplanner.events.persistence.entities.EventEntity;
 import no.country.eduplanner.events.persistence.repositories.EventRepository;
 import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
 import no.country.eduplanner.notification.persistence.repository.NotificationRepository;
-import no.country.eduplanner.course.persitence.entities.StudentEntity;
-import no.country.eduplanner.course.persitence.repositories.StudentRepository;
+import no.country.eduplanner.courses.persitence.entities.StudentEntity;
+import no.country.eduplanner.courses.persitence.repositories.StudentRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 

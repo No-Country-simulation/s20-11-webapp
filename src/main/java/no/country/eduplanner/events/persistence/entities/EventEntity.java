@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import no.country.eduplanner.course.persitence.entities.CourseEntity;
+import no.country.eduplanner.courses.persitence.entities.CourseEntity;
 
 import java.time.LocalDateTime;
 
