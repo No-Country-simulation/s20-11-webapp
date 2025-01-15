@@ -19,17 +19,17 @@ public class PrincipalController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("Hello")
+    @GetMapping("/hello")
     public String hello(){
         return "Hola Mundo No seguro";
     }
 
-    @GetMapping("HelloSecured")
+    @GetMapping("/hello-secured")
     public String helloSecured(){
         return "Hola Mundo seguro";
     }
 
-    @PostMapping("/createUser")
+    @PostMapping("/create-user")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO){
 
         Set<RoleEntity> roles = createUserDTO.getRoles().stream()
