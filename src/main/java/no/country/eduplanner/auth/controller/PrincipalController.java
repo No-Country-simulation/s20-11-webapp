@@ -8,6 +8,7 @@ import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 
 @RestController
 public class PrincipalController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -39,8 +43,8 @@ public class PrincipalController {
                 .collect(Collectors.toSet());
 
         UserEntity userEntity = UserEntity.builder()
-                .username(createUserDTO.getUsername())
-                .password(createUserDTO.getPassword())
+                .username(createUserDTO.getUserName())
+                .password(passwordEncoder.encode(createUserDTO.getPassword()))
                 .email(createUserDTO.getEmail())
                 .roles(roles)
                 .build();
@@ -50,7 +54,7 @@ public class PrincipalController {
         return ResponseEntity.ok(userEntity);
     }
 
-    @DeleteMapping("deleteUser")
+    @DeleteMapping("/deleteUser")
     public String deleteUser(@RequestParam String id){
         userRepository.deleteById(Long.parseLong(id));
         return  "Se ha borrado el usuario con id".concat(id);

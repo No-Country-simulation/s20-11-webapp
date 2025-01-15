@@ -21,3 +21,8 @@ spring:
   threads:
     virtual:
       enabled: true
+jwt:
+  secret-key : ${jwt.secret.key}
+  expiration : ${jwt.time.expiration}
+  refresh-token :
+    expiration : ${jwt.refresh.token.expiration}
