@@ -11,10 +11,9 @@ import Footer from "./Footer"
 
 
 const schema = Yup.object().shape({
-    username: Yup.string()
-        .min(3, "El nombre de usuario es demasiado corto")
-        .max(20, "Máximo 20 caracteres")
-        .required("Este campo es obligatorio"),
+    email: Yup.string()
+        .email("El email es inválido")
+        .required('El email es requerido'),
     password: Yup.string()
         .min(8, "La contraseña es demasiado corta")
         .required("Este campo es obligatorio"),
@@ -45,7 +44,7 @@ function Login() {
                     </h2>
                     <Formik
                         initialValues={{
-                            username: '',
+                            email: '',
                             password: '',
                         }}
                         onSubmit={(values) => {
@@ -56,12 +55,12 @@ function Login() {
                             {({ isValid, dirty, isSubmitting }) => (
                                 <Form className="flex flex-col gap-4">
                                     <Field
-                                        placeholder="Nombre de Usuario"
+                                        placeholder="Email"
                                         className="pl-4 bg-gray-700/50 w-full border h-10 rounded"
                                         type="text"
-                                        name="username"
+                                        name="email"
                                     />
-                                    <ErrorMessage name="username" component="p" className="text-red-500 text-sm" />
+                                    <ErrorMessage name="email" component="p" className="text-red-500 text-sm" />
 
                                     <div className="relative w-full">
                                         <Field 
@@ -94,17 +93,7 @@ function Login() {
 
                         {message && <p className="mt-4 text-center">{message}</p>}
 
-                        {/* <div className="flex flex-col items-center mt-6">
-                            <p className="text-center text-sm text-gray-400">
-                                ¿No tienes una cuenta?{" "}
-                            </p>
-                            <a
-                                href="/sign"
-                                className="bg-gradient-to-r from-[#9333ea] to-[#2563eb] text-transparent bg-clip-text hover:underline"
-                            >
-                                Regístrate
-                            </a>
-                        </div> */}
+                        
                 </div>
             </main>
             <Footer/>

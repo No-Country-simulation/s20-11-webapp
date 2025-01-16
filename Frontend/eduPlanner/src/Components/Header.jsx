@@ -39,12 +39,12 @@ const Header = () => {
             <div id='logo-y-libro' className="flex gap-2 items-center">   
                 
                 <h1 className="text-2xl font-semibold text-white">
-                    profevirtual
+                    Edu Planner
                 </h1> 
             </div>
             <div id='fila-opciones' className='flex gap-6'>
                 <button className='text-sm text-white' onClick={() => navigate('/todosloscursos')}>
-                    Cursos
+                    
                 </button>
 
                 {/* si el usuario está loggeado */}
@@ -58,11 +58,11 @@ const Header = () => {
                         )}                
 
                 {/* si el usuario está loggeado */}
-                {isLoggedIn && (     
+                {/* {isLoggedIn && (     
                 <button className='text-sm text-white' onClick={() => navigate('/profile')}>
                     Mi perfil
                 </button>
-                )}
+                )} */}
 
                 {/* si el usuario está desloggeado onClick={handleCerrarSesion}  */}
                 {isLoggedIn && (

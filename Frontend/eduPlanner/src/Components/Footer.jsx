@@ -6,7 +6,7 @@ const Footer = () => {
                 <div className="container mx-auto px-4">
                
                     <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-                    <p>© 2024 CursosOnline. Todos los derechos reservados.</p>
+                    <p>© 2025 Edu Planner. Todos los derechos reservados.</p>
                         <div className="flex space-x-4 mt-4 md:mt-0">
                             <a href="#" className="text-gray-400 hover:text-white transition-colors">
                                 <span className="sr-only">Facebook</span>
