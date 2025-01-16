@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import no.country.eduplanner.courses.application.exception.ScheduleAlreadyInitializedException;
 import no.country.eduplanner.courses.domain.enums.BlockType;
 import no.country.eduplanner.courses.domain.vo.TimeRange;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
@@ -37,7 +38,7 @@ public class Schedule extends BaseEntity {
 
     public void initializeSchedule() {
         if (!blocks.isEmpty()) {
-            throw new IllegalStateException("Schedule is already initialized");
+            throw new ScheduleAlreadyInitializedException();
         }
 
         course.getClassDays().forEach(this::initializeDayBlocks);

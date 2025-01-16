@@ -1,6 +1,6 @@
 package no.country.eduplanner.courses.application.exception;
 
-public class InvalidSubjectAssignmentException extends RuntimeException {
+public class InvalidSubjectAssignmentException extends CourseException {
 
 
     public InvalidSubjectAssignmentException() {

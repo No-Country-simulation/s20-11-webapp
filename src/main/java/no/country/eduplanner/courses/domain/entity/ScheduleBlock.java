@@ -3,6 +3,7 @@ package no.country.eduplanner.courses.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import no.country.eduplanner.courses.application.exception.InvalidSubjectForTypeException;
 import no.country.eduplanner.courses.domain.enums.BlockType;
 import no.country.eduplanner.courses.domain.vo.TimeRange;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
@@ -49,7 +50,7 @@ public class ScheduleBlock extends BaseEntity {
 
     public void updateSubjectForBlock(Subject subject) {
         if (this.type == BlockType.BREAK) {
-            throw new IllegalStateException("Cannot update subject for a BREAK block");
+            throw new InvalidSubjectForTypeException();
         }
         this.subject = subject;
 

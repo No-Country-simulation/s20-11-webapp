@@ -3,6 +3,7 @@ package no.country.eduplanner.courses.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import no.country.eduplanner.courses.application.exception.InvalidCourseConfigurationException;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
 
 import java.time.DayOfWeek;
@@ -70,25 +71,25 @@ public class Course extends BaseEntity {
     //Move this to @Validations?????????????????????
     public void validateScheduleConfiguration() {
         if (classStartTime == null) {
-            throw new IllegalStateException("Class start time must be set");
+            throw new InvalidCourseConfigurationException("Class start time must be set");
         }
         if (blocksBeforeLunch == null || blocksBeforeLunch < 0) {
-            throw new IllegalStateException("Invalid blocks before lunch");
+            throw new InvalidCourseConfigurationException("Invalid blocks before lunch");
         }
         if (blocksAfterLunch == null || blocksAfterLunch < 0) {
-            throw new IllegalStateException("Invalid blocks after lunch");
+            throw new InvalidCourseConfigurationException("Invalid blocks after lunch");
         }
         if (blockDuration == null || blockDuration.isNegative() || blockDuration.isZero()) {
-            throw new IllegalStateException("Invalid block duration");
+            throw new InvalidCourseConfigurationException("Invalid block duration");
         }
         if (breakDuration == null || breakDuration.isNegative() || breakDuration.isZero()) {
-            throw new IllegalStateException("Invalid break duration");
+            throw new InvalidCourseConfigurationException("Invalid break duration");
         }
         if (lunchDuration == null || lunchDuration.isNegative() || lunchDuration.isZero()) {
-            throw new IllegalStateException("Invalid lunch duration");
+            throw new InvalidCourseConfigurationException("Invalid lunch duration");
         }
         if (classDays == null || classDays.isEmpty()) {
-            throw new IllegalStateException("No class days defined");
+            throw new InvalidCourseConfigurationException("No class days defined");
         }
     }
 }
