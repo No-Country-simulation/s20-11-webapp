@@ -3,14 +3,12 @@ package no.country.eduplanner.courses.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import no.country.eduplanner.courses.domain.vo.TimeRange;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
-import org.hibernate.proxy.HibernateProxy;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,8 +22,14 @@ public class Course extends BaseEntity {
 
     private String name;
 
-    @Embedded
-    private TimeRange timeRange;
+    @Column(name = "class_start_time", nullable = false)
+    private LocalTime classStartTime;
+
+    @Column(name = "blocks_before_lunch", nullable = false)
+    private Integer blocksBeforeLunch;
+
+    @Column(name = "blocks_after_lunch", nullable = false)
+    private Integer blocksAfterLunch;
 
     @Column(name = "block_duration", nullable = false)
     private Duration blockDuration;
@@ -33,8 +37,8 @@ public class Course extends BaseEntity {
     @Column(name = "break_duration", nullable = false)
     private Duration breakDuration;
 
-    @Embedded
-    private TimeRange lunchBreak;
+    @Column(name = "lunch_duration", nullable = false)
+    private Duration lunchDuration;
 
     @ElementCollection
     @CollectionTable(
@@ -49,37 +53,43 @@ public class Course extends BaseEntity {
     @ToString.Exclude
     private Schedule schedule;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<Subject> subjects = new HashSet<>();
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
         schedule.setCourse(this);
     }
 
+    public Integer getTotalBlocksPerDay() {
+        return blocksBeforeLunch + blocksAfterLunch;
+    }
+
+    //Move this to @Validations?????????????????????
+    public void validateScheduleConfiguration() {
+        if (classStartTime == null) {
+            throw new IllegalStateException("Class start time must be set");
+        }
+        if (blocksBeforeLunch == null || blocksBeforeLunch < 0) {
+            throw new IllegalStateException("Invalid blocks before lunch");
+        }
+        if (blocksAfterLunch == null || blocksAfterLunch < 0) {
+            throw new IllegalStateException("Invalid blocks after lunch");
+        }
+        if (blockDuration == null || blockDuration.isNegative() || blockDuration.isZero()) {
+            throw new IllegalStateException("Invalid block duration");
+        }
+        if (breakDuration == null || breakDuration.isNegative() || breakDuration.isZero()) {
+            throw new IllegalStateException("Invalid break duration");
+        }
+        if (lunchDuration == null || lunchDuration.isNegative() || lunchDuration.isZero()) {
+            throw new IllegalStateException("Invalid lunch duration");
+        }
+        if (classDays == null || classDays.isEmpty()) {
+            throw new IllegalStateException("No class days defined");
+        }
+    }
 }
 
-//
-//creamos curso
-//definimos duracion de bloques de clase
-//duracion de recesos
-//duracion de almuerzo
-//
-//duracion del dia escolar
-//
-//
-//basado en esto calculamos los bloques disponibles para clases
-//tomando en cuenta que cada clase tendra un receso posterior, con dos excepciones.
-//La clase anterior al almuerzo
-//la clase anterior a la salida
-//
-//
-//de esta manera se crea una lista de bloques disponibles para cada dia, donde se pueden registrar
-// "materias". Cada bloque ya tiene un rango de tiempo definido, un dia definido y un tipo definido,
-// solo necesita ser relacionado con una asignatura.
-//
-//
-//
-//o de otra manera, en lugar de pedir duracion del dia escolar, preguntamos cuantos bloques de clase
-// diarios para el curso, y en base a eso hacemos los calculos. De esta manera no necesitamos acomodarnos dento
-// de un rango de tiempo y evitamos minutos "sobrantes"
-
-//Adding to a day, it add its to the next block automatically, or you can specify the exact block/day

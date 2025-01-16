@@ -1,7 +1,8 @@
 package no.country.eduplanner.courses.domain.enums;
 
-public enum SubjectType {
+public enum BlockType {
     CLASS,
-    FREE,
-    OTHER
+    BREAK,
+    LUNCH,
+    FREE
 }

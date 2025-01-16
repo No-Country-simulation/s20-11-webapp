@@ -1,5 +1,6 @@
 package no.country.eduplanner.courses.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -33,6 +34,7 @@ public record TimeRange(
                other.startTime().isBefore(this.endTime);
     }
 
+    @JsonIgnore
     public Duration getDuration() {
         return Duration.between(startTime, endTime);
     }
