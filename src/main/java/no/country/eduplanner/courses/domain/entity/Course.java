@@ -56,3 +56,30 @@ public class Course extends BaseEntity {
     }
 
 }
+
+//
+//creamos curso
+//definimos duracion de bloques de clase
+//duracion de recesos
+//duracion de almuerzo
+//
+//duracion del dia escolar
+//
+//
+//basado en esto calculamos los bloques disponibles para clases
+//tomando en cuenta que cada clase tendra un receso posterior, con dos excepciones.
+//La clase anterior al almuerzo
+//la clase anterior a la salida
+//
+//
+//de esta manera se crea una lista de bloques disponibles para cada dia, donde se pueden registrar
+// "materias". Cada bloque ya tiene un rango de tiempo definido, un dia definido y un tipo definido,
+// solo necesita ser relacionado con una asignatura.
+//
+//
+//
+//o de otra manera, en lugar de pedir duracion del dia escolar, preguntamos cuantos bloques de clase
+// diarios para el curso, y en base a eso hacemos los calculos. De esta manera no necesitamos acomodarnos dento
+// de un rango de tiempo y evitamos minutos "sobrantes"
+
+//Adding to a day, it add its to the next block automatically, or you can specify the exact block/day
