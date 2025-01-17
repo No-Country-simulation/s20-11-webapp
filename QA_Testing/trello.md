@@ -8,4 +8,4 @@ Este documento incluye un enlace a nuestro tablero de Trello, donde se organiza 
 
 https://trello.com/b/qqlhlpzK/eduplanner
 
-El tablero contiene todas las tareas, notas y progresos actualizados para mantener la colaboración y el seguimiento del proyecto.
+El tablero contiene todas las tareas, notas y progresos actualizados para mantener la colaboración, coordinación y el seguimiento del proyecto.
