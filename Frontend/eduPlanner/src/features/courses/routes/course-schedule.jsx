@@ -1,3 +1,4 @@
+import { Spacer } from "@/Components/layout/spacer";
 import {
   Carousel,
   CarouselContent,
@@ -23,7 +24,7 @@ export default function CourseSchedule() {
   return (
     <>
       <TitleBar title={`Horario: ${courseDetails.name}`} />
-
+      <Spacer size="4xs" />
       <div>
         <Schedule courseSchedule={courseSchedule} />
       </div>
