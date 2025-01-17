@@ -1,4 +1,5 @@
 import { Pizza } from "lucide-react";
+import { ResponsiveOutletModal } from "../../../Components/responsive-outlet-modal";
 import { formatTime } from "../utils/time";
 
 export function BlockCard({ block }) {
@@ -46,14 +47,14 @@ export function BlockCard({ block }) {
 
   if (isEmptyBlock) {
     return (
-      <div className={`${baseClasses} bg-background`}>
-        <h3 className="font-bold text-muted-foreground">{blockLabel}</h3>
-        <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
-          {timeRange}
-        </p>
-      </div>
+      <EmptyBlockCard
+        blockLabel={blockLabel}
+        timeRange={timeRange}
+        baseClasses={baseClasses}
+      />
     );
   }
+
   //Si no es un tipo de bloque definido anteriormente, se asume que es un bloque de clase.
   return (
     <div
@@ -65,6 +66,37 @@ export function BlockCard({ block }) {
       }}
     >
       <h3 className="font-bold">{blockLabel}</h3>
+      <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
+        {timeRange}
+      </p>
+    </div>
+  );
+}
+
+function EmptyBlockCard({ blockLabel, timeRange, baseClasses }) {
+  const isAdmin = true;
+
+  if (isAdmin) {
+    return (
+      <ResponsiveOutletModal
+        to={"assign-class"}
+        trigger={
+          <div className={`${baseClasses} bg-background`}>
+            <h3 className="font-bold text-muted-foreground">{blockLabel}</h3>
+            <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
+              {timeRange}
+            </p>
+          </div>
+        }
+        title={"Asignar clase"}
+        description={`Selecciona una clase para asignar al bloque [${timeRange}]`}
+      />
+    );
+  }
+
+  return (
+    <div className={`${baseClasses} bg-background`}>
+      <h3 className="font-bold text-muted-foreground">{blockLabel}</h3>
       <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
         {timeRange}
       </p>
