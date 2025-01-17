@@ -16,11 +16,18 @@ import no.country.eduplanner.courses.domain.entity.Subject;
 import no.country.eduplanner.courses.domain.enums.SubjectType;
 import no.country.eduplanner.courses.infra.persistence.ScheduleBlockRepository;
 import no.country.eduplanner.courses.infra.persistence.SubjectRepository;
+import no.country.eduplanner.shared.application.events.NotificationEvent;
 import no.country.eduplanner.shared.application.utils.ColorUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @Transactional
@@ -32,6 +39,7 @@ public class SubjectService {
     private final ScheduleBlockRepository scheduleBlockRepository;
     private final CourseMapper mapper;
     private final ColorUtils colorUtils;
+    private final ApplicationEventPublisher eventPublisher;
 
 
     public SubjectResponse createClassSubjectForCourse(SubjectRequest request, Long courseId) {
@@ -59,6 +67,13 @@ public class SubjectService {
         }
 
         scheduleBlock.updateSubjectForBlock(subject);
+
+        eventPublisher.publishEvent(new NotificationEvent(
+                "La materia %s ha sido asignada al bloque de las [%s]hrs. del dia %s".formatted(
+                        subject.getName(),
+                        scheduleBlock.getTimeRange().startTime().format(DateTimeFormatter.ofPattern("HH:mm")),
+                        StringUtils.capitalize(scheduleBlock.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.of("es")))
+                ), LocalDateTime.now()));
 
         return mapper.toScheduleBlockResponse(scheduleBlockRepository.save(scheduleBlock));
     }
