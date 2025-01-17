@@ -1,26 +1,22 @@
-import React from 'react'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'; 
-import { useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 function Calendario() {
-    const [date, setDate] = useState(new Date());
-    return (
-        <div className="min-h-screen bg-gray-900 flex flex-col relative overflow-hidden">
-            <Header/>
-            <main className='p-16 flex flex-col justify-center items-center'>
-                <h1 className='text-white font-semibold pb-4'>React Calendar</h1>
-                <Calendar
-                    onChange={setDate}
-                    value={date}
-                />
-                <p className='text-white'>Fecha seleccionada: {date.toDateString()}</p>
-            </main>
-            <Footer/>            
-        </div>
-    )
+  const [date, setDate] = useState(new Date());
+  return (
+    <main className="p-16 flex flex-col justify-center items-center">
+      <h1 className="text-foreground font-semibold pb-4">React Calendar</h1>
+      <Calendar
+        className={`bg-background text-foreground`}
+        onChange={setDate}
+        value={date}
+      />
+      <p className="text-foreground">
+        Fecha seleccionada: {date.toDateString()}
+      </p>
+    </main>
+  );
 }
 
-export default Calendario
+export default Calendario;
