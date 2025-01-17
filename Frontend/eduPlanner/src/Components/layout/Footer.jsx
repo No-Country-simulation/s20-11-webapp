@@ -23,11 +23,15 @@ const socials = [
 ];
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-background text-foreground py-12">
       <div className="container mx-auto px-4">
         <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center">
-          <p>© 2025 Edu Planner. Todos los derechos reservados.</p>
+          <p className="text-center text-muted-foreground text-sm">
+            © {currentYear} EducPlanner. Todos los derechos reservados.
+          </p>
           <div className="flex gap-5 mt-4 md:mt-0">
             {socials.map((social) => (
               <a
