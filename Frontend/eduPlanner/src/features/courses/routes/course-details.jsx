@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import {
   Book,
   BookMarked,
@@ -156,6 +157,23 @@ function CourseDetailsCard({ courseDetails }) {
 }
 
 function DetailsCard({ label, value, Icon }) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <div className="flex flex-col  gap-1 border rounded text-balance  p-0 ">
+        <div className="flex gap-2 items-center bg-muted/50 p-1">
+          <Icon className="w-4 h-4 text-muted-foreground" />
+          <div className="text-sm text-foreground ">{label}: </div>
+        </div>
+
+        <div className="text-sm text-foreground font-semibold text-center p-1">
+          {value}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-2 border-b  p-2 ">
       <Icon className="w-4 h-4 text-muted-foreground" />

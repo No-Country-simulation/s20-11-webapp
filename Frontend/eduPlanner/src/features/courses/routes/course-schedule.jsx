@@ -51,7 +51,7 @@ function Schedule({ courseSchedule }) {
           </CarouselContent>
         </Carousel>
       ) : (
-        <div className="flex items-center gap-6 overflow-x-auto mx-auto w-fit">
+        <div className="flex items-center gap-6 overflow-x-auto mx-auto w-fit px-1">
           {availableDays.map((day) => (
             <DayScheduleCard
               key={day}
