@@ -3,13 +3,12 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/Components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import { ArrowLeft } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
 import { courseService } from "../services/course.service.js";
+import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";
 export async function courseScheduleLoader({ params }) {
   const courseId = params.courseId;
   const courseDetails = await courseService.getCourseDetails(courseId);
@@ -42,38 +41,31 @@ export default function CourseSchedule() {
 
 function Schedule({ courseSchedule }) {
   const isMobile = useIsMobile();
-  const { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY } = courseSchedule;
+  const availableDays = Object.keys(courseSchedule);
   return (
     <>
       {isMobile ? (
         <Carousel>
           <CarouselContent>
-            <CarouselItem>
-              <DayScheduleCard name={"Lunes"} day={MONDAY} />
-            </CarouselItem>
-            <CarouselItem>
-              <DayScheduleCard name={"Martes"} day={TUESDAY} />
-            </CarouselItem>
-            <CarouselItem>
-              <DayScheduleCard name={"Miercoles"} day={WEDNESDAY} />
-            </CarouselItem>
-            <CarouselItem>
-              <DayScheduleCard name={"Jueves"} day={THURSDAY} />
-            </CarouselItem>
-            <CarouselItem>
-              <DayScheduleCard name={"Viernes"} day={FRIDAY} />
-            </CarouselItem>
+            {availableDays.map((day) => (
+              <CarouselItem key={day}>
+                <DayScheduleCard
+                  name={WEEKDAY_TRANSLATIONS[day]}
+                  day={courseSchedule[day]}
+                />
+              </CarouselItem>
+            ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
       ) : (
         <div className="flex  justify-center items-center gap-6 overflow-clip">
-          <DayScheduleCard name={"Lunes"} day={MONDAY} />
-          <DayScheduleCard name={"Martes"} day={TUESDAY} />
-          <DayScheduleCard name={"Miercoles"} day={WEDNESDAY} />
-          <DayScheduleCard name={"Jueves"} day={THURSDAY} />
-          <DayScheduleCard name={"Viernes"} day={FRIDAY} />
+          {availableDays.map((day) => (
+            <DayScheduleCard
+              key={day}
+              name={WEEKDAY_TRANSLATIONS[day]}
+              day={courseSchedule[day]}
+            />
+          ))}
         </div>
       )}
     </>
