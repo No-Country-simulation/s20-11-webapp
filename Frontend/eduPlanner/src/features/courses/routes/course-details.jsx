@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
 import { courseService } from "../services/course.service.js";
+import { formatTime } from "../utils/time.js";
 import { formatClassDays } from "../utils/weekdays.js";
 export async function courseDetailsLoader({ params }) {
   const courseId = params.courseId;
@@ -59,7 +60,6 @@ export default function CourseDetails() {
   return (
     <div>
       <TitleBar title={courseDetails.name} />
-
       <Spacer size="3xs" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <CourseDetailsCard courseDetails={courseDetails} />
@@ -108,7 +108,7 @@ function CourseDetailsCard({ courseDetails }) {
         />
         <DetailsCard
           label="Comienzo de clases"
-          value={courseDetails.classStartTime}
+          value={formatTime(courseDetails.classStartTime)}
           Icon={Clock}
         />
         <DetailsCard

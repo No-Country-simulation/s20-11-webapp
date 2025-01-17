@@ -9,6 +9,7 @@ import { Pizza } from "lucide-react";
 import { useLoaderData } from "react-router-dom";
 import { TitleBar } from "../../../Components/title-bar.jsx";
 import { courseService } from "../services/course.service.js";
+import { formatTime } from "../utils/time.js";
 import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";
 export async function courseScheduleLoader({ params }) {
   const courseId = params.courseId;
@@ -149,6 +150,3 @@ function DayScheduleCard({ name, day }) {
   );
 }
 
-function formatTime(time) {
-  return time.substring(0, 5);
-}
