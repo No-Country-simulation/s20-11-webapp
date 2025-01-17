@@ -4,7 +4,7 @@ import HomeStudent from "./Components/HomeStudent.jsx";
 import Login from "./Components/Login.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
-import AssignClass from "./features/courses/routes/block-assign-class.jsx";
+import AssignClass, { assignClassLoader } from "./features/courses/routes/block-assign-class.jsx";
 import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
@@ -48,6 +48,7 @@ export const routes = [
               {
                 path: "assign-class",
                 element: <AssignClass />,
+                loader: assignClassLoader
               },
             ],
           },
