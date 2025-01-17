@@ -81,7 +81,7 @@ function BlockCard({ block }) {
   )}`;
 
   const baseClasses =
-    "justify-center flex flex-col items-center p-2 rounded hover:ring-2 hover:ring-offset-2 hover:ring-primary cursor-pointer transition-all duration-300 border w-[13rem] shadow text-foreground";
+    "justify-center flex flex-col items-center p-2 rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[13rem] shadow text-foreground";
 
   if (isBreakBlock) {
     return (
@@ -117,13 +117,14 @@ function BlockCard({ block }) {
     );
   }
 
-  //Fallback para cuando el typo de bloque no se encuentra en los casos definidos.
+  //Si no es un tipo de bloque definido anteriormente, se asume que es un bloque de clase.
   return (
     <div
-      className={`${baseClasses} bg-card`}
+      className={`${baseClasses} bg-card hover:ring-[var(--subject-color)]`}
       style={{
         borderLeftWidth: "6px",
         borderLeftColor: block.subject.color,
+        "--subject-color": block.subject.color,
       }}
     >
       <h3 className="font-bold">{blockLabel}</h3>
