@@ -4,6 +4,7 @@ import {
   CarouselItem,
 } from "@/Components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
+import { Pizza } from "lucide-react";
 import { useLoaderData } from "react-router-dom";
 import { TitleBar } from "../../../Components/title-bar.jsx";
 import { courseService } from "../services/course.service.js";
@@ -75,22 +76,59 @@ function BlockCard({ block }) {
     ? "Sin asignar"
     : block.subject?.name;
 
-  const cardBackgroundColor = isBreakBlock
-    ? "#d9d7c7"
-    : isLunchBlock
-    ? "#e0d367"
-    : isEmptyBlock
-    ? "transparent"
-    : block.subject.color;
+  const timeRange = `${formatTime(block.timeRange.startTime)} - ${formatTime(
+    block.timeRange.endTime
+  )}`;
 
+  const baseClasses =
+    "justify-center flex flex-col items-center p-2 rounded hover:ring-2 hover:ring-offset-2 hover:ring-primary cursor-pointer transition-all duration-300 border w-[13rem] shadow text-foreground";
+
+  if (isBreakBlock) {
+    return (
+      <div className={`${baseClasses} bg-muted/50`}>
+        <h3 className="font-bold">{blockLabel}</h3>
+        <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
+          {timeRange}
+        </p>
+      </div>
+    );
+  }
+
+  if (isLunchBlock) {
+    return (
+      <div className={`${baseClasses} bg-muted relative`}>
+        <Pizza className="absolute top-2 right-2 text-muted-foreground" />
+        <h3 className="font-bold">{blockLabel}</h3>
+        <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
+          {timeRange}
+        </p>
+      </div>
+    );
+  }
+
+  if (isEmptyBlock) {
+    return (
+      <div className={`${baseClasses} bg-background`}>
+        <h3 className="font-bold text-muted-foreground">{blockLabel}</h3>
+        <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
+          {timeRange}
+        </p>
+      </div>
+    );
+  }
+
+  //Fallback para cuando el typo de bloque no se encuentra en los casos definidos.
   return (
     <div
-      style={{ backgroundColor: cardBackgroundColor }}
-      className="justify-center flex flex-col items-center p-2 rounded hover:ring-2 hover:ring-offset-2 hover:ring-primary cursor-pointer transition-all duration-300 border w-[15rem] shadow text-foreground"
+      className={`${baseClasses} bg-card`}
+      style={{
+        borderLeftWidth: "6px",
+        borderLeftColor: block.subject.color,
+      }}
     >
-      <h3 className="font-bold dark:text-shadow-outline">{blockLabel}</h3>
-      <p className="bg-background/70  rounded-md w-fit font-bold text-sm p-1 px-2">
-        {block.timeRange.startTime} - {block.timeRange.endTime}
+      <h3 className="font-bold">{blockLabel}</h3>
+      <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">
+        {timeRange}
       </p>
     </div>
   );
@@ -107,4 +145,8 @@ function DayScheduleCard({ name, day }) {
       </div>
     </div>
   );
+}
+
+function formatTime(time) {
+  return time.substring(0, 5);
 }
