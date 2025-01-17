@@ -38,7 +38,7 @@ function Schedule({ courseSchedule }) {
   return (
     <>
       {isMobile ? (
-        <Carousel>
+        <Carousel className="md:hidden">
           <CarouselContent>
             {availableDays.map((day) => (
               <CarouselItem key={day}>
@@ -51,7 +51,7 @@ function Schedule({ courseSchedule }) {
           </CarouselContent>
         </Carousel>
       ) : (
-        <div className="flex items-center gap-6 overflow-x-auto mx-auto w-fit px-1">
+        <div className="hidden md:flex items-center gap-6 overflow-x-auto mx-auto w-fit px-1">
           {availableDays.map((day) => (
             <DayScheduleCard
               key={day}
@@ -82,7 +82,7 @@ function BlockCard({ block }) {
   )}`;
 
   const baseClasses =
-    "justify-center flex flex-col items-center p-2 rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[13rem] shadow text-foreground";
+    "justify-center flex flex-col items-center p-2 rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[20rem] md:w-[13rem] shadow text-foreground";
 
   if (isBreakBlock) {
     return (
