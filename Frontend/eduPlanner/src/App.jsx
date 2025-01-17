@@ -6,6 +6,7 @@ import Login from './Components/Login'
 import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-dom"
 import HomeStudent from './Components/HomeStudent'
 import HomeCoordinator from './Components/HomeCoordinator'
+import Calendario from './Components/Calendario'
 
 function App() {
   
@@ -40,7 +41,16 @@ function App() {
               </div>
             }
           />
-        }        
+        }
+        {
+          <Route
+            path="/calendar" element={
+              <div>                
+                <Calendario/>
+              </div>
+            }
+          />
+        }         
     </Routes>
   </BrowserRouter>
       
