@@ -48,6 +48,7 @@ public class CourseService {
         return courseMapper.toDetailed(course);
     }
 
+    //TODO: THIS MIGHT BE UNNECESSARY, MAY AS WELL INITIALIZE THE SCHEDULE ON COURSE CREATION.
     public SortedMap<DayOfWeek, List<ScheduleBlockResponse>> createSchedule(Long courseId) {
         Course course = courseAccessService.getCourseWithClassDaysAndAccessCheck(courseId);
         course.validateScheduleConfiguration();
