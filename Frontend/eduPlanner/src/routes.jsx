@@ -2,6 +2,7 @@ import App from "./App.jsx";
 import Calendario from "./Components/Calendario.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
 import Login from "./Components/Login.jsx";
+import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
 import CourseDetails, {
   courseDetailsLoader,
@@ -14,6 +15,7 @@ import CoursesList from "./features/courses/routes/courses-list.jsx";
 export const routes = [
   {
     element: <Layout />,
+    errorElement: <Error/>,
     children: [
       {
         path: "/",
