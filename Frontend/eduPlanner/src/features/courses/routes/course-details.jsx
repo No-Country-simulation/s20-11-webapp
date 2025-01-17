@@ -1,4 +1,5 @@
 import { Spacer } from "@/Components/layout/spacer";
+import { TitleBar } from "@/Components/title-bar.jsx";
 import { Button } from "@/Components/ui/button";
 import {
   Card,
@@ -8,7 +9,6 @@ import {
   CardTitle,
 } from "@/Components/ui/card";
 import {
-  ArrowLeft,
   Book,
   BookMarked,
   Calendar,
@@ -57,14 +57,8 @@ export default function CourseDetails() {
   const { courseDetails } = useLoaderData();
   return (
     <div>
-      <div className="flex items-center gap-4  ">
-        <Link to="/courses" viewTransition prefetch="intent">
-          <Button variant="outline" size="icon">
-            <ArrowLeft />
-          </Button>
-        </Link>
-        <div className="text-xl font-bold">{courseDetails.name}</div>
-      </div>
+      <TitleBar title={courseDetails.name} />
+
       <Spacer size="3xs" />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <CourseDetailsCard courseDetails={courseDetails} />

@@ -1,12 +1,11 @@
-import { Button } from "@/Components/ui/button";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/Components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
-import { ArrowLeft } from "lucide-react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { TitleBar } from "../../../Components/title-bar.jsx";
 import { courseService } from "../services/course.service.js";
 import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";
 export async function courseScheduleLoader({ params }) {
@@ -22,16 +21,8 @@ export default function CourseSchedule() {
 
   return (
     <>
-      <div className="flex items-center gap-4  ">
-        <Link to=".." relative="path" viewTransition prefetch="intent">
-          <Button variant="outline" size="icon">
-            <ArrowLeft />
-          </Button>
-        </Link>
-        <div className="text-xl font-bold">
-          Horario: <span className="font-normal">{courseDetails.name}</span>
-        </div>
-      </div>
+      <TitleBar title={`Horario: ${courseDetails.name}`} />
+
       <div>
         <Schedule courseSchedule={courseSchedule} />
       </div>
