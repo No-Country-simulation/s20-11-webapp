@@ -27,7 +27,7 @@ export default function CoursesList() {
       </nav>
       <Spacer size="3xs" />
 
-      <div className="flex flex-wrap gap-4">
+      <div className="grid sm:grid-cols-2 gap-6 lg:grid-cols-3 2xl:grid-cols-4">
         {courses.map((course) => (
           <CourseCard key={course.id} course={course} />
         ))}
