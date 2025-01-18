@@ -8,7 +8,7 @@ const loggedInUserNavigationLinks = [
     name: "Administrar cursos",
     path: "/courses",
   },
- 
+
   // Se pueden agregar mas links para el usuario loggeado, de ser necesario
 ];
 
@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="p-4 bg-background backdrop-blur-sm relative z-10">
+      <header className="sticky top-0 p-4 bg-background/80 backdrop-blur-sm  z-30">
         <nav className="container mx-auto flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <div id="logo-y-libro" className="flex gap-2 items-center">
@@ -50,8 +50,6 @@ const Header = () => {
             <ModeToggle />
           </div>
           <div id="fila-opciones" className="flex gap-6">
-            
-
             {/* si el usuario está loggeado */}
             {!isLoggedIn && (
               <button
@@ -74,12 +72,13 @@ const Header = () => {
               loggedInUserNavigationLinks.map((link) => (
                 <nav key={link.path}>
                   <NavLink
-                       className={({ isActive }) =>
-                        cn(
-                          "text-sm text-foreground p-1 transition-colors hover:text-foreground/80",
-                          isActive && "font-medium text-primary border-b-2 border-primary/30 rounded border-spacing-y-7"
-                        )
-                      }
+                    className={({ isActive }) =>
+                      cn(
+                        "text-sm text-foreground p-1 transition-colors hover:text-foreground/80",
+                        isActive &&
+                          "font-medium text-primary border-b-2 border-primary/30 rounded border-spacing-y-7"
+                      )
+                    }
                     to={link.path}
                     viewTransition
                     prefetch="intent"
