@@ -48,6 +48,7 @@ export function BlockCard({ block }) {
   if (isEmptyBlock) {
     return (
       <EmptyBlockCard
+        blockId={block.id}
         blockLabel={blockLabel}
         timeRange={timeRange}
         baseClasses={baseClasses}
@@ -73,13 +74,13 @@ export function BlockCard({ block }) {
   );
 }
 
-function EmptyBlockCard({ blockLabel, timeRange, baseClasses }) {
+function EmptyBlockCard({ blockLabel, timeRange, baseClasses, blockId }) {
   const isAdmin = true;
 
   if (isAdmin) {
     return (
       <ResponsiveOutletModal
-        to={"assign-class"}
+        to={`assign-class/${blockId}`}
         trigger={
           <div className={`${baseClasses} bg-background`}>
             <h3 className="font-bold text-muted-foreground">{blockLabel}</h3>
