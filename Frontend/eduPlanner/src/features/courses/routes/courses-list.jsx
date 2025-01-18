@@ -29,7 +29,7 @@ export default function CoursesList() {
 
       <div className="flex flex-wrap gap-4">
         {courses.map((course) => (
-          <CourseCard course={course} />
+          <CourseCard key={course.id} course={course} />
         ))}
       </div>
     </>
