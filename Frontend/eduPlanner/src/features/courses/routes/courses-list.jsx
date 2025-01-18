@@ -7,48 +7,16 @@ import {
   CardTitle,
 } from "@/Components/ui/card";
 import { Plus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { courseService } from "../services/course.service";
 
-const coursesList = [
-  {
-    id: 1,
-    name: "1ro A",
-  },
-  {
-    id: 2,
-    name: "1ro B",
-  },
-  {
-    id: 3,
-    name: "1ro C",
-  },
-  {
-    id: 4,
-    name: "2do A",
-  },
-  {
-    id: 5,
-    name: "2do B",
-  },
-  {
-    id: 6,
-    name: "2do C",
-  },
-  {
-    id: 7,
-    name: "3ro A",
-  },
-  {
-    id: 8,
-    name: "3ro B",
-  },
-  {
-    id: 9,
-    name: "3ro C",
-  },
-];
+export async function coursesListLoader() {
+  const courses = await courseService.getAllCourses();
+  return { courses };
+}
 
 export default function CoursesList() {
+  const { courses } = useLoaderData();
   return (
     <>
       <nav className="flex justify-between items-center">
@@ -60,7 +28,7 @@ export default function CoursesList() {
       <Spacer size="3xs" />
 
       <div className="flex flex-wrap gap-4">
-        {coursesList.map((course) => (
+        {courses.map((course) => (
           <CourseCard course={course} />
         ))}
       </div>

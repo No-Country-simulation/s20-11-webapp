@@ -4,7 +4,9 @@ import HomeStudent from "./Components/HomeStudent.jsx";
 import Login from "./Components/Login.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
-import AssignClass, { assignClassLoader } from "./features/courses/routes/block-assign-class.jsx";
+import AssignClass, {
+  assignClassLoader,
+} from "./features/courses/routes/block-assign-class.jsx";
 import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
@@ -12,11 +14,13 @@ import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
 import CoursesLayout from "./features/courses/routes/courses-layout.jsx";
-import CoursesList from "./features/courses/routes/courses-list.jsx";
+import CoursesList, {
+  coursesListLoader,
+} from "./features/courses/routes/courses-list.jsx";
 export const routes = [
   {
     element: <Layout />,
-    errorElement: <Error/>,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -33,6 +37,7 @@ export const routes = [
           {
             index: true,
             element: <CoursesList />,
+            loader: coursesListLoader,
           },
           {
             path: ":courseId",
@@ -48,7 +53,7 @@ export const routes = [
               {
                 path: "assign-class",
                 element: <AssignClass />,
-                loader: assignClassLoader
+                loader: assignClassLoader,
               },
             ],
           },
