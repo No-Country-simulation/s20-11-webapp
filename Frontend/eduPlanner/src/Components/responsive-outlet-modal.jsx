@@ -41,7 +41,7 @@ export function ResponsiveOutletModal({
 
   if (isMobile) {
     return (
-      <Drawer>
+      <Drawer open={isModalActive} onOpenChange={onClose}>
         <DrawerTrigger asChild>
           <Link to={to}>{trigger}</Link>
         </DrawerTrigger>
@@ -59,7 +59,7 @@ export function ResponsiveOutletModal({
   }
 
   return (
-    <Dialog>
+    <Dialog open={isModalActive} onOpenChange={onClose}>
       <DialogTrigger asChild>
         <Link to={to}>{trigger}</Link>
       </DialogTrigger>
