@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.security.filters;
+/*package no.country.eduplanner.auth.security.filters;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
@@ -78,3 +78,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         super.successfulAuthentication(request, response, chain, authResult);
     }
 }
+*/

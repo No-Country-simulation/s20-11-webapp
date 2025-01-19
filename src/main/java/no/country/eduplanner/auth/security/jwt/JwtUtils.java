@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.security.jwt;
+/*package no.country.eduplanner.auth.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -73,3 +73,4 @@ public class JwtUtils {
     }
 
 }
+*/

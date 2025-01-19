@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.service;
+/*package no.country.eduplanner.auth.service;
 
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.repositories.UserRepository;
@@ -40,3 +40,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
 }
+*/

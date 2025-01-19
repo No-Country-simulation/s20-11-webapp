@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.security.filters;
+/*package no.country.eduplanner.auth.security.filters;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -48,3 +48,4 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
      filterChain.doFilter(request, response);
     }
 }
+*/

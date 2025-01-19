@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.controller.request;
+/*package no.country.eduplanner.auth.controller.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,3 +24,4 @@ public class CreateUserDTO {
     private String password;
     private Set<String> roles;
 }
+*/

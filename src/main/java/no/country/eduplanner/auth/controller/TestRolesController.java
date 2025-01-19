@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.controller;
+/*package no.country.eduplanner.auth.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,3 +17,4 @@ public class TestRolesController {
         return "Hola, has accedido con el rol de Estudiante";
     }
 }
+*/
