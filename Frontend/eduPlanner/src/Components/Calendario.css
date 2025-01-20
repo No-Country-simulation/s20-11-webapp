@@ -1,0 +1,90 @@
+/* Estilo general del calendario */
+.react-calendar {
+    width: 400px;
+    max-width: 100%;
+    background: white;
+    border: 2px solid #7B57E5; /* Borde violeta */
+    border-radius: 12px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Encabezado del calendario */
+  .react-calendar__navigation {
+    background: linear-gradient(135deg, #7B57E5, #523A99); /* Degradado violeta */
+    color: white;
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .react-calendar__navigation button {
+    background: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .react-calendar__navigation button:enabled:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Días de la semana (L, M, M, J, V, S, D) */
+  .react-calendar__month-view__weekdays {
+    color: #7B57E5; /* Violeta */
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  /* Estilo para los días normales del mes */
+  .react-calendar__tile {
+    background: none;
+    color: #333; /* Texto negro */
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  .react-calendar__tile:enabled:hover {
+    background: #57E6B2; /* Verde agua */
+    color: #523A99; /* Violeta oscuro */
+  }
+  
+  /* Día actual (hoy) */
+  .react-calendar__tile--now {
+    background: #523A99; /* Violeta oscuro */
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+  }
+  
+  /* Días resaltados (eventos importantes) */
+  .react-calendar__tile.highlight {
+    background: #7B57E5 !important; /* Violeta claro */
+    color: white !important;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid white;
+  }
+  
+  /* Día seleccionado */
+  .react-calendar__tile--active {
+    background: #57E6B2 !important; /* Verde agua */
+    color: #523A99 !important; /* Violeta oscuro */
+    font-weight: bold;
+  }
+  
+  /* Días fuera del mes actual */
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #BDC3C7; /* Gris claro */
+  }
+
+
+  abbr:where([title]) {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 1.8rem;
+}

@@ -1,6 +1,7 @@
 import App from "./App.jsx";
 import Calendario from "./Components/Calendario.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
+import HomeCoordinator from "./Components/HomeCoordinator.jsx";
 import Login from "./Components/Login.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
@@ -62,6 +63,10 @@ export const routes = [
       {
         path: "/homestudent",
         element: <HomeStudent />,
+      },
+      {
+        path: "/homecoordinator",
+        element: <HomeCoordinator />
       },
       {
         path: "/calendar",
