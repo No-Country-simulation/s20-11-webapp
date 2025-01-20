@@ -59,12 +59,12 @@ export function BlockCard({ block }) {
   //Si no es un tipo de bloque definido anteriormente, se asume que es un bloque de clase.
   return (
     <div
-      className={`${baseClasses} bg-card hover:ring-[var(--subject-color)]`}
       style={{
         borderLeftWidth: "6px",
         borderLeftColor: block.subject.color,
-        "--subject-color": block.subject.color,
+        "--subject-color-d": block.subject.color,
       }}
+      className={`${baseClasses} bg-card hover:ring-[var(--subject-color-d)]`}
     >
       <h3 className="font-bold">{blockLabel}</h3>
       <p className="bg-background/70 rounded-md w-fit font-bold text-sm p-1 px-2">

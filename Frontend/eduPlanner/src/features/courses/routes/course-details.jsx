@@ -34,22 +34,22 @@ export async function courseDetailsLoader({ params }) {
 
 const courseManagementLinks = [
   {
-    title: "Administrar Estudiantes",
+    title: "Estudiantes",
     Icon: Users,
     link: "students",
   },
   {
-    title: "Administrar Horario",
+    title: "Horario",
     Icon: Calendar,
     link: "schedule",
   },
   {
-    title: "Administrar Materias",
+    title: "Materias",
     Icon: BookMarked,
     link: "subjects",
   },
   {
-    title: "Publicar Eventos",
+    title: "Eventos",
     Icon: CalendarPlus,
     link: "events",
   },
@@ -61,8 +61,7 @@ export default function CourseDetails() {
     <div>
       <TitleBar title={courseDetails.name} />
       <Spacer size="3xs" />
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <CourseDetailsCard courseDetails={courseDetails} />
+      <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex flex-col gap-4 col-span-2">
           {courseManagementLinks.map((link) => (
             <LinkCard
@@ -73,6 +72,7 @@ export default function CourseDetails() {
             />
           ))}
         </div>
+        <CourseDetailsCard courseDetails={courseDetails} />
       </div>
     </div>
   );
@@ -84,7 +84,7 @@ function LinkCard({ title, Icon, link }) {
       to={link}
       viewTransition
       prefetch="intent"
-      className="bg-gradient-to-r from-background to-secondary/10 via-secondary/30 w-full lg:max-w-lg transition-all duration-200 text-lg justify-between flex items-center gap-2 p-4 border rounded shadow hover:bg-gradient-to-t  hover:ring-2 hover:ring-primary/20"
+      className="bg-gradient-to-r from-background to-secondary/10 via-secondary/30 w-full lg:w-[32rem] transition-all duration-200 text-lg justify-between flex items-center gap-2 p-4 border rounded shadow hover:bg-gradient-to-l  hover:ring-2 hover:ring-primary/20"
     >
       <div className="">{title}</div>
       <div className="bg-primary p-2 rounded border text-background shadow">
@@ -96,7 +96,8 @@ function LinkCard({ title, Icon, link }) {
 
 function CourseDetailsCard({ courseDetails }) {
   return (
-    <Card className="col-span-2">
+    <Card className="col-span-2 grow">
+      {" "}
       <CardHeader>
         <CardTitle>Detalles del curso</CardTitle>
       </CardHeader>
@@ -179,7 +180,9 @@ function DetailsCard({ label, value, Icon }) {
       <Icon className="w-4 h-4 text-muted-foreground" />
       <div className="flex items-center justify-between w-full">
         <div className="text-sm text-foreground">{label}: </div>
-        <div className="text-sm text-foreground font-semibold">{value}</div>
+        <div className="text-sm text-foreground font-semibold text-nowrap">
+          {value}
+        </div>
       </div>
     </div>
   );
