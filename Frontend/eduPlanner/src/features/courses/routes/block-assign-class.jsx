@@ -89,7 +89,7 @@ export default function AssignClass() {
                       backgroundColor: subject.color,
                     }}
                     className="size-4 rounded-full"
-                  ></div>{" "}
+                  ></div>
                   {subject.name}
                 </div>
               </SelectItem>
