@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         miboton: 
-          "bg-purple-700 shadow-sm hover:bg-purple-900",
+          "bg-purple-700 shadow-sm text-white hover:bg-purple-900",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

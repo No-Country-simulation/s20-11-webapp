@@ -1,5 +1,5 @@
 import App from "./App.jsx";
-import Calendario from "./Components/Calendario.jsx";
+import Calendario from "./features/calendar/components/Calendario.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
 import HomeCoordinator from "./Components/HomeCoordinator.jsx";
 import Login from "./Components/Login.jsx";
@@ -18,6 +18,9 @@ import CoursesLayout from "./features/courses/routes/courses-layout.jsx";
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
+import CreateEvent, { subjectLoader } from "./features/calendar/routes/create-event.jsx";
+import DayDetail from "./features/calendar/components/DayDetail.jsx";
+import EventListCoord from "./features/calendar/components/EventListCoord.jsx";
 export const routes = [
   {
     element: <Layout />,
@@ -65,12 +68,34 @@ export const routes = [
         element: <HomeStudent />,
       },
       {
+        path: "/coordeventlist",
+        element: <EventListCoord/>,
+        children: [
+          {
+            path: "create-event",
+            element: <CreateEvent/>,
+            loader: subjectLoader,
+          },          
+        ],
+      },
+      {
         path: "/homecoordinator",
         element: <HomeCoordinator />
       },
       {
         path: "/calendar",
         element: <Calendario />,
+        /* children: [
+          {
+            path: "create-event",
+            element: <CreateEvent/>,
+            loader: subjectLoader,
+          },          
+        ], */
+      },
+      {
+        path: "day-detail/:date",
+        element: <DayDetail/>
       },
       {
         path: "/schedule",
