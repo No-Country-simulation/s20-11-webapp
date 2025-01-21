@@ -58,10 +58,10 @@ const courseManagementLinks = [
 export default function CourseDetails() {
   const { courseDetails } = useLoaderData();
   return (
-    <div>
+    <>
       <TitleBar title={courseDetails.name} />
       <Spacer size="3xs" />
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8 ">
         <div className="flex flex-col gap-4 col-span-2">
           {courseManagementLinks.map((link) => (
             <LinkCard
@@ -74,7 +74,7 @@ export default function CourseDetails() {
         </div>
         <CourseDetailsCard courseDetails={courseDetails} />
       </div>
-    </div>
+    </>
   );
 }
 
@@ -97,11 +97,10 @@ function LinkCard({ title, Icon, link }) {
 function CourseDetailsCard({ courseDetails }) {
   return (
     <Card className="col-span-2 grow">
-      {" "}
       <CardHeader>
         <CardTitle>Detalles del curso</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-2">
+      <CardContent className="flex flex-col gap-6 sm:gap-2">
         <DetailsCard
           label="Nombre del curso"
           value={courseDetails.name}
@@ -148,8 +147,8 @@ function CourseDetailsCard({ courseDetails }) {
           Icon={Timer}
         />
       </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button variant="secondary" className="">
+      <CardFooter className="flex justify-end w-full">
+        <Button variant="secondary" className="w-full sm:w-auto">
           <Pencil /> Editar detalles
         </Button>
       </CardFooter>

@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 p-4 bg-background/80 backdrop-blur-sm  z-30">
+      <header className="sticky top-0 p-4 bg-background/80 backdrop-blur-sm shadow z-30">
         <nav className="container mx-auto flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <div id="logo-y-libro" className="flex gap-2 items-center">
