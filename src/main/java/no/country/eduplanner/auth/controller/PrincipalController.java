@@ -21,10 +21,4 @@ public class PrincipalController {
         return "Bienvenido Estudiante";
     }
 
-    @GetMapping("/estudiante2")
-    @PreAuthorize("hasAuthority('CREATE')")
-    public String student2(){
-        return "Bienvenido Estudiante2";
-    }
-
 }
