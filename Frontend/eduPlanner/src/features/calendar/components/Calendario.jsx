@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./Calendario.css"; // Estilos personalizados
-import { ResponsiveOutletModal } from "../../../Components/responsive-outlet-modal";
 import { useEvents } from "../../../Components/event-provider";
 import EventDetailCalendar from "./EventDetailCalendar";
 
@@ -35,8 +34,6 @@ function Calendario() {
   );
 
 
-  const baseClasses =
-    "select-none justify-center flex flex-col items-center p-2 rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[20rem] md:w-[13rem] shadow text-foreground";
 
 
     const handleDateClick = (selectedDate) => {

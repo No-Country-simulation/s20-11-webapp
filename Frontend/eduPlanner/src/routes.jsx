@@ -6,6 +6,7 @@ import Login from "./Components/Login.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
 import AssignClass, {
+  assignClassAction,
   assignClassLoader,
 } from "./features/courses/routes/block-assign-class.jsx";
 import CourseDetails, {
@@ -55,9 +56,10 @@ export const routes = [
             loader: courseScheduleLoader,
             children: [
               {
-                path: "assign-class",
+                path: "assign-class/:blockId",
                 element: <AssignClass />,
                 loader: assignClassLoader,
+                action: assignClassAction,
               },
             ],
           },
