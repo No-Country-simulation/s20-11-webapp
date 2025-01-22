@@ -16,9 +16,7 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    @Column(name="role_name")
-    @Enumerated(EnumType.STRING)
-    private ERole eRole;
+    @Enumerated(EnumType.STRING)  // Este campo es suficiente para almacenar el valor del rol.
+    @Column(name = "role_name", nullable = false, unique = true)
+    private ERole eRole;  // Enum de los roles (STUDENT, ADMIN, etc.)
 }

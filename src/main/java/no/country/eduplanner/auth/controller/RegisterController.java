@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/auth") // Este es el endpoint base
 public class RegisterController {
-    @RestController
-    @RequestMapping("/auth")
-    public class SignUpController {  // Clase fuera de la otra
 
-        @Autowired
-        private UserService userService;
+    @Autowired
+    private UserService userService;
 
-        @PostMapping("/register")
-        public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
-            UserEntity newUser = userService.registerNewUser(registerDTO);
-            return ResponseEntity.ok(newUser);
-        }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterDTO registerDTO) {
+        // Lógica para registrar el usuario
+        UserEntity newUser = userService.registerNewUser(registerDTO);
+        return ResponseEntity.ok(newUser);
     }
 }

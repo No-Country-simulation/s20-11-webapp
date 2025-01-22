@@ -8,9 +8,11 @@ import no.country.eduplanner.auth.repository.RoleRepository;
 import no.country.eduplanner.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -37,10 +39,17 @@ public class UserService {
         user.setEmail(registerDTO.getEmail());
         user.setPassword(passwordEncoder.encode(registerDTO.getPassword())); // Encriptar la contraseña
 
-        // Asignar un rol por defecto, por ejemplo "USER"
-        RoleEntity role = roleRepository.findByName(ERole.valueOf("USER")).orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+        // Convertir el rol de String a ERole
+        ERole roleEnum = ERole.valueOf(registerDTO.getRole().toUpperCase());
+
+        // Buscar el rol en la base de datos por su valor Enum
+        RoleEntity role = roleRepository.findByERole(roleEnum)
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+
+        // Asignar el rol al usuario
         user.setRoles(Set.of(role));
 
+        // Guardar el usuario en la base de datos
         return userRepository.save(user);
     }
 }

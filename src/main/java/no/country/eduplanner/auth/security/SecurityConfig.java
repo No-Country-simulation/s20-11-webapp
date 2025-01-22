@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/auth/admin").hasRole("ADMIN")
                         .requestMatchers("/auth/estudiante").hasAnyRole("ADMIN", "STUDENT")
                         .anyRequest().authenticated())
