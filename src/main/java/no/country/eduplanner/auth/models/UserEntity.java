@@ -25,7 +25,6 @@ public class UserEntity extends BaseEntity {
     @AttributeOverrides({
             @AttributeOverride(name = "firstName", column = @Column(name = "profile_first_name")),
             @AttributeOverride(name = "lastName", column = @Column(name = "profile_last_name")),
-            @AttributeOverride(name = "photo", column = @Column(name = "profile_photo"))
     })
     private Profile profileInfo;
 
