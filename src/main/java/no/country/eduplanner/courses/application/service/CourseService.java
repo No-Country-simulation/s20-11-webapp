@@ -1,6 +1,9 @@
 package no.country.eduplanner.courses.application.service;
 
 import lombok.RequiredArgsConstructor;
+import no.country.eduplanner.auth.dto.UserData;
+import no.country.eduplanner.auth.models.UserRole;
+import no.country.eduplanner.auth.services.UserDataService;
 import no.country.eduplanner.courses.application.dto.CourseRequest;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
@@ -12,6 +15,7 @@ import no.country.eduplanner.courses.domain.entity.ScheduleBlock;
 import no.country.eduplanner.courses.domain.factory.CourseFactory;
 import no.country.eduplanner.courses.infra.persistence.CourseRepository;
 import no.country.eduplanner.courses.infra.persistence.ScheduleRepository;
+import no.country.eduplanner.shared.application.exception.UnauthorizedAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,12 +37,20 @@ public class CourseService {
     private final CourseFactory courseFactory;
     private final ScheduleRepository scheduleRepository;
     private final CourseAccessService courseAccessService;
+    private final UserDataService userDataService;
 
     public CourseResponse.Created createCourse(CourseRequest.Create request) {
-        //TODO: SHOULD CREATE FOR THE CURRENT USER WHEN AUTH IS DONE!!
+        UserData currentUser = userDataService.getCurrentUserData();
+
+        if (!currentUser.roles().contains(UserRole.ADMIN)) {
+            throw new UnauthorizedAccessException("Solo administradores pueden crear cursos");
+        }
+
         Course course = courseRepository.save(
-                courseFactory.createDefault(request.courseName())
+                courseFactory.createDefault(request.courseName(),currentUser.id())
         );
+
+        course.addUser(currentUser.id());
 
         return courseMapper.toCreated(course);
     }
