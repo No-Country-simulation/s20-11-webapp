@@ -1,11 +1,11 @@
 package no.country.eduplanner.auth.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+public record LoginRequest(
+        String email,
+        String password
+) {
+    public LoginRequest {
+        email = email != null ? email.toLowerCase() : null;
+    }
 
-@Getter
-@Setter
-public class LoginRequest {
-    private String email;
-    private String password;
 }
