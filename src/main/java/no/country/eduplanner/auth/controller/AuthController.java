@@ -1,16 +1,13 @@
 package no.country.eduplanner.auth.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import no.country.eduplanner.auth.dtos.LoginRequest;
-import no.country.eduplanner.auth.dtos.AuthResponse;
-import no.country.eduplanner.auth.dtos.TokenResponse;
-import no.country.eduplanner.auth.models.UserEntity;
-import no.country.eduplanner.auth.services.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
+import no.country.eduplanner.auth.dto.AuthResponse;
+import no.country.eduplanner.auth.dto.LoginRequest;
+import no.country.eduplanner.auth.dto.RegistrationRequest;
+import no.country.eduplanner.auth.dto.TokenResponse;
+import no.country.eduplanner.auth.services.AuthenticationService;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
