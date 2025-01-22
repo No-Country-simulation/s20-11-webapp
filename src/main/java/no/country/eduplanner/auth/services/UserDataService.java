@@ -2,6 +2,7 @@ package no.country.eduplanner.auth.services;
 
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.dto.UserData;
+import no.country.eduplanner.auth.exceptions.UserNotFoundException;
 import no.country.eduplanner.auth.mapper.UserMapper;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.repository.UserRepository;
@@ -24,7 +25,7 @@ public class UserDataService {
 
         UserEntity user = userRepository
                 .findByEmail(currentUser.getUsername())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")); //TODO: CHANGE TO CUSTOM EXCEPTION
+                .orElseThrow(() -> new UserNotFoundException(currentUser.getUsername()));
 
         return userMapper.toUserData(user);
     }
