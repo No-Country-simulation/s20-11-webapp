@@ -59,9 +59,24 @@ public class Course extends BaseEntity {
     @Builder.Default
     private Set<Subject> subjects = new HashSet<>();
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @Builder.Default
+    private Set<CourseUser> courseUsers = new HashSet<>();
+
+    @Column(name = "created_by_user_id", nullable = false)
+    private Long createdByUserId;
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
         schedule.setCourse(this);
+    }
+
+    public void addUser(Long userId) {
+        CourseUser courseUser = new CourseUser();
+        courseUser.setUserId(userId);
+        courseUser.setCourse(this);
+        courseUsers.add(courseUser);
     }
 
     public Integer getTotalBlocksPerDay() {
