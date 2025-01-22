@@ -1,55 +1,44 @@
 package no.country.eduplanner.auth.services;
 
-import no.country.eduplanner.auth.dtos.RegisterDTO;
-import no.country.eduplanner.auth.models.ERole;
-import no.country.eduplanner.auth.models.RoleEntity;
+import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.models.UserEntity;
-import no.country.eduplanner.auth.repository.RoleRepository;
 import no.country.eduplanner.auth.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
 
 @Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class UserService implements UserDetailsService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-    public UserEntity registerNewUser(RegisterDTO registerDTO) {
-        // Verificar si el usuario ya existe
-        if (userRepository.existsByUsername(registerDTO.getUsername())) {
-            throw new RuntimeException("El nombre de usuario ya está en uso.");
-        }
+        return userRepository.findByEmail(email)
+                             .map(this::toSecurityUser)
+                             .orElseThrow(() -> new UsernameNotFoundException(
+                                     "El usuario con correo: [" + email + "] no existe."));
 
-        if (userRepository.existsByEmail(registerDTO.getEmail())) {
-            throw new RuntimeException("El email ya está en uso.");
-        }
 
-        // Crear un nuevo usuario con los datos proporcionados
-        UserEntity user = new UserEntity();
-        user.setUsername(registerDTO.getUsername());
-        user.setEmail(registerDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(registerDTO.getPassword())); // Encriptar la contraseña
-
-        // Convertir el rol de String a ERole
-        ERole roleEnum = ERole.valueOf(registerDTO.getRole().toUpperCase());
-
-        // Buscar el rol en la base de datos por su valor Enum
-        RoleEntity role = roleRepository.findByERole(roleEnum)
-                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
-
-        // Asignar el rol al usuario
-        user.setRoles(Set.of(role));
-
-        // Guardar el usuario en la base de datos
-        return userRepository.save(user);
     }
+
+    private User toSecurityUser(UserEntity ue) {
+        return new User(
+                ue.getEmail(),
+                ue.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                ue.getRoles()
+        );
+    }
+
 }
