@@ -22,7 +22,7 @@ spring:
     virtual:
       enabled: true
 jwt:
-  secret-key : ${jwt.secret.key}
-  expiration : ${jwt.time.expiration}
+  secret-key : ${JWT_SECRET_KEY}
+  expiration : ${JWT_TIME_EXPIRATION}
   refresh-token :
-    expiration : ${jwt.refresh.token.expiration}
+    expiration : ${JWT_REFRESH_TOKEN_EXPIRATION}
