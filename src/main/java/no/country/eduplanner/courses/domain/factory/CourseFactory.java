@@ -11,10 +11,11 @@ import java.util.Set;
 @Component
 public class CourseFactory {
 
-    public Course createDefault(String name) {
+    public Course createDefault(String name, Long adminId) {
 
         return Course.builder()
                      .name(name)
+                     .createdByUserId(adminId)
                      .classStartTime(LocalTime.of(8, 30))
                      .blocksBeforeLunch(3)
                      .blocksAfterLunch(2)
