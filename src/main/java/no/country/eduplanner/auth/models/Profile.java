@@ -1,7 +1,9 @@
 package no.country.eduplanner.auth.models;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,6 +27,8 @@ public class Profile {
     private String lastName;
 
     @Column(name = "profile_photo")
+    @Embedded
+    @AttributeOverride(name = "url", column = @Column(name = "profile_photo"))
     private Image photo;
 
     public boolean isProfileComplete() {
