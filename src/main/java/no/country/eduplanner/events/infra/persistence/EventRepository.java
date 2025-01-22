@@ -1,6 +1,6 @@
-package no.country.eduplanner.events.persistence.repositories;
+package no.country.eduplanner.events.infra.persistence;
 
-import no.country.eduplanner.events.persistence.entities.EventEntity;
+import no.country.eduplanner.events.domain.entities.EventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

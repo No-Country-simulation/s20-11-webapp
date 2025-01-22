@@ -28,5 +28,5 @@ public class ScheduleEntity {
 
     @ManyToOne
     @JoinColumn(name = "assignment_id")
-    private AssignmentEntity assignment;
+    private SubjectEntity assignment;
 }

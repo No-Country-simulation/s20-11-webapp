@@ -1,4 +1,4 @@
-package no.country.eduplanner.events.persistence.entities;
+package no.country.eduplanner.events.domain.entities;
 
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;

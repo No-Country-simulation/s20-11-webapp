@@ -2,9 +2,9 @@ package no.country.eduplanner.notification.services;
 
 import no.country.eduplanner.course.persitence.entities.CourseEntity;
 import no.country.eduplanner.course.persitence.repositories.CourseRepository;
-import no.country.eduplanner.events.persistence.entities.CreatedEvent;
-import no.country.eduplanner.events.persistence.entities.EventEntity;
-import no.country.eduplanner.events.persistence.repositories.EventRepository;
+import no.country.eduplanner.events.domain.entities.CreatedEvent;
+import no.country.eduplanner.events.domain.entities.EventEntity;
+import no.country.eduplanner.events.infra.persistence.EventRepository;
 import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
 import no.country.eduplanner.notification.persistence.repository.NotificationRepository;
 import org.springframework.context.event.EventListener;
