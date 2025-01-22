@@ -14,6 +14,7 @@ public class UserMapper {
         return new UserData(
                 user.getId(),
                 user.getEmail(),
+                user.getRoles(),
                 profile != null && profile.isProfileComplete(),
                 profile != null ? profile.getFirstName() : null,
                 profile != null ? profile.getLastName() : null,
