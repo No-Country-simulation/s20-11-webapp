@@ -1,4 +1,4 @@
-package no.country.eduplanner.auth.dtos;
+package no.country.eduplanner.auth.dto;
 
 import java.time.Instant;
 
