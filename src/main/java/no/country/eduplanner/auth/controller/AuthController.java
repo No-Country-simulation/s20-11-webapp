@@ -1,36 +1,37 @@
 package no.country.eduplanner.auth.controller;
 
+import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.dtos.LoginRequest;
-import no.country.eduplanner.auth.dtos.LoginResponse;
+import no.country.eduplanner.auth.dtos.AuthResponse;
+import no.country.eduplanner.auth.dtos.TokenResponse;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationService authenticationService;
 
-    @Autowired
-    private TokenService tokenService;
+    @PostMapping("/register")
+    public AuthResponse register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+        return authenticationService.register(registrationRequest);
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        var authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
-        );
-        var user = (UserEntity) authentication.getPrincipal();
-        var token = tokenService.generarToken(user);
+    public AuthResponse login(@RequestBody @Valid LoginRequest loginRequest) {
+        return authenticationService.login(loginRequest);
+    }
 
-        return ResponseEntity.ok(new LoginResponse(token));
+    @PostMapping("/refresh")
+    public TokenResponse refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
+        return authenticationService.refreshToken(authHeader);
     }
 }
