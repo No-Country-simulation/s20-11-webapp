@@ -21,6 +21,14 @@ public class UserEntity extends BaseEntity {
 
     private String password;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "firstName", column = @Column(name = "profile_first_name")),
+            @AttributeOverride(name = "lastName", column = @Column(name = "profile_last_name")),
+            @AttributeOverride(name = "photo", column = @Column(name = "profile_photo"))
+    })
+    private Profile profileInfo;
+
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
