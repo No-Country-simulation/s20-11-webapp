@@ -32,10 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         try {
 
-            if (request.getRequestURI().startsWith("/auth")) {
-                filterChain.doFilter(request, response);
-                return;
-            }
 
             String jwtToken = jwtUtils.extractToken(request);
 
