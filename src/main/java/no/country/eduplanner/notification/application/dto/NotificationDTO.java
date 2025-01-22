@@ -2,6 +2,8 @@ package no.country.eduplanner.notification.application.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package no.country.eduplanner.notification.persistence.entities;
+package no.country.eduplanner.notification.domain.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import no.country.eduplanner.course.persitence.entities.CourseEntity;
 import no.country.eduplanner.events.domain.entities.EventEntity;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,6 +24,7 @@ public class NotificationEntity {
 
     @Column(nullable = false)
     private String message;
+
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)

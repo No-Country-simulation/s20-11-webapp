@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import no.country.eduplanner.course.persitence.entities.CourseEntity;
 import no.country.eduplanner.course.persitence.entities.SubjectEntity;
-import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
+import no.country.eduplanner.notification.domain.entities.NotificationEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

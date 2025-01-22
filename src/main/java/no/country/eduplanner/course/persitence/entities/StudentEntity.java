@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import no.country.eduplanner.auth.persistence.entity.UserEntity;
-import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
+import no.country.eduplanner.notification.domain.entities.NotificationEntity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,10 +5,12 @@ import no.country.eduplanner.course.persitence.repositories.CourseRepository;
 import no.country.eduplanner.events.domain.entities.CreatedEvent;
 import no.country.eduplanner.events.domain.entities.EventEntity;
 import no.country.eduplanner.events.infra.persistence.EventRepository;
-import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
-import no.country.eduplanner.notification.persistence.repository.NotificationRepository;
+import no.country.eduplanner.notification.domain.entities.NotificationEntity;
+import no.country.eduplanner.notification.infra.persistence.NotificationRepository;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class NotificationService {
@@ -40,5 +42,13 @@ public class NotificationService {
         notification.setCourse(course);
 
         notificationRepository.save(notification);
+    }
+
+    public List<NotificationEntity> getAllNotifications() {
+        return notificationRepository.findAll();
+    }
+
+    public List<NotificationEntity> getNotificationsByCourse(Long courseId) {
+        return notificationRepository.findByCourse_Id(courseId);
     }
 }

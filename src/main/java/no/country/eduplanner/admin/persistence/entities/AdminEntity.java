@@ -11,7 +11,6 @@ import no.country.eduplanner.auth.persistence.entity.UserEntity;
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "admins")
 public class AdminEntity extends UserEntity {

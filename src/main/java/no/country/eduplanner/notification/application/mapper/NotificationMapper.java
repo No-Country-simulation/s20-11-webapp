@@ -2,7 +2,7 @@ package no.country.eduplanner.notification.application.mapper;
 
 import no.country.eduplanner.events.domain.entities.EventEntity;
 import no.country.eduplanner.notification.application.dto.NotificationDTO;
-import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
+import no.country.eduplanner.notification.domain.entities.NotificationEntity;
 import org.springframework.stereotype.Component;
 
 @Component

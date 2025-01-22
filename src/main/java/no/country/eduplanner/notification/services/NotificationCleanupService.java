@@ -1,7 +1,8 @@
 package no.country.eduplanner.notification.services;
 
-import no.country.eduplanner.notification.persistence.entities.NotificationEntity;
-import no.country.eduplanner.notification.persistence.repository.NotificationRepository;
+import no.country.eduplanner.events.infra.persistence.EventRepository;
+import no.country.eduplanner.notification.domain.entities.NotificationEntity;
+import no.country.eduplanner.notification.infra.persistence.NotificationRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
