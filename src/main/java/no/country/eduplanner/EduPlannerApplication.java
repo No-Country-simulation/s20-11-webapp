@@ -1,6 +1,5 @@
 package no.country.eduplanner;
 
-//import no.country.eduplanner.auth.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
