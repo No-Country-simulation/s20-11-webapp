@@ -1,8 +1,10 @@
 package no.country.eduplanner.auth.security;
 
+import no.country.eduplanner.auth.models.UserEntity;
+import no.country.eduplanner.auth.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,40 +14,26 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
-//
-//        return httpSecurity
-//                .csrf(csrf -> csrf.disable())
-//                .httpBasic(Customizer.withDefaults())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(http ->{
-//                    http.requestMatchers(HttpMethod.GET, "/auth/admin").hasAnyAuthority("READ","CREATE","WRITE");
-//                    http.requestMatchers(HttpMethod.GET,"/auth/estudiante").hasAnyAuthority("READ");
-//                    http.anyRequest().denyAll();
-//                })
-//
-//                .build();
-//    }
+    private UserRepository userRepository;
 
-
+    @Autowired
+    private SecurityFilter securityFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationManager authenticationManager) throws Exception {
 
@@ -63,10 +51,29 @@ public class SecurityConfig {
                 .build();
     }
 
-
-
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity httpSecurity, PasswordEncoder passwordEncoder, AuthenticationConfiguration authenticationConfiguration ) throws Exception {
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            // Buscar el usuario en la base de datos
+
+            UserEntity userEntity = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el nombre de usuario: " + username));
+
+            // Convertir los roles en autoridades para Spring Security
+            Collection<? extends GrantedAuthority> authorities = userEntity.getRoles().stream()
+                    .map(roleEntity -> new SimpleGrantedAuthority("ROLE_" + roleEntity.getERole().name()))
+                    .toList();
+
+            // Retornar el usuario con su nombre, contraseña y roles
+            return new org.springframework.security.core.userdetails.User(
+                    userEntity.getUsername(),
+                    userEntity.getPassword(),
+                    authorities
+            );
+        };
+    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration ) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -77,28 +84,13 @@ public class SecurityConfig {
         return provider;
     }
 
-   @Bean
-    public UserDetailsService userDetailsService(){
-        List<UserDetails> userDetailsList = new ArrayList<>();
 
-        userDetailsList.add(User.withUsername("admin")
-                .password("1234")
-                .roles("ADMIN")
-                .authorities("READ","CREATE", "WRITE")
-                .build());
 
-        userDetailsList.add(User.withUsername("estudiante")
-                .password("1234")
-                .roles("STUDENT")
-                .authorities("READ")
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
 
     @Bean
     public  PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+
+        return new BCryptPasswordEncoder();
     }
 
 }

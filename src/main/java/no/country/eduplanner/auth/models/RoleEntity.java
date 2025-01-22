@@ -3,9 +3,6 @@ package no.country.eduplanner.auth.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,11 +19,5 @@ public class RoleEntity {
     @Column(name="role_name")
     @Enumerated(EnumType.STRING)
     private ERole eRole;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "role_permission",
-            joinColumns= @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private Set<PermissionEntity> permissionList = new HashSet<>();
 
 }

@@ -25,7 +25,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret);
             var token = JWT.create()
-                    .withIssuer("XXXXXXXXXX")
+                    .withIssuer("Security Eduplanner")
                     .withSubject(userEntity.getUsername())
                     .withClaim("id", userEntity.getId())
                     .withExpiresAt(generarFechaDeExpliracion())
@@ -45,7 +45,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret);
             verifier = JWT.require(algorithm)
-                    .withIssuer("XXXXXXXXXX")
+                    .withIssuer("Security Eduplanner")
                     .build()
                     .verify(token);
             verifier.getSubject();
