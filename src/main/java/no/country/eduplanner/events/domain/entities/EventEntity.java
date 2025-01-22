@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import no.country.eduplanner.course.persitence.entities.CourseEntity;
-import no.country.eduplanner.course.persitence.entities.SubjectEntity;
 import no.country.eduplanner.notification.domain.entities.NotificationEntity;
+import no.country.eduplanner.shared.domain.base.BaseEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,11 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "events")
-public class EventEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class EventEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
@@ -34,13 +29,11 @@ public class EventEntity {
     @Column(nullable = false)
     private LocalDate date;
 
-    @ManyToOne
-    @JoinColumn(name = "curso_id", nullable = false)
-    private CourseEntity course;
+    @Column(name = "curso_id", nullable = false)
+    private Long courseId;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
-    private SubjectEntity subject;
+    @Column(name = "subject_id", nullable = false)
+    private Long subjectId;
 
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NotificationEntity> notifications = new ArrayList<>();
