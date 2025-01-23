@@ -2,6 +2,7 @@ package no.country.eduplanner.notifications.application.services;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.courses.application.api.CourseAccessPort;
 import no.country.eduplanner.notifications.application.dto.NotificationResponse;
 import no.country.eduplanner.notifications.application.mapper.NotificationMapper;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -37,7 +39,9 @@ public class NotificationService {
                                                 .assignedColor(event.assignedColor())
                                                 .build();
 
-        notificationRepository.save(notification);
+        log.info("Attempting to save notification with title: {}", notification.getTitle());
+        Notification saved = notificationRepository.save(notification);
+        log.info("✅ Notification saved with id: {}", saved.getId());
 
     }
 
