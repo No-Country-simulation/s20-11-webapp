@@ -16,7 +16,7 @@ import no.country.eduplanner.courses.domain.entity.Subject;
 import no.country.eduplanner.courses.domain.enums.SubjectType;
 import no.country.eduplanner.courses.infra.persistence.ScheduleBlockRepository;
 import no.country.eduplanner.courses.infra.persistence.SubjectRepository;
-import no.country.eduplanner.shared.application.events.NotificationEvent;
+import no.country.eduplanner.shared.application.dto.NotificationRequest;
 import no.country.eduplanner.shared.application.utils.ColorUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -68,12 +68,8 @@ public class SubjectService {
 
         scheduleBlock.updateSubjectForBlock(subject);
 
-        eventPublisher.publishEvent(new NotificationEvent(
-                "La materia %s ha sido asignada al bloque de las [%s]hrs. del dia %s".formatted(
-                        subject.getName(),
-                        scheduleBlock.getTimeRange().startTime().format(DateTimeFormatter.ofPattern("HH:mm")),
-                        StringUtils.capitalize(scheduleBlock.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.of("es")))
-                ), LocalDateTime.now()));
+        eventPublisher.publishEvent(buildSubjectUpdatedNotificationRequest(courseId, subject, scheduleBlock));
+
 
         return mapper.toScheduleBlockResponse(scheduleBlockRepository.save(scheduleBlock));
     }
@@ -94,6 +90,22 @@ public class SubjectService {
 
         scheduleBlock.updateSubjectForBlock(null);
         return mapper.toScheduleBlockResponse(scheduleBlockRepository.save(scheduleBlock));
+    }
+
+    private static NotificationRequest buildSubjectUpdatedNotificationRequest(Long courseId, Subject subject, ScheduleBlock scheduleBlock) {
+        return NotificationRequest.builder()
+                                  .title("Horario de materia actualizado")
+                                  .message("La materia %s ha sido asignada al bloque de las [%s]hrs. del dia %s"
+                                          .formatted(
+                                                  subject.getName(),
+                                                  scheduleBlock.getTimeRange().startTime().format(DateTimeFormatter.ofPattern("HH:mm")),
+                                                  StringUtils.capitalize(scheduleBlock.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.of("es"))))
+
+                                  ).scheduledFor(LocalDateTime.now())
+                                  .courseId(courseId)
+                                  .subjectId(subject.getId())
+                                  .assignedColor(subject.getColor())
+                                  .build();
     }
 
     private void validateSubjectRequest(SubjectRequest request, Long courseId) {
