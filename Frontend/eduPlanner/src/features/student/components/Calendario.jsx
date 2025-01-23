@@ -5,6 +5,8 @@ import "react-calendar/dist/Calendar.css";
 import "./Calendario.css"; // Estilos que perzonalicé del componente de shadcn
 import { useEvents } from "../../../Components/event-provider";
 import EventDetailCalendar from "./EventDetailCalendar";
+import { useIsMobile } from "@/hooks/use-mobile.jsx";
+import { Outlet } from "react-router-dom";
 
 function Calendario() {
 
@@ -13,6 +15,8 @@ function Calendario() {
   const navigate = useNavigate(); 
 
   console.log('events', events)
+
+  const isMobile = useIsMobile();
 
   const highlightedDates = Array.from(
     new Set(events.map((event) => event.date.toDateString()))
@@ -40,16 +44,16 @@ function Calendario() {
       setDate(selectedDate);
     
       // Para ir a la página de detalles del día en mobile
-      if (window.innerWidth < 743) {
+      if (isMobile) {
         const formattedDate = selectedDate.toISOString().split("T")[0]; // Para que se vea YYYY-MM-DD
-        navigate(`/day-detail/${formattedDate}`); 
+        navigate(`/student/calendar/${formattedDate}`);  // Ruta relativa a /student/calendar
       }
     };
 
  
   return (
     
-    <div className="p-4 md:px-28 md:pt-12 sm:p-8">   
+    <div className="md:px-28 md:pt-12 sm:p-">   
          
       <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-6 md:flex-row md:gap-40">
         <div>
@@ -70,7 +74,7 @@ function Calendario() {
             />
         </div>
         
-        <div className="titulo-y-eventos hidden sm:block md:pt-12 md:w-full">          
+        <div className="titulo-y-eventos hidden md:block md:pt-12 md:w-full">          
           <p className="fecha-seleccionada text-xl">
            {date.toLocaleDateString('es-ES', {
               weekday: 'long',
@@ -85,7 +89,11 @@ function Calendario() {
             <EventDetailCalendar  events={eventsForSelectedDate}/>            
           </div>
         </div>
-      </div>      
+      </div>  
+      {/* <div className="">
+         <Outlet />   
+      </div> */}
+       
     </div>
     
   );

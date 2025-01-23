@@ -1,5 +1,5 @@
 import App from "./App.jsx";
-import Calendario from "./features/calendar/components/Calendario.jsx";
+import Calendario from "./features/student/components/Calendario.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
 import HomeCoordinator from "./Components/HomeCoordinator.jsx";
 import Login from "./Components/Login.jsx";
@@ -19,9 +19,12 @@ import CoursesLayout from "./features/courses/routes/courses-layout.jsx";
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
-import CreateEvent, { subjectLoader } from "./features/calendar/routes/create-event.jsx";
-import DayDetail from "./features/calendar/components/DayDetail.jsx";
-import EventListCoord from "./features/calendar/components/EventListCoord.jsx";
+import EventListCoord from './features/student/components/EventListCoord.jsx'
+import DayDetail from './features/student/components/DayDetail.jsx'
+import CreateEvent, { subjectLoader } from './features/student/routes/create-event.jsx';// arreglar
+
+
+import StudentLayout from "./features/student/routes/student-layout.jsx";
 export const routes = [
   {
     element: <Layout />,
@@ -35,6 +38,8 @@ export const routes = [
         path: "/login",
         element: <Login />,
       },
+
+      /* HOME DEL COORDINADOR */
       {
         path: "/courses",
         element: <CoursesLayout />,
@@ -60,47 +65,43 @@ export const routes = [
                 element: <AssignClass />,
                 loader: assignClassLoader,
                 action: assignClassAction,
-              },
+              },              
             ],
           },
+          {
+            path: ":courseId/events",
+            element: <EventListCoord/>            
+          }
         ],
       },
+
+      /* HOME DEL ESTUDIANTE */
       {
-        path: "/homestudent",
-        element: <HomeStudent />,
-      },
-      {
-        path: "/coordeventlist",
-        element: <EventListCoord/>,
+        path: "/student",
+        element: <StudentLayout/>,
         children: [
           {
-            path: "create-event",
-            element: <CreateEvent/>,
-            loader: subjectLoader,
-          },          
+            index: true,
+            element: <HomeStudent />,
+          },
+          {
+            path: "calendar",
+            element: <Calendario />,
+          },
+          {
+            path: "calendar/:date",
+            element: <DayDetail/>                
+          },
+          /* {
+            path: "schedule",
+            element: //Aca falta el componente de horario estudiante
+          }, */
         ],
       },
+      
+
       {
-        path: "/homecoordinator",
-        element: <HomeCoordinator />
-      },
-      {
-        path: "/calendar",
-        element: <Calendario />,
-        /* children: [
-          {
-            path: "create-event",
-            element: <CreateEvent/>,
-            loader: subjectLoader,
-          },          
-        ], */
-      },
-      {
-        path: "day-detail/:date",
-        element: <DayDetail/>
-      },
-      {
-        path: "/schedule",
+        path: "/schedule", // ESTO QUÉ ONDA?
         element: <CoursesLayout />,
       },
     ],

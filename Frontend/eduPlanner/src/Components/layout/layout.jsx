@@ -8,7 +8,7 @@ export default function Layout() {
     <>
       <Header />
       <main className="min-h-[calc(100vh-75px)] bg-gradient-to-b from-background via-secondary/30 to-secondary/10">
-        <div className="mx-auto py-4 relative z-10">
+        <div className="container px-4 mx-auto py-4 relative z-10">
           <Outlet />
         </div>
       </main>

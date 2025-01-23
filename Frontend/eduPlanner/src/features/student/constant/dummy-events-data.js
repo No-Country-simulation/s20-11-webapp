@@ -16,7 +16,7 @@ export const dummyEvents = [
       color: "#F24978"
     },
     title: 'Exámen de Lenguaje',
-    description: 'Imperio romano',
+    description: 'El uso de los signos de puntuación y su importancia en la escritura',
     date: new Date(2025, 0, 25, 10, 0)
   }
 ]

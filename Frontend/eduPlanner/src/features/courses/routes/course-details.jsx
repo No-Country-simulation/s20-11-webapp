@@ -51,7 +51,7 @@ const courseManagementLinks = [
   {
     title: "Eventos",
     Icon: CalendarPlus,
-    link: "/coordeventlist",
+    link: "events", //aca redirige a mi componente lista de eventos del coordinador
   },
 ];
 

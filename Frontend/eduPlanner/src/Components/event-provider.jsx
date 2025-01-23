@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { calendarService } from "../features/calendar/services/calendar.service";
+import { calendarService } from "../features/student/services/calendar.service";
 
 // Crear el contexto
 const EventsContext = createContext();

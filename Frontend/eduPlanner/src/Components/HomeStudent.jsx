@@ -1,5 +1,12 @@
-import EventDetailList from "../features/calendar/components/EventDetailList";
+import EventDetailList from "../features/student/components/EventDetailList";
 import { useEvents } from "./event-provider";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
+import { Link, } from "react-router-dom";
 
 function HomeStudent() {
 
@@ -20,14 +27,42 @@ function HomeStudent() {
         
 
         {/* Calendario y horario */}
-        <div className="grid grid-cols-2 gap-2 md:flex md:flex-col">
+        {/* LINK A CALENDARIO */}
+        <Link
+            viewTransition
+            prefetch="intent"
+            className="hover:ring-2 hover:ring-primary rounded-xl transition-all duration-300"
+            to={`/student/calendar`}
+          >
+          <Card className="">
+            <CardHeader>
+              <CardTitle>Calendario</CardTitle>              
+            </CardHeader>
+          </Card>
+        </Link>
+
+        {/* LINK A HORARIO */}
+        <Link
+            viewTransition
+            prefetch="intent"
+            className="hover:ring-2 hover:ring-primary rounded-xl transition-all duration-300"
+            to={`/student/calendar`}
+          >
+          <Card className="">
+            <CardHeader>
+              <CardTitle>Horario</CardTitle>              
+            </CardHeader>
+          </Card>
+        </Link>
+
+        {/* <div className="grid grid-cols-2 gap-2 md:flex md:flex-col">
           <div className="calendario bg-blue-500 rounded-md p-4 h-[200px] md:h-[150px]">
             <p>Calendario</p>
           </div>
           <div className="horario bg-green-500 rounded-md p-4 h-[200px] md:h-[150px]">
             <p>Horario</p>
           </div>
-        </div>
+        </div> */}
       </div>    
     </div>
   );
