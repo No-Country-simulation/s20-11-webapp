@@ -1,11 +1,14 @@
 package no.country.eduplanner.courses.infra.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockRequest;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
 import no.country.eduplanner.courses.application.dto.SubjectRequest;
 import no.country.eduplanner.courses.application.dto.SubjectResponse;
 import no.country.eduplanner.courses.application.service.SubjectService;
+import no.country.eduplanner.shared.application.dto.NotificationRequest;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,7 @@ import java.net.URI;
 public class SubjectController {
 
     private final SubjectService subjectService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @PostMapping("/{courseId}/subjects")
     public ResponseEntity<SubjectResponse> createSubjectForCourse(@RequestBody SubjectRequest request,
@@ -28,6 +32,11 @@ public class SubjectController {
                                      .formatted(courseId, subject.id())))
                              .body(subject);
 
+    }
+
+    @PostMapping("/send-notification")
+    public void publishNotificationForSubject(@RequestBody @Valid NotificationRequest request) {
+        eventPublisher.publishEvent(request);
     }
 
     @PutMapping("/{courseId}/subjects/add-to-block")
