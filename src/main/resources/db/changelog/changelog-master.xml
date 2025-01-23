@@ -9,6 +9,7 @@
     <include file="primary-sequence.sql" relativeToChangelogFile="true"/>
     <include file="course.sql" relativeToChangelogFile="true"/>
     <include file="auth.sql" relativeToChangelogFile="true"/>
+    <include file="notifications.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
 
