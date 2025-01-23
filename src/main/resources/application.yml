@@ -37,9 +37,9 @@ jwt:
     expiration : ${JWT_REFRESH_TOKEN_EXPIRATION}
 app:
   datasource:
-    database-url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    database-url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/eduplanner}
+    username: ${DATABASE_USERNAME:admin}
+    password: ${DATABASE_PASSWORD:admin}
 springdoc:
   api-docs:
     enabled: true
