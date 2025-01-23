@@ -100,7 +100,7 @@ export default function CreateEvent() {
               type="text"              
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border border-card-border p-2 rounded text-black"
+              className="w-full border border-card-border dark:bg-background dark:text-foreground p-2 rounded text-black"
               />
           </div>
           <div className="description">
@@ -121,7 +121,7 @@ export default function CreateEvent() {
                 setSubject(selectedSubject);
             }}
             >
-                <SelectTrigger className="w-full border border-gray-400">
+                <SelectTrigger className="w-full border border-card-border">
                     <SelectValue placeholder="Selecciona una materia" />
                 </SelectTrigger>
                 <SelectContent>
@@ -143,14 +143,14 @@ export default function CreateEvent() {
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  variant={"outline"}
+                  variant={"daypicker"}
                   className={cn(
-                    "w-[280px] justify-start text-left font-normal",
-                    !date && "text-muted-foreground"
+                    "w-full justify-start text-left font-normal border border-card-border",
+                    !date && "text-foreground"
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date ? format(date, "d 'de' MMMM yyyy", { locale: es }) : <span>Pick a date</span>}
+                  {date ? format(date, "d 'de' MMMM yyyy", { locale: es }) : <span>Selecciona una fecha</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">

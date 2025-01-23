@@ -70,7 +70,14 @@ export const routes = [
           },
           {
             path: ":courseId/events",
-            element: <EventListCoord/>            
+            element: <EventListCoord/>, 
+            children: [
+              {
+                path: "create-event",
+                element: <CreateEvent/>,
+                loader: subjectLoader,                
+              },              
+            ],           
           }
         ],
       },
