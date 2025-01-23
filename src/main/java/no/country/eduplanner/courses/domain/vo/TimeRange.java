@@ -1,6 +1,7 @@
 package no.country.eduplanner.courses.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
@@ -9,11 +10,20 @@ import java.time.LocalTime;
 
 
 @Embeddable
+@Schema(description = "Rango de tiempo que define el inicio y fin de un bloque")
 public record TimeRange(
 
+        @Schema(
+                description = "Hora de inicio del bloque",
+                example = "08:00:00"
+        )
         @Column(name = "start_time", nullable = false)
         LocalTime startTime,
 
+        @Schema(
+                description = "Hora de fin del bloque",
+                example = "08:45:00"
+        )
         @Column(name = "end_time", nullable = false)
         LocalTime endTime
 

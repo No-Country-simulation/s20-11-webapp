@@ -7,6 +7,7 @@ import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
 import no.country.eduplanner.courses.application.dto.SubjectRequest;
 import no.country.eduplanner.courses.application.dto.SubjectResponse;
 import no.country.eduplanner.courses.application.service.SubjectService;
+import no.country.eduplanner.courses.infra.controller.apidocs.SubjectApi;
 import no.country.eduplanner.shared.application.dto.NotificationRequest;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/courses")
 @RequiredArgsConstructor
-public class SubjectController {
+public class SubjectController implements SubjectApi {
 
     private final SubjectService subjectService;
     private final ApplicationEventPublisher eventPublisher;

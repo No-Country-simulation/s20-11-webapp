@@ -5,6 +5,7 @@ import no.country.eduplanner.courses.application.dto.CourseRequest;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
 import no.country.eduplanner.courses.application.service.CourseService;
+import no.country.eduplanner.courses.infra.controller.apidocs.CourseApi;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.SortedMap;
 @RestController
 @RequestMapping("/courses")
 @RequiredArgsConstructor
-public class CourseController {
+public class CourseController implements CourseApi {
 
     private final CourseService courseService;
 

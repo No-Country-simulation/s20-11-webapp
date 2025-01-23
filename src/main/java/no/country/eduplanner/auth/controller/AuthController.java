@@ -2,6 +2,7 @@ package no.country.eduplanner.auth.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import no.country.eduplanner.auth.controller.apidocs.AuthApi;
 import no.country.eduplanner.auth.dto.AuthResponse;
 import no.country.eduplanner.auth.dto.LoginRequest;
 import no.country.eduplanner.auth.dto.RegistrationRequest;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final AuthenticationService authenticationService;
 

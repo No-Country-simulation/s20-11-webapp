@@ -3,6 +3,7 @@ package no.country.eduplanner.notifications.infra.controller;
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.notifications.application.dto.NotificationResponse;
 import no.country.eduplanner.notifications.application.services.NotificationService;
+import no.country.eduplanner.notifications.infra.controller.apidocs.NotificationApi;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/notifications")
 @RequiredArgsConstructor
-public class NotificationController {
+public class NotificationController implements NotificationApi {
 
     private final NotificationService notificationService;
 
