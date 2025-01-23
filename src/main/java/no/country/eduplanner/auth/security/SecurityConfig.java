@@ -2,6 +2,7 @@ package no.country.eduplanner.auth.security;
 
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.security.filters.JwtFilter;
+import no.country.eduplanner.auth.services.CorsConfigurationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final CorsConfigurationService corsConfigurationService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -34,6 +36,7 @@ public class SecurityConfig {
 
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(corsConfigurationService::configure)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET).authenticated()

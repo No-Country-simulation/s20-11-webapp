@@ -1,8 +1,14 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:eduplanner}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+#  datasource:
+#    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#    hikari:
+#      maximum-pool-size: 5
+#      minimum-idle: 1
+#      connection-timeout: 20000
+#      initialization-fail-timeout: 0
+#    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: none
@@ -14,9 +20,12 @@ spring:
         format_sql: true
         show_sql: true
     open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
     enabled: true
+    default-schema: public
+
   application:
     name: EduPlanner
   profiles:
@@ -24,6 +33,7 @@ spring:
   docker:
     compose:
       lifecycle-management: start_only
+      file: classpath:compose.yaml
   threads:
     virtual:
       enabled: true
@@ -35,3 +45,10 @@ jwt:
   expiration : ${JWT_TIME_EXPIRATION}
   refresh-token :
     expiration : ${JWT_REFRESH_TOKEN_EXPIRATION}
+
+#logging:
+#  level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#    liquibase: DEBUG
+#    com.zaxxer.hikari: DEBUG
