@@ -5,6 +5,18 @@ import { useLoaderData } from "react-router-dom";
 import { subjectService } from "../../courses/services/subject.service";
 import { useState } from "react";
 import { useEvents } from "../../../Components/event-provider";
+/* PARA DATE PICKER */
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react" 
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { es } from "date-fns/locale";
+
 
 
 export async function subjectLoader() {
@@ -21,26 +33,20 @@ export default function CreateEvent() {
   const [subject, setSubject] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(0);
-  const [day, setDay] = useState(1);
+
+  /* PARA DATE PICKER */
+  const [date, setDate] = useState(null);
+
+
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
 
 
-  // Generar opciones de select
-  const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
-  const months = Array.from({ length: 12 }, (_, i) => i);
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  // Generar opciones de select 
   const hours = Array.from({ length: 24 }, (_, i) => i);
   const minutes = Array.from({ length: 60 }, (_, i) => i);
 
-  
-  // Validar fecha antes de agregar evento
-  const isValidDate = (year, month, day) => {
-    const testDate = new Date(year, month, day);
-    return testDate.getFullYear() === year && testDate.getMonth() === month && testDate.getDate() === day;
-  };
+    
 
   const handleSubmit = () => {
     if (!title.trim()) {
@@ -50,16 +56,24 @@ export default function CreateEvent() {
     if (!description.trim()) {
       alert("Por favor, ingresa una descripción.");
       return;
+    }    
+
+    if (!date) {
+      alert("Por favor, selecciona una fecha.");
+      return;
     }
-    if (!isValidDate(year, month, day)) {
-        alert('Fecha inválida. Por favor selecciona un día válido para el mes y año elegidos.');
-        return;
-      }
   
+    const fullDate = new Date(date);
+    fullDate.setHours(hour);
+    fullDate.setMinutes(minute);
+  
+    const formattedDate = fullDate.toISOString();  // Convierte la fecha al formato estándar ISO
+  
+
       const newEvent = {
         subject,
         title,
-        date: new Date(year, month, day, hour, minute),
+        date: formattedDate,
         description,
       };
   
@@ -67,12 +81,10 @@ export default function CreateEvent() {
       alert("Evento agregado correctamente.");
   
       // Limpiar el formulario
-      setSubject('')
       setTitle('')
-      setDescription('');
-      setYear(new Date().getFullYear());
-      setMonth(0);
-      setDay(1);
+      setDescription('');     
+      setSubject('')
+      setDate(null)       
       setHour(0);
       setMinute(0);
     };
@@ -83,23 +95,21 @@ export default function CreateEvent() {
     <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-4">
           <div className="título">
-              <p>Título</p>
+              <p className="text-sm22">Título</p>
               <input
-              type="text"
-              /* placeholder="Título" */
+              type="text"              
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border p-2 rounded text-black"
+              className="w-full border border-card-border p-2 rounded text-black"
               />
           </div>
           <div className="description">
-              <p>Descripción</p>
+              <p className="text-sm22">Descripción</p>
               <input
-              type="text"
-              /* placeholder="Descripción" */
+              type="text"              
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full border p-2 rounded text-black"
+              className="w-full border border-card-border p-2 rounded text-black"
               />
           </div>
             
@@ -111,7 +121,7 @@ export default function CreateEvent() {
                 setSubject(selectedSubject);
             }}
             >
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full border border-gray-400">
                     <SelectValue placeholder="Selecciona una materia" />
                 </SelectTrigger>
                 <SelectContent>
@@ -120,7 +130,7 @@ export default function CreateEvent() {
                             <div className="flex items-center gap-2">
                             <div
                                 style={{ backgroundColor: sub.color }}
-                                className="size-4 rounded-full"
+                                className=" size-4 rounded-full"
                             ></div>
                             {sub.name}
                             </div>
@@ -129,39 +139,47 @@ export default function CreateEvent() {
                 </SelectContent>
             </Select>
             
-            {/* FECHAS */}            
-            <div className="para-seleccionar-fecha ">
-                <p>Día</p>
-                <div className="flex gap-2">
-                    <select value={year} onChange={(e) => setYear(parseInt(e.target.value))} className="text-black border p-2 rounded">
-                        {years.map(y => <option key={y} value={y}>{y}</option>)}
-                    </select>
+            {/* FECHAS CON DATE PICKER */}
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[280px] justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date ? format(date, "d 'de' MMMM yyyy", { locale: es }) : <span>Pick a date</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
 
-                    <select value={month} onChange={(e) => setMonth(parseInt(e.target.value))} className="text-black border p-2 rounded">
-                        {months.map((m, index) => <option key={m} value={m}>{index + 1}</option>)}
-                    </select>
 
-                    <select value={day} onChange={(e) => setDay(parseInt(e.target.value))} className="text-black border p-2 rounded">
-                        {days.map(d => <option key={d} value={d}>{d}</option>)}
-                    </select>
-                </div>                
-            </div>
             {/* HORA */}
             <div className="">
-                <p>Hora</p>
+                <p className="text-sm22">Hora</p>
                 <div className="flex gap-2">
-                    <select value={hour} onChange={(e) => setHour(parseInt(e.target.value))} className="text-black border p-2 rounded">
+                    <select value={hour} onChange={(e) => setHour(parseInt(e.target.value))} className="border border-card-border text-black border p-2 rounded">
                         {hours.map(h => <option key={h} value={h}>{h.toString().padStart(2, '0')}</option>)}
                     </select>
 
-                    <select value={minute} onChange={(e) => setMinute(parseInt(e.target.value))} className="text-black border p-2 rounded">
+                    <select value={minute} onChange={(e) => setMinute(parseInt(e.target.value))} className="border border-card-border text-black border p-2 rounded">
                         {minutes.map(m => <option key={m} value={m}>{m.toString().padStart(2, '0')}</option>)}
                     </select>
                 </div>                
             </div>
         </div>      
       <Spacer size="4xs" />
-      <Button variant='miboton' onClick={handleSubmit}>Publicar</Button>
+      <Button variant='primary' onClick={handleSubmit}>Publicar</Button>
     </div>
   );
 }

@@ -7,26 +7,30 @@ function EventListCoord() {
     const { events } = useEvents();
   
     const baseClasses =
-    "select-none justify-center flex flex-col items-center p-2 rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[20rem] md:w-[13rem] shadow text-foreground";
+    "select-none justify-center flex flex-col items-center p-2 rounded cursor-pointer w-[170px]";
     
     
    
     return (
-      <div>
-            <h2>Eventos</h2>
+      <div className="px-4 sm:px-8">
+            <h2 className="pt-4 text-lg pb-4">Eventos</h2>
             {/* AGREGAR EVENTO */}
             <div className="">
                   <ResponsiveOutletModal
                     to={"create-event"}
                     trigger={
-                      <div className={`${baseClasses} bg-background`}>
-                        <h3 className="font-bold text-muted-foreground">Agregar anuncio</h3>
+                      <div className={`${baseClasses} bg-primary text-white`}>
+                        <h3 className="text-white">Agregar anuncio</h3>
                       </div>
                     }
-                    title={"Nuevo aununcio"}
+                    title={"Nuevo anuncio"}
+                    titleClassName="text-xl font-normal pb-3"
                   />
             </div>
-            <EventDetailList events={events}/>
+            <div className="pt-2">
+                <EventDetailList events={events} cardClassName="md:w-[670px]"/>
+            </div>
+            
     </div>
     );
   }

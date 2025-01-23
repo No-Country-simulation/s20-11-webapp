@@ -1,43 +1,65 @@
 import PropTypes from "prop-types";
+import { cn } from "@/lib/utils";  
 
-function EventDetailList({ events }) {
-
+function EventDetailList({ events, cardClassName }) { //le pasé classname para pasar clases extra por props al usar el componente en EventListCoord
   return (
     <div className="listado-eventos pt-4 text-sm">
       {events.length > 0 ? (
-        events.map((event, index) => (
-          <div
-            className="p-2 mb-3 border rounded-md flex justify-between items-center bg-gray-100"
-            style={{
-              borderLeftWidth: "8px",
-              borderLeftColor: event.subject.color,
-              "--subject-color": event.subject.color,
-            }}
-            key={event.date.getTime()}
-          >
-            <div>
-              <p className="text-xs text-gray-700">{event.subject.name}</p>
-              <p className="font-semibold text-gray-700">{event.title}</p>
-              <p className="text-xs text-gray-700">{event.description}</p>
+        events.map((event, index) => {
+          const eventDate = new Date(event.date);
+
+          return (
+            // TARJETITA
+            <div
+              className={cn(
+                "tarjetita p-2 mb-3 bg-card border rounded-md border-card-border",
+                cardClassName
+              )}  
+              style={{
+                borderLeftWidth: "8px",
+                borderLeftColor: event.subject.color,
+                "--subject-color": event.subject.color,
+              }}
+              key={eventDate.getTime()} 
+            >
+              
+              <div className="">
+                {/* MATERIA */}
+                <p className="text-sm22 text-gray-700">{event.subject.name}</p>
+
+                {/* LINEA DEL MEDIO */}
+                <div className="linea-del-medio flex justify-between items-center ">
+                  <p className=" text-xl text-gray-700 leading-tight-custom">{event.title}</p>
+                  {/* FECHA Y HORA */}
+                  <div className="fecha-y-hora text-right h-auto flex flex-col justify-center md:flex md:gap-0.5 md:flex-row">
+                    {/* FECHA */}
+                    <p className="text-xs whitespace-nowrap">
+                      {new Intl.DateTimeFormat("es-ES", {
+                        weekday: "short",
+                        day: "numeric",
+                        month: "short",            
+                      }).format(eventDate)
+                      .replace(',', '')  // Elimina la coma
+                      .replace(/^\w/, (c) => c.toUpperCase())} 
+                    </p>
+                    <span className=" hidden md:block text-xs">|</span>
+                    {/* HORA */}
+                    <p className="text-xs whitespace-nowrap">
+                      {new Intl.DateTimeFormat("es-ES", {
+                        hour: "numeric",
+                        minute: "2-digit",
+                      }).format(eventDate)} hs
+                    </p>
+                  </div>
+                </div>
+
+                {/* DESCRIPCIÓN */}
+                <p className="text-sm22 text-gray-700">{event.description}</p>
+              </div>                          
+              
             </div>
-            <div className="text-right flex gap-2">
-              <p className="text-xs">
-                {new Intl.DateTimeFormat("es-ES", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                }).format(event.date).replace(/^\w/, (c) => c.toUpperCase())}  
-              </p>
-              <span className="text-xs">|</span>
-              <p className="text-xs">
-                {new Intl.DateTimeFormat("es-ES", {
-                  hour: "numeric",
-                  minute: "2-digit",
-                }).format(event.date)} hs
-              </p>
-            </div>
-          </div>
-        ))
+          );
+        })
       ) : (
         <p>No hay eventos para esta fecha.</p>
       )}
@@ -54,9 +76,13 @@ EventDetailList.propTypes = {
       }).isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
-      date: PropTypes.instanceOf(Date).isRequired,
+      date: PropTypes.oneOfType([
+        PropTypes.instanceOf(Date),
+        PropTypes.string
+      ]).isRequired,
     })
   ).isRequired,
+  cardClassName: PropTypes.string,  // Permitir clases personalizadas para la tarjeta
 };
 
 export default EventDetailList;

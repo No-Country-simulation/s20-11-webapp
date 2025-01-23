@@ -6,7 +6,7 @@ function EventDetailCalendar({ events }) {
       {events.length > 0 ? (
         events.map((event, index) => (
           <div
-            className="p-3 mb-2 border rounded-md flex justify-between items-center"
+            className="p-3 mb-2 bg-card border rounded-md border-card-border flex justify-between items-center"
             style={{
               borderLeftWidth: "6px",
               borderLeftColor: event.subject.color,

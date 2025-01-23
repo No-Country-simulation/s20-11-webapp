@@ -90,7 +90,7 @@ const Header = () => {
           </div>
         </nav>
       </header>
-      <img className="w-full" src={line} alt="" />
+      <img className="w-full h-[5px]" src={line} alt="" />
     </>
   );
 };

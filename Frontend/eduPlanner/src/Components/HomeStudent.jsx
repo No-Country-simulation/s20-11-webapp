@@ -9,8 +9,8 @@ function HomeStudent() {
   console.log('events', events)
 
   return (
-    <main className="flex-grow container mx-auto px-4 py-8">
-      <h1 className="text-2xl mb-6">
+    <div className="flex-grow container mx-auto px-4 sm:px-8 pt-4 pb-8">
+      <h1 className="text-2xl mb-3">
         ¡Hola, Romina!
       </h1>
       <h2 className="pt-4 text-lg">Próximas evaluaciones</h2>
@@ -29,7 +29,7 @@ function HomeStudent() {
           </div>
         </div>
       </div>    
-    </main>
+    </div>
   );
 }
 

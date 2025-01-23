@@ -4,10 +4,25 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        'xs': '480px',  // Nuevo breakpoint personalizado para pantallas pequeñas
+        'sm': '744px',  // Breakpoint para dispositivos pequeños (tablets)
+        'md': '768px',  // Breakpoint para dispositivos medianos (laptops)
+        'lg': '1024px', // Breakpoint para dispositivos grandes (desktops)
+        'xl': '1280px', // Breakpoint para pantallas grandes (monitores)
+        '2xl': '1536px' // Breakpoint para pantallas extra grandes
+      },
       textShadow: {
         default: "0 2px 4px rgba(0,0,0,0.5)",
         outline:
           "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
+      },
+      lineHeight: {        
+        'tight-custom': '1.15', // Personalizado
+      },
+      fontSize: {
+        'sm2': '1.75rem',  // Tamaño personalizado, puedes cambiar el valor
+        'sm22': '0.9rem',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -20,6 +35,7 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          border: "hsl(var(--card-border))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

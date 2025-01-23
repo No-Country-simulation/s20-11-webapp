@@ -22,6 +22,7 @@ export function ResponsiveOutletModal({
   title,
   description,
   to,
+  titleClassName,  // Nueva prop para personalizar la clase del título
 }) {
   const isMobile = useIsMobile();
 
@@ -45,9 +46,9 @@ export function ResponsiveOutletModal({
         <DrawerTrigger asChild>
           <Link to={to}>{trigger}</Link>
         </DrawerTrigger>
-        <DrawerContent className="p-4">
-          <DrawerHeader>
-            {isModalActive && <DrawerTitle>{title}</DrawerTitle>}
+        <DrawerContent className="m-4 p-6 sm:m-24">
+        <DrawerHeader>
+            {isModalActive && <DrawerTitle className={titleClassName}>{title}</DrawerTitle>}
             {description && (
               <DrawerDescription>{description}</DrawerDescription>
             )}
@@ -65,7 +66,7 @@ export function ResponsiveOutletModal({
       </DialogTrigger>
       <DialogContent className="">
         <DialogHeader>
-        {isModalActive && <DialogTitle>{title}</DialogTitle>}
+        {isModalActive && <DialogTitle className={titleClassName}>{title}</DialogTitle>}
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         <Outlet context={{ onClose }} />

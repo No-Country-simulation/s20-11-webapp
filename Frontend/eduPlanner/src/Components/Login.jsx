@@ -25,9 +25,9 @@ function Login() {
   };
 
   return (
-    <main className="flex-grow container mx-auto px-4 py-8 relative z-10">
-      <div className="max-w-md mx-auto bg-gray-800/50 backdrop-blur-md p-8 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-[#9333ea] to-[#2563eb] text-transparent bg-clip-text">
+    <main className="flex-grow container mx-auto px-1 py-8 lg:pl-12 lg:pt-24 relative z-10">
+      <div className="max-w-md mx-auto md:mx-0 md:w-[381px] lg:md:w-[381px] bg-card backdrop-blur-md p-8 rounded-lg border border-card-border">
+        <h2 className="text-xl pt-3 mb-4 text-center ">
           Iniciar sesión
         </h2>
         <Formik
@@ -42,46 +42,61 @@ function Login() {
         >
           {({ isValid, dirty, isSubmitting }) => (
             <Form className="flex flex-col gap-4">
-              <Field
-                placeholder="Email"
-                className="pl-4 bg-gray-700/50 w-full border h-10 rounded"
-                type="text"
-                name="email"
-              />
-              <ErrorMessage
-                name="email"
-                component="p"
-                className="text-red-500 text-sm"
-              />
-
-              <div className="relative w-full">
-                <Field
-                  placeholder="Contraseña"
-                  className="pl-4 bg-gray-700/50 w-full border h-10 rounded"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                />
-                <button
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                  className="text-gray-500 absolute top-[-7px] right-0 flex items-center px-3 py-3"
-                >
-                  {showPassword ? <Ojovisible /> : <Ojotachado />}
-                </button>
-                <ErrorMessage
-                  name="password"
-                  component="p"
-                  className="text-red-500"
-                />
+              <div className="">
+                  <div className="flex flex-row">
+                    <p>Correo</p><span className="text-destructive">*</span>
+                  </div>
+                  
+                  <Field
+                    placeholder="correo@ejemplo.com"
+                    className="pl-4 w-full border border-card-border bg-card h-10 rounded"
+                    type="text"
+                    name="email"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="p"
+                    className="text-red-500 text-sm"
+                  />
               </div>
+              
+              <div className="pb-3">
+                  <div className="flex flex-row">
+                    <p>Contraseña</p><span className="text-destructive">*</span>
+                  </div>
+                  <div className="relative w-full">
+                  <Field
+                    placeholder="Contraseña"
+                    className="pl-4 w-full border border-card-border bg-card h-10 rounded"
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="text-gray-500 absolute top-[-5px] right-0 flex items-center px-2 py-3"
+                  >
+                    {showPassword ? <Ojovisible /> : <Ojotachado />}
+                  </button>
+                  <ErrorMessage
+                    name="password"
+                    component="p"
+                    className="text-red-500"
+                  />
+                </div>
+              </div>
+              
 
-              <button
-                type="submit"
-                className="cursor-pointer w-full bg-gradient-to-r from-[#9333ea] to-[#2563eb] hover:from-[#9333ea]/90 hover:to-[#2563eb]/90 transition-all duration-300 h-10 rounded"
-                disabled={!isValid || !dirty || isSubmitting}
-              >
-                {isSubmitting ? "Iniciando sesión..." : "Iniciar sesión"}
-              </button>
+              <div className="pb-3">
+                <button
+                  type="submit"
+                  className="cursor-pointer w-full bg-primary hover:from-[#9333ea]/90 transition-all duration-300 p-1.5 rounded text-primary-foreground"
+                  disabled={!isValid || !dirty || isSubmitting}
+                >
+                  {isSubmitting ? "Iniciando sesión..." : "Iniciar sesión"}
+                </button>
+              </div>
+              
             </Form>
           )}
         </Formik>

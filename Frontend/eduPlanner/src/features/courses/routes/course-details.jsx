@@ -51,7 +51,7 @@ const courseManagementLinks = [
   {
     title: "Eventos",
     Icon: CalendarPlus,
-    link: "events",
+    link: "/coordeventlist",
   },
 ];
 

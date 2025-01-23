@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import "./Calendario.css"; // Estilos personalizados
+import "./Calendario.css"; // Estilos que perzonalicé del componente de shadcn
 import { useEvents } from "../../../Components/event-provider";
 import EventDetailCalendar from "./EventDetailCalendar";
 
@@ -22,7 +22,7 @@ function Calendario() {
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
       if (highlightedDates.some((d) => d.toDateString() === date.toDateString())) {
-        return "highlight";
+        return date.toDateString() === new Date().toDateString() ? "highlight react-calendar__tile--active" : "highlight";
       }
     }
     return null;
@@ -39,57 +39,55 @@ function Calendario() {
     const handleDateClick = (selectedDate) => {
       setDate(selectedDate);
     
-      // Navegar a la página de detalles del día en mobile
-      if (window.innerWidth < 768) {
-        const formattedDate = selectedDate.toISOString().split("T")[0]; // Formato YYYY-MM-DD
-        navigate(`/day-detail/${formattedDate}`);  // Ruta relativa dentro de /calendar
+      // Para ir a la página de detalles del día en mobile
+      if (window.innerWidth < 743) {
+        const formattedDate = selectedDate.toISOString().split("T")[0]; // Para que se vea YYYY-MM-DD
+        navigate(`/day-detail/${formattedDate}`); 
       }
     };
 
  
   return (
-    <main className="p-16 flex flex-col justify-center items-center">
-      <h1 className="text-foreground font-semibold pb-12 font-lg">Calendario</h1>
-      <div className="calendario-y-novedades flex flex-row gap-12">
-        <Calendar
-          onChange={handleDateClick}
-          value={date}
-          tileClassName={tileClassName}
-          formatShortWeekday={(locale, date) =>
-            ['L', 'M', 'M', 'J', 'V', 'S', 'D'][date.getDay()]
-          }
-        />
-        <div className="titulo-y-eventos hidden md:block">
-          <h3 className="font-semibold text-lg pb-3">Eventos del día</h3>
-          <p className="fecha-seleccionada ">
-            Fecha seleccionada: {date.toLocaleDateString('es-ES', {
-              weekday: 'short',
+    
+    <div className="p-4 md:px-28 md:pt-12 sm:p-8">   
+         
+      <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-6 md:flex-row md:gap-40">
+        <div>
+            <h1 className="text-foreground pb-12 text-3xl text-left">Calendario</h1>
+            <Calendar
+              onChange={handleDateClick}
+              value={date}
+              tileClassName={tileClassName}
+              formatShortWeekday={(locale, date) =>
+                ['L', 'M', 'M', 'J', 'V', 'S', 'D'][date.getDay()]
+              }
+              formatMonthYear={(locale, date) =>
+                date.toLocaleDateString('es-ES', {
+                  month: 'long', 
+                  year: 'numeric'
+                }).replace(/^./, (str) => str.toUpperCase()).replace('de ', '') 
+              }
+            />
+        </div>
+        
+        <div className="titulo-y-eventos hidden sm:block md:pt-12 md:w-full">          
+          <p className="fecha-seleccionada text-xl">
+           {date.toLocaleDateString('es-ES', {
+              weekday: 'long',
               day: 'numeric',
               month: 'long',
-              year: 'numeric'
+              
             })
-              .replace(',', '.') // Reemplaza la coma por un punto
-              .replace(/^\w/, (c) => c.toUpperCase())} {/* Convierte la primera letra en mayúscula */}
+              .replace(',', '') 
+              .replace(/^\w/, (c) => c.toUpperCase())} 
           </p>
-          <div className="listado-eventos pt-4 text-sm">
+          <div className="listado-eventos pt-4 text-sm sm:w-full w-[595px]">
             <EventDetailCalendar  events={eventsForSelectedDate}/>            
           </div>
         </div>
-      </div>
-
-      {/* PARA AGREGAR EVENTO no va mas */}
-      {/* <div className="p-8">
-        <ResponsiveOutletModal
-          to={"create-event"}
-          trigger={
-            <div className={`${baseClasses} bg-background`}>
-              <h3 className="font-bold text-muted-foreground">Agregar evento</h3>
-            </div>
-          }
-          title={"Crear evento"}
-        />
-      </div> */}
-    </main>
+      </div>      
+    </div>
+    
   );
 }
 

@@ -14,16 +14,16 @@ function DayDetail() {
    const selectedDate = new Date(date);
  
   return (
-    <div>
-        <p className="fecha-seleccionada ">
-            Fecha seleccionada: {selectedDate.toLocaleDateString('es-ES', {
-              weekday: 'short',
+    <div className="p-4">
+        <p className="fecha-seleccionada text-xl">
+           {selectedDate.toLocaleDateString('es-ES', {
+              weekday: 'long',
               day: 'numeric',
               month: 'long',
-              year: 'numeric'
+              
             })
-              .replace(',', '.') // Reemplaza la coma por un punto
-              .replace(/^\w/, (c) => c.toUpperCase())} {/* Convierte la primera letra en mayúscula */}
+              .replace(',', '')
+              .replace(/^\w/, (c) => c.toUpperCase())}
         </p>
         <EventDetailCalendar events={eventsForSelectedDate}/>
     </div>
