@@ -1,9 +1,12 @@
 import { Outlet } from "react-router";
 import { ScrollRestoration } from "react-router-dom";
+import { useAuth } from "../../features/auth/context/AuthContext";
 import Footer from "./Footer";
 import Header from "./Header";
-
+import { CurrentUserInLocalStorage } from "./dev-tools";
 export default function Layout() {
+  const { updateAuthState } = useAuth();
+
   return (
     <>
       <Header />
@@ -12,6 +15,7 @@ export default function Layout() {
           <Outlet />
         </div>
       </main>
+      <CurrentUserInLocalStorage/> {/*Comentar o borrar esto, solo esta para fines de desarrollo*/}
       <Footer />
       <ScrollRestoration />
     </>

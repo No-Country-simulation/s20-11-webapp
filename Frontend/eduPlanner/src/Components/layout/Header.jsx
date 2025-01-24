@@ -1,42 +1,13 @@
 import line from "@/assets/line.png";
-import { cn } from "@/lib/utils";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Button } from "@/Components/ui/button";
+import { Form, Link } from "react-router-dom";
+import { useAuth } from "../../features/auth/context/AuthContext";
 import { ModeToggle } from "../mode-toggle";
 
-const loggedInUserNavigationLinks = [
-  {
-    name: "Administrar cursos",
-    path: "/courses",
-  },
-
-  // Se pueden agregar mas links para el usuario loggeado, de ser necesario
-];
-
 const Header = () => {
-  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
-  /* Buscar en el localstorage si hay usuario loggeado */
-  // const isLoggedIn = Boolean(localStorage.getItem("token"));
-  /* console.log('isLoggedIn', isLoggedIn) */
-
-  const isLoggedIn = true;
-
-  const cerrarSesion = () => {
-    if (localStorage.getItem("token")) {
-      localStorage.removeItem("token");
-      console.log("Token eliminado con éxito.");
-    }
-    if (localStorage.getItem("username")) {
-      localStorage.removeItem("username");
-      console.log("Username eliminado con éxito.");
-    }
-    if (localStorage.getItem("email")) {
-      localStorage.removeItem("email");
-      console.log("email eliminado con éxito.");
-    }
-    navigate("/login");
-  };
-
+  //TODO: Hay que aplicar los estilos correspondientes a los botones de login y logout. Solo dejo la logica para que funcione.
   return (
     <>
       <header className="sticky top-0 p-4 bg-background/80 backdrop-blur-sm shadow z-30">
@@ -50,43 +21,17 @@ const Header = () => {
             <ModeToggle />
           </div>
           <div id="fila-opciones" className="flex gap-6">
-            {/* si el usuario está loggeado */}
-            {!isLoggedIn && (
-              <button
-                className="text-sm text-foreground"
-                onClick={() => navigate("/login")}
-              >
-                Inicia Sesión
-              </button>
+            {isAuthenticated ? (
+              <Form method="post" action="/logout">
+                <Button variant="outline" type="submit">
+                  Cerrar sesión
+                </Button>
+              </Form>
+            ) : (
+              <Link viewTransition to="/login">
+                <Button>Iniciar sesión</Button>
+              </Link>
             )}
-
-            {/* si el usuario está loggeado */}
-            {/* {isLoggedIn && (     
-                <button className='text-sm text-white' onClick={() => navigate('/profile')}>
-                    Mi perfil
-                </button>
-                )} */}
-
-            {/* si el usuario está desloggeado onClick={handleCerrarSesion}  */}
-            {isLoggedIn &&
-              loggedInUserNavigationLinks.map((link) => (
-                <nav key={link.path}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      cn(
-                        "text-sm text-foreground p-1 transition-colors hover:text-foreground/80",
-                        isActive &&
-                          "font-medium text-primary border-b-2 border-primary/30 rounded border-spacing-y-7"
-                      )
-                    }
-                    to={link.path}
-                    viewTransition
-                    prefetch="intent"
-                  >
-                    {link.name}
-                  </NavLink>
-                </nav>
-              ))}
           </div>
         </nav>
       </header>

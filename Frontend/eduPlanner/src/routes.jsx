@@ -1,10 +1,9 @@
 import App from "./App.jsx";
-import Calendario from "./features/student/components/Calendario.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
-import HomeCoordinator from "./Components/HomeCoordinator.jsx";
-import Login from "./Components/Login.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
+import Login, { loginAction, loginLoader } from "./features/auth/routes/login.jsx";
+import { logoutAction, logoutLoader } from "./features/auth/routes/logout.jsx";
 import AssignClass, {
   assignClassAction,
   assignClassLoader,
@@ -15,13 +14,14 @@ import CourseDetails, {
 import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
-import CoursesLayout from "./features/courses/routes/courses-layout.jsx";
+import CoursesLayout, { coursesLayoutLoader } from "./features/courses/routes/courses-layout.jsx";
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
-import EventListCoord from './features/student/components/EventListCoord.jsx'
-import DayDetail from './features/student/components/DayDetail.jsx'
-import CreateEvent, { subjectLoader } from './features/student/routes/create-event.jsx';// arreglar
+import Calendario from "./features/student/components/Calendario.jsx";
+import DayDetail from './features/student/components/DayDetail.jsx';
+import EventListCoord from './features/student/components/EventListCoord.jsx';
+import CreateEvent, { subjectLoader } from './features/student/routes/create-event.jsx'; // arreglar
 
 
 import StudentLayout from "./features/student/routes/student-layout.jsx";
@@ -37,12 +37,20 @@ export const routes = [
       {
         path: "/login",
         element: <Login />,
+        action: loginAction,
+        loader: loginLoader,
+      },
+      {
+        path: "/logout",
+        action: logoutAction,
+        loader: logoutLoader,
       },
 
       /* HOME DEL COORDINADOR */
       {
         path: "/courses",
         element: <CoursesLayout />,
+        loader: coursesLayoutLoader,
         children: [
           {
             index: true,
