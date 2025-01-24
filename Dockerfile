@@ -1,9 +1,13 @@
-FROM eclipse-temurin:21-jdk-alpine
+# Use a minimal base image (e.g., alpine)
+FROM ubuntu:jammy
 
-WORKDIR /app
+# Set the working directory
 
-COPY target/*.jar app.jar
+# Copy the native executable into the container
+COPY target/EduPlanner /EduPlanner
 
+# Expose the application port
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Set the entry point to run the native executable
+ENTRYPOINT ["/EduPlanner"]

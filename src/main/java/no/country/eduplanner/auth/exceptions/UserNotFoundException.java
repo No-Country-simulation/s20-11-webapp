@@ -1,14 +1,18 @@
 package no.country.eduplanner.auth.exceptions;
 
-public class UserNotFoundException extends RuntimeException {
+import no.country.eduplanner.shared.application.exception.BaseException;
+import org.springframework.http.HttpStatus;
+
+public class UserNotFoundException extends BaseException {
+
 
     public UserNotFoundException(Long id) {
-        super("No se encontró el usuario con id: " + id);
+        super("No se encontró el usuario con id: " + id, HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
     }
 
 
     public UserNotFoundException(String email) {
-        super("No se encontró el usuario con email: " + email);
+        super("No se encontró el usuario con email: " + email, HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
     }
 
     public UserNotFoundException(String message, Throwable cause) {

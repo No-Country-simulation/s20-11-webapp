@@ -6,8 +6,9 @@ import no.country.eduplanner.auth.dto.AuthResponse;
 import no.country.eduplanner.auth.dto.LoginRequest;
 import no.country.eduplanner.auth.dto.RegistrationRequest;
 import no.country.eduplanner.auth.dto.TokenResponse;
-import no.country.eduplanner.auth.exceptions.AuthException;
-import no.country.eduplanner.auth.exceptions.TokenException;
+import no.country.eduplanner.auth.exceptions.InvalidCredentialsException;
+import no.country.eduplanner.auth.exceptions.InvalidRefreshTokenException;
+import no.country.eduplanner.auth.exceptions.UserAlreadyRegisteredException;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.models.UserRole;
 import no.country.eduplanner.auth.repository.UserRepository;
@@ -49,11 +50,10 @@ public class AuthenticationService {
         return buildAuthResponse(registeredUser, tokens);
     }
 
-    @Transactional(noRollbackFor = {AuthException.class})
+    @Transactional(noRollbackFor = {InvalidCredentialsException.class})
     public AuthResponse login(LoginRequest request) {
         UserEntity user = userRepository.findByEmail(request.email())
-                                        .orElseThrow(() -> new RuntimeException(
-                                                "Usuario no encontrado con email : " + request.email()));
+                                        .orElseThrow(InvalidCredentialsException::new);
 
         try {
             authenticationManager.authenticate(
@@ -67,28 +67,28 @@ public class AuthenticationService {
 
         } catch (AuthenticationException e) {
             log.warn("Login failed for user [{}]: {}", request.email(), e.getClass());
-            throw new AuthException("Credenciales inválidas");
+            throw new InvalidCredentialsException();
         }
     }
 
     public TokenResponse refreshToken(String authHeader) {
 
         if (authHeader == null || !authHeader.startsWith(BEARER_PREFIX)) {
-            throw new TokenException("Token de refresco inválido");
+            throw new InvalidRefreshTokenException();
         }
         String refreshToken = authHeader.substring(BEARER_PREFIX_LENGTH);
         String userEmail = jwtService.extractUserEmail(refreshToken);
 
         if (userEmail == null) {
-            throw new TokenException("Token de refresco inválido");
+            throw new InvalidRefreshTokenException();
         }
 
         UserEntity user = userRepository.findByEmail(userEmail)
-                                        .orElseThrow(() -> new AuthException("Credenciales inválidas"));
+                                        .orElseThrow(InvalidCredentialsException::new);
 
 
         if (!jwtService.isTokenValid(refreshToken)) {
-            throw new TokenException("Token de refresco inválido");
+            throw new InvalidRefreshTokenException();
         }
 
         TokenResponse tokenResponse = generateTokens(user);
@@ -99,8 +99,7 @@ public class AuthenticationService {
     private void validateRegistration(RegistrationRequest request) {
 
         if (userRepository.existsByEmail(request.email())) {
-            throw new AuthException("Usuario con email [%s] ya se encuentra registrado."
-                    .formatted(request.email()));
+            throw new UserAlreadyRegisteredException();
         }
 
     }

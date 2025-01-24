@@ -9,7 +9,9 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.DecodingException;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import no.country.eduplanner.auth.exceptions.TokenException;
+import no.country.eduplanner.auth.exceptions.InvalidRefreshTokenException;
+import no.country.eduplanner.auth.exceptions.InvalidTokenException;
+import no.country.eduplanner.auth.exceptions.TokenExpiredException;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.models.UserRole;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,10 +54,16 @@ public class JwtTokenService {
     public boolean isTokenValid(String token) {
         try {
             String userEmail = extractUserEmail(token);
-            return (userEmail != null && !isTokenExpired(token));
+            if (userEmail == null) {
+                throw new InvalidTokenException("Correo electrónico no es válido");
+            }
+            if (isTokenExpired(token)) {
+                throw new TokenExpiredException();
+            }
+            return true;
         } catch (JwtException e) {
-            log.error("Token invalido, error: ".concat(e.getMessage()));
-            return false;
+            log.error("Token validation error: {}", e.getMessage());
+            throw new InvalidTokenException(e.getMessage());
         }
     }
 
@@ -87,10 +95,10 @@ public class JwtTokenService {
                        .getPayload();
         } catch (ExpiredJwtException e) {
             log.debug("Token expired: {}", e.getMessage());
-            throw new TokenException("Token expirado");
+            throw new InvalidRefreshTokenException("Token expirado");
         } catch (JwtException e) {
             log.warn("Invalid token: {}", e.getMessage());
-            throw new TokenException("Token inválido");
+            throw new InvalidRefreshTokenException("Token inválido");
         }
     }
 

@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import no.country.eduplanner.auth.exceptions.AuthenticationException;
 import no.country.eduplanner.auth.security.jwt.JwtTokenService;
 import no.country.eduplanner.auth.security.jwt.JwtUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -39,11 +40,12 @@ public class JwtFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-
+            jwtService.isTokenValid(jwtToken);
             processToken(jwtToken, request);
 
-        } catch (Exception e) {
+        } catch (AuthenticationException e) {
             log.error("🚫 Authentication error", e);
+            throw e;
         }
 
         filterChain.doFilter(request, response);
@@ -53,10 +55,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String userEmail = jwtService.extractUserEmail(token);
 
         if (userEmail == null || SecurityContextHolder.getContext().getAuthentication() != null) {
-            return;
-        }
-
-        if (!jwtService.isTokenValid(token)) {
             return;
         }
 
