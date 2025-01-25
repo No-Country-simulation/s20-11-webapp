@@ -23,7 +23,7 @@ public record UserData(
                 description = "Roles asignados al usuario",
                 example = "[\"STUDENT\", \"ADMIN\"]"
         )
-        Set<UserRole> roles,
+        Set<String> roles,
 
         @Schema(
                 description = "Indica si el perfil del usuario está completo",
