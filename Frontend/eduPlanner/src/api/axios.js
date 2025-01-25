@@ -28,6 +28,8 @@ const refreshToken = async () => {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
   if (!refreshToken) throw new Error("No se encuentra el token de refresco");
 
+  console.log("🔃 Attempting to refresh token...");
+
   const response = await axios.post(
     `${API_BASE_URL}${API_ENDPOINTS.AUTH.REFRESH}`,
     {},
@@ -45,6 +47,7 @@ const refreshToken = async () => {
       expiresAt,
     } = response.data.data;
     saveAuthData({ token, refreshToken: newRefreshToken, expiresAt });
+    console.log(`🔃 Token refreshed successfully`);
     return token;
   }
 
@@ -65,13 +68,22 @@ api.interceptors.request.use(
       if (isTokenAboutToExpire()) {
         try {
           const newToken = await refreshToken();
+
           config.headers.Authorization = `Bearer ${newToken}`;
+          console.log(
+            "✅ Authorization header set after refresh to:",
+            config.headers.Authorization
+          );
         } catch (error) {
           clearAuthData();
           window.location.href = LOGIN_URL; // Redirect to login on failure
         }
       } else {
         config.headers.Authorization = `Bearer ${token}`;
+        console.log(
+          "✅ Authorization header set to:",
+          config.headers.Authorization
+        );
       }
     }
     return config;
