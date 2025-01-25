@@ -16,6 +16,7 @@ import no.country.eduplanner.courses.domain.factory.CourseFactory;
 import no.country.eduplanner.courses.infra.persistence.CourseRepository;
 import no.country.eduplanner.courses.infra.persistence.ScheduleRepository;
 import no.country.eduplanner.shared.application.exception.UnauthorizedAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,6 +80,14 @@ public class CourseService {
 
         Schedule schedule = scheduleRepository.findByCourseId(courseId).orElseThrow(() -> new CourseNotFoundException(courseId));
         return getAllScheduleBlocksByDay(schedule);
+    }
+
+    public List<CourseResponse.Basic> getAllCourses() {
+        UserData currentUser = userDataService.getCurrentUserData();
+        return courseRepository.findByCreatedByUserId(currentUser.id())
+                               .stream()
+                               .map(courseMapper::toBasic)
+                               .toList();
     }
 
     private SortedMap<DayOfWeek, List<ScheduleBlockResponse>> getAllScheduleBlocksByDay(Schedule schedule) {

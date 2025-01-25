@@ -28,6 +28,25 @@ public sealed interface CourseResponse {
     ) implements CourseResponse {
     }
 
+    @Schema(description = "Respuesta básica con la información de un curso")
+    record Basic(
+            @Schema(
+                    description = "Identificador único del curso",
+                    example = "12345"
+            )
+            Long id,
+
+            @Schema(
+                    description = "Nombre del curso",
+                    example = "Matemáticas Avanzadas"
+            )
+            String name,
+            @Schema(
+                    description = "Información de auditoría del curso"
+            )
+            AuditInfo auditInfo
+    )implements CourseResponse{}
+
     @Schema(description = "Respuesta detallada con toda la información de un curso")
     record Detailed(
             @Schema(

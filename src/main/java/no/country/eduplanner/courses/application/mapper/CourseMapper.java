@@ -36,6 +36,14 @@ public class CourseMapper {
         );
     }
 
+    public CourseResponse.Basic toBasic(Course course) {
+        return new CourseResponse.Basic(
+                course.getId(),
+                course.getName(),
+                AuditInfo.fromBaseEntity(course)
+        );
+    }
+
     public ScheduleBlockResponse toScheduleBlockResponse(ScheduleBlock scheduleBlock) {
         return new ScheduleBlockResponse(
                 scheduleBlock.getId(),

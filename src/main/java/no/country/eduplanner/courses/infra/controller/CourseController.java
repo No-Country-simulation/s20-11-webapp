@@ -31,6 +31,11 @@ public class CourseController implements CourseApi {
                              .body(createdCourse);
     }
 
+    @GetMapping
+    public List<CourseResponse.Basic> getAllCourses() {
+        return courseService.getAllCourses();
+    }
+
     @GetMapping("/{courseId}")
     public CourseResponse.Detailed getCourseDetails(@PathVariable Long courseId) {
         return courseService.getCourseDetailsById(courseId);
