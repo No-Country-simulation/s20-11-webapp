@@ -8,6 +8,7 @@ import no.country.eduplanner.courses.application.dto.CourseRequest;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
 import no.country.eduplanner.courses.application.exception.CourseNotFoundException;
+import no.country.eduplanner.courses.application.exception.DuplicatedCourseException;
 import no.country.eduplanner.courses.application.mapper.CourseMapper;
 import no.country.eduplanner.courses.domain.entity.Course;
 import no.country.eduplanner.courses.domain.entity.Schedule;
@@ -16,7 +17,6 @@ import no.country.eduplanner.courses.domain.factory.CourseFactory;
 import no.country.eduplanner.courses.infra.persistence.CourseRepository;
 import no.country.eduplanner.courses.infra.persistence.ScheduleRepository;
 import no.country.eduplanner.shared.application.exception.UnauthorizedAccessException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,11 +47,14 @@ public class CourseService {
             throw new UnauthorizedAccessException("Solo administradores pueden crear cursos");
         }
 
+        validateCourseRequest(request, currentUser.id());
+
         Course course = courseRepository.save(
-                courseFactory.createDefault(request.courseName(),currentUser.id())
+                courseFactory.createDefault(request.courseName(), currentUser.id())
         );
 
         course.addUser(currentUser.id());
+        initializeSchedule(course);
 
         return courseMapper.toCreated(course);
     }
@@ -64,11 +67,7 @@ public class CourseService {
     //TODO: THIS MIGHT BE UNNECESSARY, MAY AS WELL INITIALIZE THE SCHEDULE ON COURSE CREATION.
     public SortedMap<DayOfWeek, List<ScheduleBlockResponse>> createSchedule(Long courseId) {
         Course course = courseAccessService.getCourseWithClassDaysAndAccessCheck(courseId);
-        course.validateScheduleConfiguration();
-        Schedule schedule = new Schedule(course);
-        schedule.initializeSchedule();
-
-        schedule = scheduleRepository.save(schedule);
+        Schedule schedule = initializeSchedule(course);
 
         return getAllScheduleBlocksByDay(schedule);
 
@@ -78,7 +77,7 @@ public class CourseService {
     public SortedMap<DayOfWeek, List<ScheduleBlockResponse>> getSchedule(Long courseId) {
         courseAccessService.getCourseWithAccessCheck(courseId);
 
-        Schedule schedule = scheduleRepository.findByCourseId(courseId).orElseThrow(() -> new CourseNotFoundException(courseId));
+        Schedule schedule = scheduleRepository.findByCourseId(courseId).orElseThrow(() -> new CourseNotFoundException(courseId));//TODO: THIS IS A SCHEDULE_NOT_INITIALIZED_EXCEPTION
         return getAllScheduleBlocksByDay(schedule);
     }
 
@@ -88,6 +87,21 @@ public class CourseService {
                                .stream()
                                .map(courseMapper::toBasic)
                                .toList();
+    }
+
+    private void validateCourseRequest(CourseRequest.Create request, Long userId) {
+        if (courseRepository.existsByNameAndCreatedByUserId(request.courseName(), userId)) {
+            throw new DuplicatedCourseException(request.courseName());
+        }
+    }
+
+    private Schedule initializeSchedule(Course course) {
+        course.validateScheduleConfiguration();
+        Schedule schedule = new Schedule(course);
+        schedule.initializeSchedule();
+
+        schedule = scheduleRepository.save(schedule);
+        return schedule;
     }
 
     private SortedMap<DayOfWeek, List<ScheduleBlockResponse>> getAllScheduleBlocksByDay(Schedule schedule) {
