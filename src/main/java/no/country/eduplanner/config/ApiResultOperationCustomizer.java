@@ -18,18 +18,21 @@ public class ApiResultOperationCustomizer implements OperationCustomizer {
         ApiResponses responses = operation.getResponses();
         if (responses != null) {
             for (Map.Entry<String, ApiResponse> entry : responses.entrySet()) {
+
                 ApiResponse apiResponse = entry.getValue();
                 Content content = apiResponse.getContent();
+
                 if (content != null) {
                     for (Map.Entry<String, MediaType> mediaTypeEntry : content.entrySet()) {
+
                         MediaType mediaType = mediaTypeEntry.getValue();
                         Schema<?> schema = mediaType.getSchema();
+
                         if (schema != null) {
                             Schema<?> wrappedSchema = new Schema<>()
                                     .name("ApiResult")
                                     .addProperty("success", new Schema<>().type("boolean").example(true))
-                                    .addProperty("data", schema)
-                                    .addProperty("error", new Schema<>().type("object").nullable(true));
+                                    .addProperty("data", schema);
                             mediaType.setSchema(wrappedSchema);
                         }
                     }
