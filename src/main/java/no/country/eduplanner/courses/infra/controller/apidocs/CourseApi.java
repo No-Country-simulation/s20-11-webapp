@@ -2,6 +2,7 @@ package no.country.eduplanner.courses.infra.controller.apidocs;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -56,6 +57,23 @@ public interface CourseApi {
             )
             CourseRequest.Create request
     );
+
+    @Operation(
+            summary = "Obtener todos los cursos del usuario actual",
+            description = "Obtiene una lista de todos los cursos disponibles del usuario actual."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Lista de cursos obtenida exitosamente",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(schema = @Schema(implementation = CourseResponse.Basic.class))
+                    )
+            )
+    })
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    List<CourseResponse.Basic> getAllCourses();
 
     @Operation(
             summary = "Obtener detalles de un curso",
@@ -145,3 +163,4 @@ public interface CourseApi {
             @PathVariable Long courseId
     );
 }
+

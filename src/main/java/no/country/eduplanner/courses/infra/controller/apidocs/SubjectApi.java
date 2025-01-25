@@ -2,16 +2,14 @@ package no.country.eduplanner.courses.infra.controller.apidocs;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockRequest;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
-import no.country.eduplanner.courses.application.dto.SubjectRequest;
-import no.country.eduplanner.courses.application.dto.SubjectResponse;
+import no.country.eduplanner.courses.application.dto.*;
 import no.country.eduplanner.shared.application.dto.NotificationRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -149,7 +147,8 @@ public interface SubjectApi {
                     description = "Lista de asignaturas obtenida exitosamente",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = SubjectResponse.class, type = "array")
+                            array = @ArraySchema(schema = @Schema(implementation = SubjectResponse.class))
+
                     )
             ),
             @ApiResponse(
