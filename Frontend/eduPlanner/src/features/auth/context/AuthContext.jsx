@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
         refreshToken: authService.getRefreshToken(),
         tokenExpiration: authService.getTokenExpiration(),
         isTokenExpired: authService.isTokenExpired(),
+        tokenRemainingTime: `${authService.getTokenRemainingTime()} mins.`,
         isAdmin: authService.isAdmin(),
         isStudent: authService.isStudent(),
       }}

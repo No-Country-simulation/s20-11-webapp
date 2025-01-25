@@ -11,9 +11,11 @@ import { API_ENDPOINTS } from "./endpoints";
 
 const LOGIN_URL = "/login";
 
+// const API_BASE_URL = "https://eduplanner.fly.dev"; //TODO: move to ENV
+const API_BASE_URL = "http://localhost:8080";
+
 const api = axios.create({
-  // baseURL: "https://eduplanner.fly.dev", //TODO: move to ENV
-  baseURL: "http://localhost:8080",
+  baseURL: API_BASE_URL,
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",
@@ -27,7 +29,7 @@ const refreshToken = async () => {
   if (!refreshToken) throw new Error("No se encuentra el token de refresco");
 
   const response = await axios.post(
-    API_ENDPOINTS.AUTH.REFRESH,
+    `${API_BASE_URL}${API_ENDPOINTS.AUTH.REFRESH}`,
     {},
     {
       headers: {

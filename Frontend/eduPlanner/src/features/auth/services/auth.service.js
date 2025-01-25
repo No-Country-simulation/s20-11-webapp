@@ -11,7 +11,6 @@ import api from "../../../api/axios";
 import { API_ENDPOINTS } from "../../../api/endpoints";
 import { dispatchAuthStateChange } from "../context/AuthContext";
 
-
 const SERVER_ERROR = {
   success: false,
   error: {
@@ -71,6 +70,17 @@ export const authService = {
   getRefreshToken: () => localStorage.getItem(REFRESH_TOKEN_KEY),
 
   getTokenExpiration: () => localStorage.getItem(TOKEN_EXPIRATION_KEY),
+
+  getTokenRemainingTime: () => {
+    const expiresAt = localStorage.getItem(TOKEN_EXPIRATION_KEY);
+    if (!expiresAt) return 0;
+
+    const expirationTime = new Date(expiresAt).getTime();
+    const currentTime = Date.now();
+    const remainingMs = expirationTime - currentTime;
+
+    return Math.max(0, Math.floor(remainingMs / 60000));
+  },
 
   // Helper para verificar si el token esta expirado
   isTokenExpired: () => {
