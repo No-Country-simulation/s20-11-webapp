@@ -16,7 +16,7 @@ public class CoursesModuleExceptionHandler {
 
     @ExceptionHandler(CourseException.class)
     public ResponseEntity<ApiResponse<?>> onCourseException(CourseException ex) {
-        log.error("🔴👤 Error during authentication related request: {}", ex.getMessage());
+        log.error("🔴📚 Error during course related request: {}", ex.getMessage());
 
 
         return ResponseEntity.status(ex.getStatusCode())
