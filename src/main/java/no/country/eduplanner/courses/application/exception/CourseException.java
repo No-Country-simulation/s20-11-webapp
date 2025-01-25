@@ -1,39 +1,12 @@
 package no.country.eduplanner.courses.application.exception;
 
+import no.country.eduplanner.shared.application.exception.BaseException;
 import org.springframework.http.HttpStatus;
 
 
-public class CourseException extends RuntimeException {
+public class CourseException extends BaseException {
 
-    private final HttpStatus status;
-
-    public CourseException() {
-        this(HttpStatus.BAD_REQUEST);
-    }
-
-    public CourseException(String message) {
-        this(message, HttpStatus.BAD_REQUEST);
-    }
-
-    protected CourseException(HttpStatus status) {
-        this.status = status;
-    }
-
-    protected CourseException(String message, HttpStatus status) {
-        super(message);
-        this.status = status;
-    }
-
-    public CourseException(String message, Throwable cause) {
-        this(message, cause, HttpStatus.BAD_REQUEST);
-    }
-
-    protected CourseException(String message, Throwable cause, HttpStatus status) {
-        super(message, cause);
-        this.status = status;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
+    public CourseException(String message, HttpStatus statusCode, String errorCode) {
+        super(message, statusCode, errorCode);
     }
 }
