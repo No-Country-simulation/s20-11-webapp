@@ -1,5 +1,6 @@
 package no.country.eduplanner.courses.infra.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.courses.application.dto.CourseRequest;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
@@ -23,7 +24,7 @@ public class CourseController implements CourseApi {
     private final CourseService courseService;
 
     @PostMapping
-    public ResponseEntity<CourseResponse.Created> createCourse(@RequestBody CourseRequest.Create request) {
+    public ResponseEntity<CourseResponse.Created> createCourse(@RequestBody @Valid CourseRequest.Create request) {
 
         CourseResponse.Created createdCourse = courseService.createCourse(request);
 
