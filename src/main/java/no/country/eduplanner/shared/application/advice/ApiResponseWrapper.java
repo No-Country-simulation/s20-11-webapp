@@ -1,7 +1,7 @@
 package no.country.eduplanner.shared.application.advice;
 
 import jakarta.servlet.http.HttpServletRequest;
-import no.country.eduplanner.shared.application.dto.ApiResponse;
+import no.country.eduplanner.shared.application.dto.ApiResult;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -31,9 +31,9 @@ public class ApiResponseWrapper implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof ApiResponse) {
+        if (body instanceof ApiResult) {
             return body;
         }
-        return ApiResponse.success(body);
+        return ApiResult.success(body);
     }
 }
