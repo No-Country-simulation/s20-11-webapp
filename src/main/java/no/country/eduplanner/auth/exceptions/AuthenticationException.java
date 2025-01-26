@@ -1,9 +1,9 @@
 package no.country.eduplanner.auth.exceptions;
 
-import no.country.eduplanner.shared.application.exception.BaseException;
+import no.country.eduplanner.shared.application.exception.DomainException;
 import org.springframework.http.HttpStatus;
 
-public class AuthenticationException extends BaseException {
+public class AuthenticationException extends DomainException {
 
 
     public AuthenticationException(String message, HttpStatus statusCode, String errorCode) {
