@@ -38,14 +38,15 @@ public sealed interface CourseResponse {
 
             @Schema(
                     description = "Nombre del curso",
-                    example = "Matemáticas Avanzadas"
+                    example = "Cuarto B"
             )
             String name,
             @Schema(
                     description = "Información de auditoría del curso"
             )
             AuditInfo auditInfo
-    )implements CourseResponse{}
+    ) implements CourseResponse {
+    }
 
     @Schema(description = "Respuesta detallada con toda la información de un curso")
     record Detailed(
@@ -57,7 +58,7 @@ public sealed interface CourseResponse {
 
             @Schema(
                     description = "Nombre del curso",
-                    example = "Matemáticas Avanzadas"
+                    example = "Cuarto B"
             )
             String name,
 
@@ -115,5 +116,4 @@ public sealed interface CourseResponse {
             AuditInfo auditInfo
     ) implements CourseResponse {
     }
-
 }
