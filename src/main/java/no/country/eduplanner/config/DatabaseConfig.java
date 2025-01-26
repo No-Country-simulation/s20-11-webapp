@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,7 +25,6 @@ public class DatabaseConfig {
     private String password;
 
     @Bean
-    @ConfigurationProperties("spring.datasource")
     public DataSource dataSource() {
         String databaseUrl = System.getenv("DATABASE_URL");
         HikariConfig config = new HikariConfig();
@@ -34,7 +32,7 @@ public class DatabaseConfig {
 
         if (databaseUrl != null && databaseUrl.startsWith("postgres://")) {
             databaseUrl = convertPostgresUrlToJdbc(databaseUrl);
-            log.info("Converted Postgres URL to JDBC URL: {}", databaseUrl);
+            log.info("Converted Postgres URL to JDBC URL");
         } else {
             databaseUrl = databaseUrlFromProperties;
             config.setUsername(username);
