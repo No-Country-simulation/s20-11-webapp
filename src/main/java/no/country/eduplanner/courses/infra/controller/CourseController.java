@@ -7,6 +7,7 @@ import no.country.eduplanner.courses.application.dto.CourseResponse;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
 import no.country.eduplanner.courses.application.service.CourseService;
 import no.country.eduplanner.courses.infra.controller.apidocs.CourseApi;
+import no.country.eduplanner.students.StudentRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,13 @@ public class CourseController implements CourseApi {
     @GetMapping("/{courseId}/schedule")
     public SortedMap<DayOfWeek, List<ScheduleBlockResponse>> getCurrentScheduleForCourse(@PathVariable Long courseId) {
         return courseService.getSchedule(courseId);
+    }
+
+    @PostMapping("/{courseId}/students")
+    public void registerStudentForCourse(@PathVariable Long courseId,
+                                       @RequestBody @Valid StudentRequest studentRequest) {
+
+        courseService.registerStudentForCourse(courseId, studentRequest);
     }
 
 }
