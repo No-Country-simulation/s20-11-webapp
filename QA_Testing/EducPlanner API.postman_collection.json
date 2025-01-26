@@ -1,0 +1,2556 @@
+{
+	"info": {
+		"_postman_id": "77f23148-0d58-445a-b352-58c7173646ea",
+		"name": "EducPlanner API",
+		"description": "API REST para el sistema de planificación educativa EducPlanner. Esta API permite gestionar cursos, asignaturas, horarios y notificaciones.\n\nContact Support:\n Name: EducPlanner\n Email: soporte@educplanner.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38874533"
+	},
+	"item": [
+		{
+			"name": "courses",
+			"item": [
+				{
+					"name": "{courseId}",
+					"item": [
+						{
+							"name": "subjects",
+							"item": [
+								{
+									"name": "add-to-block",
+									"item": [
+										{
+											"name": "Actualizar la asignatura de un bloque de horario",
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"blockId\": \"<long>\",\n  \"subjectId\": \"<long>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects/add-to-block",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects",
+														"add-to-block"
+													],
+													"variable": [
+														{
+															"key": "courseId",
+															"value": "<long>",
+															"description": "(Required) Identificador único del curso"
+														}
+													]
+												},
+												"description": "Asocia una asignatura a un bloque de horario específico."
+											},
+											"response": [
+												{
+													"name": "Asignatura actualizada exitosamente",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															},
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"blockId\": \"<long>\",\n  \"subjectId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/courses/:courseId/subjects/add-to-block",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"courses",
+																":courseId",
+																"subjects",
+																"add-to-block"
+															],
+															"variable": [
+																{
+																	"key": "courseId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"orderNumber\": \"<integer>\",\n    \"timeRange\": {\n      \"startTime\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"endTime\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      }\n    },\n    \"type\": \"LUNCH\",\n    \"subject\": {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"color\": \"<string>\"\n    }\n  }\n}"
+												},
+												{
+													"name": "Solicitud inválida",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"blockId\": \"<long>\",\n  \"subjectId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/courses/:courseId/subjects/add-to-block",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"courses",
+																":courseId",
+																"subjects",
+																"add-to-block"
+															],
+															"variable": [
+																{
+																	"key": "courseId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												},
+												{
+													"name": "Curso o bloque no encontrado",
+													"originalRequest": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"blockId\": \"<long>\",\n  \"subjectId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/courses/:courseId/subjects/add-to-block",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"courses",
+																":courseId",
+																"subjects",
+																"add-to-block"
+															],
+															"variable": [
+																{
+																	"key": "courseId"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "remove-from-block",
+									"item": [
+										{
+											"name": "Eliminar una asignatura de un bloque de horario",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"blockId\": \"<long>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects/remove-from-block",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects",
+														"remove-from-block"
+													],
+													"variable": [
+														{
+															"key": "courseId",
+															"value": "<long>",
+															"description": "(Required) Identificador único del curso"
+														}
+													]
+												},
+												"description": "Elimina la asociación de una asignatura con un bloque de horario específico."
+											},
+											"response": [
+												{
+													"name": "Asignatura eliminada del bloque exitosamente",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Accept",
+																"value": "application/json"
+															},
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"blockId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/courses/:courseId/subjects/remove-from-block",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"courses",
+																":courseId",
+																"subjects",
+																"remove-from-block"
+															],
+															"variable": [
+																{
+																	"key": "courseId"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"orderNumber\": \"<integer>\",\n    \"timeRange\": {\n      \"startTime\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      },\n      \"endTime\": {\n        \"hour\": \"<integer>\",\n        \"minute\": \"<integer>\",\n        \"second\": \"<integer>\",\n        \"nano\": \"<integer>\"\n      }\n    },\n    \"type\": \"LUNCH\",\n    \"subject\": {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"color\": \"<string>\"\n    }\n  }\n}"
+												},
+												{
+													"name": "Solicitud inválida",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"blockId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/courses/:courseId/subjects/remove-from-block",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"courses",
+																":courseId",
+																"subjects",
+																"remove-from-block"
+															],
+															"variable": [
+																{
+																	"key": "courseId"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												},
+												{
+													"name": "Curso o bloque no encontrado",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json"
+															},
+															{
+																"key": "Authorization",
+																"value": "Bearer <token>",
+																"description": "Added as a part of security scheme: bearer"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n  \"blockId\": \"<long>\"\n}",
+															"options": {
+																"raw": {
+																	"headerFamily": "json",
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{baseUrl}}/courses/:courseId/subjects/remove-from-block",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"courses",
+																":courseId",
+																"subjects",
+																"remove-from-block"
+															],
+															"variable": [
+																{
+																	"key": "courseId"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Obtener todas las asignaturas de un curso",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/courses/:courseId/subjects",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												":courseId",
+												"subjects"
+											],
+											"variable": [
+												{
+													"key": "courseId",
+													"value": "<long>",
+													"description": "(Required) Identificador único del curso"
+												}
+											]
+										},
+										"description": "Devuelve una lista de todas las asignaturas asociadas a un curso específico."
+									},
+									"response": [
+										{
+											"name": "Lista de asignaturas obtenida exitosamente",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"color\": \"<string>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"color\": \"<string>\"\n    }\n  ]\n}"
+										},
+										{
+											"name": "Curso no encontrado",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "Crear una asignatura para un curso",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/courses/:courseId/subjects",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												":courseId",
+												"subjects"
+											],
+											"variable": [
+												{
+													"key": "courseId",
+													"value": "<long>",
+													"description": "(Required) Identificador único del curso"
+												}
+											]
+										},
+										"description": "Crea una nueva asignatura asociada a un curso específico."
+									},
+									"response": [
+										{
+											"name": "Asignatura creada exitosamente",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"color\": \"<string>\"\n  }\n}"
+										},
+										{
+											"name": "Solicitud inválida",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Curso no encontrado",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"name\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/subjects",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"subjects"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "schedule",
+							"item": [
+								{
+									"name": "Obtener horario actual de un curso",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/courses/:courseId/schedule",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												":courseId",
+												"schedule"
+											],
+											"variable": [
+												{
+													"key": "courseId",
+													"value": "<long>",
+													"description": "(Required) Identificador único del curso"
+												}
+											]
+										},
+										"description": "Obtiene el horario actual de un curso específico."
+									},
+									"response": [
+										{
+											"name": "Horario obtenido exitosamente",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/schedule",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"schedule"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": \"<string>\"\n}"
+										},
+										{
+											"name": "Curso no encontrado",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/schedule",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"schedule"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "Crear horario para un curso",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/courses/:courseId/schedule",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												":courseId",
+												"schedule"
+											],
+											"variable": [
+												{
+													"key": "courseId",
+													"value": "<long>",
+													"description": "(Required) Identificador único del curso"
+												}
+											]
+										},
+										"description": "Genera un horario para un curso específico."
+									},
+									"response": [
+										{
+											"name": "Horario creado exitosamente",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/schedule",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"schedule"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": \"<string>\"\n}"
+										},
+										{
+											"name": "Curso no encontrado",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer <token>",
+														"description": "Added as a part of security scheme: bearer"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/courses/:courseId/schedule",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"courses",
+														":courseId",
+														"schedule"
+													],
+													"variable": [
+														{
+															"key": "courseId"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Obtener detalles de un curso",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/courses/:courseId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"courses",
+										":courseId"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": "<long>",
+											"description": "(Required) Identificador único del curso"
+										}
+									]
+								},
+								"description": "Obtiene los detalles completos de un curso específico."
+							},
+							"response": [
+								{
+									"name": "Detalles del curso obtenidos exitosamente",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/courses/:courseId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												":courseId"
+											],
+											"variable": [
+												{
+													"key": "courseId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"name\": \"<string>\",\n    \"classStartTime\": {\n      \"hour\": \"<integer>\",\n      \"minute\": \"<integer>\",\n      \"second\": \"<integer>\",\n      \"nano\": \"<integer>\"\n    },\n    \"blocksBeforeLunch\": \"<integer>\",\n    \"blocksAfterLunch\": \"<integer>\",\n    \"totalBlocksPerDay\": \"<integer>\",\n    \"classDays\": [\n      \"THURSDAY\",\n      \"WEDNESDAY\"\n    ],\n    \"blockDurationInMinutes\": \"<long>\",\n    \"breakDurationInMinutes\": \"<long>\",\n    \"lunchDurationInMinutes\": \"<long>\",\n    \"auditInfo\": {\n      \"createdBy\": \"<string>\",\n      \"lastModifiedBy\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"lastModifiedAt\": \"<dateTime>\"\n    }\n  }\n}"
+								},
+								{
+									"name": "Curso no encontrado",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/courses/:courseId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												":courseId"
+											],
+											"variable": [
+												{
+													"key": "courseId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "send-notification",
+					"item": [
+						{
+							"name": "Publicar una notificación para una asignatura",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"<string>\",\n  \"message\": \"<string>\",\n  \"courseId\": \"<long>\",\n  \"subjectId\": \"<long>\",\n  \"scheduledFor\": \"<dateTime>\",\n  \"assignedColor\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/courses/send-notification",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"courses",
+										"send-notification"
+									]
+								},
+								"description": "Publica un evento de notificación relacionado con una asignatura."
+							},
+							"response": [
+								{
+									"name": "Notificación publicada exitosamente",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"message\": \"<string>\",\n  \"courseId\": \"<long>\",\n  \"subjectId\": \"<long>\",\n  \"scheduledFor\": \"<dateTime>\",\n  \"assignedColor\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/courses/send-notification",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												"send-notification"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Solicitud inválida",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"title\": \"<string>\",\n  \"message\": \"<string>\",\n  \"courseId\": \"<long>\",\n  \"subjectId\": \"<long>\",\n  \"scheduledFor\": \"<dateTime>\",\n  \"assignedColor\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/courses/send-notification",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"courses",
+												"send-notification"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Obtener todos los cursos del usuario actual",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/courses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses"
+							]
+						},
+						"description": "Obtiene una lista de todos los cursos disponibles del usuario actual."
+					},
+					"response": [
+						{
+							"name": "Lista de cursos obtenida exitosamente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/courses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"courses"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": [\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"auditInfo\": {\n        \"createdBy\": \"<string>\",\n        \"lastModifiedBy\": \"<string>\",\n        \"createdAt\": \"<dateTime>\",\n        \"lastModifiedAt\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<long>\",\n      \"name\": \"<string>\",\n      \"auditInfo\": {\n        \"createdBy\": \"<string>\",\n        \"lastModifiedBy\": \"<string>\",\n        \"createdAt\": \"<dateTime>\",\n        \"lastModifiedAt\": \"<dateTime>\"\n      }\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Crear un nuevo curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"courseName\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/courses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"courses"
+							]
+						},
+						"description": "Crea un nuevo curso con la información proporcionada."
+					},
+					"response": [
+						{
+							"name": "Curso creado exitosamente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"courseName\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/courses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"courses"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"auditInfo\": {\n      \"createdBy\": \"<string>\",\n      \"lastModifiedBy\": \"<string>\",\n      \"createdAt\": \"<dateTime>\",\n      \"lastModifiedAt\": \"<dateTime>\"\n    }\n  }\n}"
+						},
+						{
+							"name": "Solicitud inválida",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer <token>",
+										"description": "Added as a part of security scheme: bearer"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"courseName\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/courses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"courses"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "Registrar nuevo usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Parsear la respuesta JSON\r",
+											"let response = pm.response.json();\r",
+											"\r",
+											"// Validar que el éxito sea verdadero\r",
+											"pm.test(\"El registro fue exitoso\", function () {\r",
+											"    pm.expect(response.success).to.be.true;\r",
+											"});\r",
+											"\r",
+											"// Obtener los valores de la respuesta\r",
+											"let userId = response.data.userId;\r",
+											"let userEmail = response.data.email;\r",
+											"let roles = response.data.roles;\r",
+											"let token = response.data.tokens.token;\r",
+											"let refreshToken = response.data.tokens.refreshToken;\r",
+											"let expiresAt = response.data.tokens.expiresAt;\r",
+											"\r",
+											"// Guardar los valores en variables de entorno\r",
+											"pm.environment.set(\"userId\", userId);\r",
+											"pm.environment.set(\"userEmail\", userEmail);\r",
+											"pm.environment.set(\"userRole\", roles[0]); // Guarda el primer rol como ejemplo\r",
+											"pm.environment.set(\"accessToken\", token);\r",
+											"pm.environment.set(\"refreshToken\", refreshToken);\r",
+											"\r",
+											"// Validar que los datos esperados existen\r",
+											"pm.test(\"El userId fue guardado correctamente\", function () {\r",
+											"    pm.expect(pm.environment.get(\"userId\")).to.eql(userId);\r",
+											"    console.log(\"El userId guardado es: \" + userId);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"El email fue guardado correctamente\", function () {\r",
+											"    pm.expect(pm.environment.get(\"userEmail\")).to.eql(userEmail);\r",
+											"    console.log(\"El email guardado es: \" + userEmail);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"El rol fue guardado correctamente\", function () {\r",
+											"    pm.expect(pm.environment.get(\"userRole\")).to.eql(roles[0]);\r",
+											"    console.log(\"El rol guardado es: \" + roles[0]);\r",
+											"});\r",
+											"\r",
+											"// Validar que el token y el refreshToken existen\r",
+											"pm.test(\"El token y el refreshToken existen y no están vacíos\", function () {\r",
+											"    pm.expect(token).to.be.a(\"string\").and.to.not.be.empty;\r",
+											"    pm.expect(refreshToken).to.be.a(\"string\").and.to.not.be.empty;\r",
+											"    console.log(\"El token guardado es: \" + token);\r",
+											"    console.log(\"El refreshToken guardado es: \" + refreshToken);\r",
+											"});\r",
+											"\r",
+											"// Validar el formato de expiresAt\r",
+											"pm.test(\"El formato de expiresAt es válido\", function () {\r",
+											"    pm.expect(new Date(expiresAt).toString()).not.to.eql(\"Invalid Date\");\r",
+											"    console.log(\"El token expira el: \" + new Date(expiresAt));\r",
+											"});\r",
+											"\r",
+											"// Validar que el token expira en el futuro\r",
+											"pm.test(\"El token expira en el futuro\", function () {\r",
+											"    let now = new Date();\r",
+											"    pm.expect(new Date(expiresAt).getTime()).to.be.above(now.getTime());\r",
+											"});\r",
+											"\r",
+											"// Confirmar que el token fue guardado correctamente\r",
+											"pm.test(\"El token de acceso fue guardado\", function () {\r",
+											"    pm.expect(pm.environment.get(\"accessToken\")).to.exist;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"El refreshToken fue guardado correctamente\", function () {\r",
+											"    pm.expect(pm.environment.get(\"refreshToken\")).to.exist;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"mario@mail.com\",\n  \"password\": \"password123\",\n  \"passwordConfirmation\": \"password123\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								},
+								"description": "Registra un nuevo usuario en el sistema con los datos proporcionados, devolviendo tokens y detalles del usuario."
+							},
+							"response": [
+								{
+									"name": "Registro exitoso",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"passwordConfirmation\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"userId\": \"<long>\",\n    \"email\": \"<string>\",\n    \"roles\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"tokens\": {\n      \"token\": \"<string>\",\n      \"refreshToken\": \"<string>\",\n      \"expiresAt\": \"<dateTime>\"\n    }\n  }\n}"
+								},
+								{
+									"name": "Cuerpo de solicitud inválido o datos de registro incorrectos",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"passwordConfirmation\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "El usuario ya existe",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\",\n  \"passwordConfirmation\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "refresh",
+					"item": [
+						{
+							"name": "Actualizar token de acceso",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"let response = pm.response.json();\r",
+											"\r",
+											"// Validar éxito\r",
+											"pm.test(\"La respuesta tiene 'success: true'\", function () {\r",
+											"    pm.expect(response.success).to.be.true;\r",
+											"});\r",
+											"\r",
+											"// Validar tokens\r",
+											"pm.test(\"El token de acceso está presente\", function () {\r",
+											"    pm.expect(response.data.token).to.exist;\r",
+											"    pm.expect(response.data.token).to.be.a(\"string\").that.is.not.empty;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"El refreshToken está presente\", function () {\r",
+											"    pm.expect(response.data.refreshToken).to.exist;\r",
+											"    pm.expect(response.data.refreshToken).to.be.a(\"string\").that.is.not.empty;\r",
+											"});\r",
+											"\r",
+											"// Validar formato de expiresAt\r",
+											"pm.test(\"El campo 'expiresAt' tiene un formato ISO válido\", function () {\r",
+											"    let expiresAt = response.data.expiresAt; // Added variable assignment\r",
+											"    let date = new Date(expiresAt);\r",
+											"    pm.expect(date.toISOString()).to.eql(new Date(expiresAt).toISOString()); // Fixed the comparison\r",
+											"});\r",
+											"\r",
+											"// Guardar variables de entorno\r",
+											"pm.environment.set(\"accessToken\", response.data.token);\r",
+											"pm.environment.set(\"refreshToken\", response.data.refreshToken);\r",
+											"pm.environment.set(\"expiresAt\", response.data.expiresAt);\r",
+											"\r",
+											"pm.test(\"Los tokens fueron guardados como variables\", function () {\r",
+											"    pm.expect(pm.environment.get(\"accessToken\")).to.exist;\r",
+											"    pm.expect(pm.environment.get(\"refreshToken\")).to.exist;\r",
+											"    pm.expect(pm.environment.get(\"expiresAt\")).to.exist;\r",
+											"});\r",
+											"\r",
+											"// Validar código de estado\r",
+											"pm.test(\"El código de estado es 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Mostrar en consola\r",
+											"console.log(\"Token de acceso:\", response.data.token);\r",
+											"console.log(\"Refresh token:\", response.data.refreshToken);\r",
+											"console.log(\"Expira el:\", response.data.expiresAt);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/refresh",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"refresh"
+									]
+								},
+								"description": "Genera un nuevo token de acceso utilizando un token de actualización válido del encabezado de Autorización"
+							},
+							"response": [
+								{
+									"name": "Tokens actualizados exitosamente",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/auth/refresh",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"refresh"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"token\": \"<string>\",\n  \"refreshToken\": \"<string>\",\n  \"expiresAt\": \"<dateTime>\"\n}"
+								},
+								{
+									"name": "Token de actualización inválido o expirado",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/auth/refresh",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"refresh"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "Autenticar usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Parsear la respuesta JSON\r",
+											"let response = pm.response.json();\r",
+											"// Validar que el éxito sea verdadero\r",
+											"pm.test(\"El login fue exitoso\", function () {\r",
+											"    pm.expect(response.success).to.be.true;\r",
+											"});\r",
+											"// Obtener los valores esperados desde las variables de entorno\r",
+											"let userEmail = pm.environment.get(\"userEmail\");\r",
+											"// Obtener los valores de userId y roles de la respuesta\r",
+											"let userId = response.data.userId; // Corregido el acceso a userId\r",
+											"let roles = response.data.roles;\r",
+											"\r",
+											"// Guardar el userId y el rol en las variables de entorno\r",
+											"pm.environment.set(\"userId\", userId);\r",
+											"pm.environment.set(\"userRole\", roles[0]); // Asumimos que hay al menos un rol\r",
+											"\r",
+											"// Validar que el email es el esperado\r",
+											"pm.test(\"El email es correcto\", function () {\r",
+											"    pm.expect(response.data.email).to.eql(userEmail);\r",
+											"});\r",
+											"\r",
+											"// Mostrar en consola que los valores fueron guardados\r",
+											"console.log(\"El userId fue guardado exitosamente: \" + userId);\r",
+											"console.log(\"El rol fue guardado exitosamente: \" + roles[0]);\r",
+											"\r",
+											"// Verificar si las variables fueron guardadas correctamente\r",
+											"let savedUserId = pm.environment.get(\"userId\");\r",
+											"let savedUserRole = pm.environment.get(\"userRole\");\r",
+											"\r",
+											"// Validar que las variables existen y tienen los valores correctos\r",
+											"pm.test(\"El userId fue guardado correctamente\", function () {\r",
+											"    pm.expect(savedUserId).to.eql(userId);\r",
+											"    console.log(\"El userId guardado es: \" + savedUserId);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"El rol fue guardado correctamente\", function () {\r",
+											"    pm.expect(savedUserRole).to.eql(roles[0]);\r",
+											"    console.log(\"El rol guardado es: \" + savedUserRole);\r",
+											"});\r",
+											"\r",
+											"// Validar que el token y el refreshToken existen\r",
+											"pm.test(\"El token y refreshToken existen\", function () {\r",
+											"    pm.expect(response.data.tokens.token).to.be.a(\"string\");\r",
+											"    pm.expect(response.data.tokens.refreshToken).to.be.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"// Validar que el token no está vacío\r",
+											"pm.test(\"El token no está vacío\", function () {\r",
+											"    pm.expect(response.data.tokens.token).to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Validar el formato de expiresAt\r",
+											"pm.test(\"El formato de expiresAt es válido\", function () {\r",
+											"    const expiresAt = response.data.tokens.expiresAt;\r",
+											"    pm.expect(new Date(expiresAt).toString()).not.to.eql(\"Invalid Date\");\r",
+											"});\r",
+											"\r",
+											"// Mostrar la hora de expiración en la consola\r",
+											"let expiresAt = new Date(response.data.tokens.expiresAt);\r",
+											"console.log(\"El token expira el:\", expiresAt);\r",
+											"\r",
+											"// Validar que el token expira en el futuro\r",
+											"pm.test(\"El token expira en el futuro\", function () {\r",
+											"    let now = new Date();\r",
+											"    pm.expect(expiresAt.getTime()).to.be.above(now.getTime());\r",
+											"});\r",
+											"\r",
+											"// Guardar el token en una variable de entorno\r",
+											"pm.environment.set(\"accessToken\", response.data.tokens.token);\r",
+											"\r",
+											"// Confirmar que el token fue guardado\r",
+											"pm.test(\"El token de acceso fue guardado\", function () {\r",
+											"    pm.expect(pm.environment.get(\"accessToken\")).to.exist;\r",
+											"});\r",
+											"\r",
+											"// (Opcional) Guardar el refreshToken si lo necesitas más adelante\r",
+											"pm.environment.set(\"refreshToken\", response.data.tokens.refreshToken);\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "payload",
+											"value": "{}",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"description": "Autentica un usuario con su correo electrónico y contraseña, devolviendo tokens y detalles del usuario"
+							},
+							"response": [
+								{
+									"name": "Autenticación exitosa",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"userId\": \"<long>\",\n  \"email\": \"<string>\",\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tokens\": {\n    \"token\": \"<string>\",\n    \"refreshToken\": \"<string>\",\n    \"expiresAt\": \"<dateTime>\"\n  }\n}"
+								},
+								{
+									"name": "Cuerpo de solicitud inválido",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Credenciales inválidas",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "current-user",
+					"item": [
+						{
+							"name": "Obtener datos del usuario actual",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Extraer la respuesta de la API\r",
+											"const response = pm.response.text();\r",
+											"\r",
+											"// Variables del entorno\r",
+											"const storedUserId = pm.environment.get(\"userId\");\r",
+											"const storedUserEmail = pm.environment.get(\"userEmail\");\r",
+											"const storedUserRole = pm.environment.get(\"userRole\");\r",
+											"\r",
+											"// Test 1: Verificar si el ID coincide\r",
+											"pm.test(\"El ID coincide\", () => {\r",
+											"    pm.expect(response).to.include(storedUserId);\r",
+											"});\r",
+											"\r",
+											"// Test 2: Verificar si el email coincide\r",
+											"pm.test(\"El email coincide\", () => {\r",
+											"    pm.expect(response).to.include(storedUserEmail);\r",
+											"});\r",
+											"\r",
+											"// Test 3: Verificar si el rol coincide\r",
+											"pm.test(\"El rol coincide\", () => {\r",
+											"    pm.expect(response).to.include(storedUserRole);\r",
+											"});\r",
+											"\r",
+											"/// Test 4: Verificar si el perfil está completo\r",
+											"pm.test(\"El perfil está incompleto\", () => {\r",
+											"    pm.expect(response.data.isProfileComplete).to.be.true; // Este test fallará si isProfileComplete es false\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/current-user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"current-user"
+									]
+								},
+								"description": "Devuelve los datos del usuario que ha iniciado sesión actualmente."
+							},
+							"response": [
+								{
+									"name": "Datos del usuario obtenidos exitosamente",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/auth/current-user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"current-user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"id\": \"<long>\",\n  \"email\": \"<string>\",\n  \"roles\": [\n    \"ADMIN\",\n    \"STUDENT\"\n  ],\n  \"isProfileComplete\": \"<boolean>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"profilePhoto\": \"<string>\"\n}"
+								},
+								{
+									"name": "No autorizado. El usuario no ha iniciado sesión o el token es inválido.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/auth/current-user",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"current-user"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "notifications",
+			"item": [
+				{
+					"name": "{notificationId}",
+					"item": [
+						{
+							"name": "Obtener una notificación por su ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notifications/:notificationId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications",
+										":notificationId"
+									],
+									"variable": [
+										{
+											"key": "notificationId",
+											"value": "<long>",
+											"description": "(Required) Identificador único de la notificación"
+										}
+									]
+								},
+								"description": "Devuelve los detalles de una notificación específica."
+							},
+							"response": [
+								{
+									"name": "Notificación obtenida exitosamente",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:notificationId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":notificationId"
+											],
+											"variable": [
+												{
+													"key": "notificationId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"title\": \"<string>\",\n    \"message\": \"<string>\",\n    \"courseId\": \"<long>\",\n    \"subjectId\": \"<long>\",\n    \"scheduledFor\": \"<dateTime>\",\n    \"subjectColor\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"expired\": \"<boolean>\"\n  }\n}"
+								},
+								{
+									"name": "Notificación no encontrada",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:notificationId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":notificationId"
+											],
+											"variable": [
+												{
+													"key": "notificationId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "{courseId}",
+					"item": [
+						{
+							"name": "Obtener todas las notificaciones de un curso",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/notifications/:courseId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"notifications",
+										":courseId"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": "<long>",
+											"description": "(Required) Identificador único del curso"
+										}
+									]
+								},
+								"description": "Devuelve una lista de todas las notificaciones asociadas a un curso específico."
+							},
+							"response": [
+								{
+									"name": "Lista de notificaciones obtenida exitosamente",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:courseId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":courseId"
+											],
+											"variable": [
+												{
+													"key": "courseId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"success\": \"<boolean>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"title\": \"<string>\",\n    \"message\": \"<string>\",\n    \"courseId\": \"<long>\",\n    \"subjectId\": \"<long>\",\n    \"scheduledFor\": \"<dateTime>\",\n    \"subjectColor\": \"<string>\",\n    \"createdAt\": \"<dateTime>\",\n    \"expired\": \"<boolean>\"\n  }\n}"
+								},
+								{
+									"name": "Curso no encontrado",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer <token>",
+												"description": "Added as a part of security scheme: bearer"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/notifications/:courseId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"notifications",
+												":courseId"
+											],
+											"variable": [
+												{
+													"key": "courseId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
