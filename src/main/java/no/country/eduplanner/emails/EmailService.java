@@ -29,13 +29,16 @@ public class EmailService {
                         Bienvenido a EducPlanner! 👋
                         
                         Has sido registrado como Estudiante para el curso %s.
+                        
                         Estas son tus credenciales para ingresar a la plataforma:
                         
-                        Correo Electrónico: %s
-                        Contraseña: %s
+                        ----------------------------------
+                        Correo Electrónico : %s
+                        Contraseña         : %s
+                        ----------------------------------
                         
                         Puedes ingresar a la plataforma en %s
-                        No olvides cambiar tu contraseña por tu seguridad!
+                        No olvides cambiar la contraseña por tu seguridad!
                         """.formatted(event.courseName(), event.email(), event.tempPassword(), APP_URL));
     }
 }
