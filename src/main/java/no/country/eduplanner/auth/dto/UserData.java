@@ -1,7 +1,6 @@
 package no.country.eduplanner.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import no.country.eduplanner.auth.models.UserRole;
 
 import java.util.Set;
 

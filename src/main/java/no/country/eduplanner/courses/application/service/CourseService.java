@@ -1,6 +1,5 @@
 package no.country.eduplanner.courses.application.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.auth.dto.UserData;
@@ -21,7 +20,6 @@ import no.country.eduplanner.courses.domain.factory.CourseFactory;
 import no.country.eduplanner.courses.infra.persistence.CourseRepository;
 import no.country.eduplanner.courses.infra.persistence.ScheduleRepository;
 import no.country.eduplanner.shared.application.exception.UnauthorizedAccessException;
-import no.country.eduplanner.students.StudentRequest;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,7 +96,7 @@ public class CourseService {
                                .toList();
     }
 
-    public void registerStudentForCourse(Long courseId, @Valid StudentRequest studentRequest) {
+    public void registerStudentForCourse(Long courseId, CourseRequest.RegisterStudent studentRequest) {
 
         Course course = courseAccessService.getCourseWithAccessCheck(courseId);
 
