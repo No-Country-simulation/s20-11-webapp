@@ -20,7 +20,6 @@ import no.country.eduplanner.courses.domain.factory.CourseFactory;
 import no.country.eduplanner.courses.infra.persistence.CourseRepository;
 import no.country.eduplanner.courses.infra.persistence.ScheduleRepository;
 import no.country.eduplanner.shared.application.exception.UnauthorizedAccessException;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,13 +43,12 @@ public class CourseService {
     private final ScheduleRepository scheduleRepository;
     private final CourseAccessService courseAccessService;
     private final UserDataService userDataService;
-    private final ApplicationEventPublisher eventPublisher;
     private final StudentUserRegistrationService studentRegistrationService;
 
     public CourseResponse.Created createCourse(CourseRequest.Create request) {
         UserData currentUser = userDataService.getCurrentUserData();
 
-        if (!currentUser.roles().contains(UserRole.ADMIN)) {
+        if (!currentUser.roles().contains(UserRole.ADMIN.getAuthority())) {
             throw new UnauthorizedAccessException("Solo administradores pueden crear cursos");
         }
 
