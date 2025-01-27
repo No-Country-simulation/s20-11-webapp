@@ -50,7 +50,8 @@ function Hero() {
 const features = [
   {
     title: "Gestión de cursos",
-    description: "Registra y administra fácilmente tus cursos y estudiantes.",
+    description:
+      "Registra y administra fácilmente múltiples cursos con facilidad.",
     icon: BookOpen,
   },
   {
