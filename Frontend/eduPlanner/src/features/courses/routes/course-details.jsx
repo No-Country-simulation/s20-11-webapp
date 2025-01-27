@@ -64,7 +64,7 @@ export default function CourseDetails() {
       <TitleBar title={`${courseDetails.name} - Administración`} />
       <Spacer size="3xs" />
       <div className="flex flex-col lg:flex-row gap-8 xl:gap-36 ">
-        <div className="flex flex-col gap-4 col-span-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 content-start">
           {courseManagementLinks.map((link) => (
             <LinkCard
               key={link.link}
