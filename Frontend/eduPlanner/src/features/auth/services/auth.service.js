@@ -154,8 +154,14 @@ export const authService = {
 
 //Permite solo usuarios no autenticados
 export async function requireAnonymous() {
+  const to = authService.isAuthenticated()
+    ? authService.isAdmin()
+      ? "/courses"
+      : "/student"
+    : "/";
+
   if (authService.isAuthenticated()) {
-    throw redirect("/");
+    throw redirect(to);
   }
 }
 

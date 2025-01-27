@@ -1,4 +1,4 @@
-import App from "./App.jsx";
+import App, { loader } from "./App.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
@@ -48,6 +48,7 @@ export const routes = [
       {
         path: "/",
         element: <App />,
+        loader: loader,
       },
       {
         path: "/login",
