@@ -2,8 +2,15 @@ import App from "./App.jsx";
 import HomeStudent from "./Components/HomeStudent.jsx";
 import { Error } from "./Components/layout/error.jsx";
 import Layout from "./Components/layout/layout.jsx";
-import Login, { loginAction, loginLoader } from "./features/auth/routes/login.jsx";
+import Login, {
+  loginAction,
+  loginLoader,
+} from "./features/auth/routes/login.jsx";
 import { logoutAction, logoutLoader } from "./features/auth/routes/logout.jsx";
+import Register, {
+  registerAction,
+  registerLoader,
+} from "./features/auth/routes/register.jsx";
 import AssignClass, {
   assignClassAction,
   assignClassLoader,
@@ -11,18 +18,26 @@ import AssignClass, {
 import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
+import CourseEvents from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
-import CoursesLayout, { coursesLayoutLoader } from "./features/courses/routes/courses-layout.jsx";
+import CreateCourseRoute, {
+  createCourseAction,
+  createCourseLoader,
+} from "./features/courses/routes/courses-create.jsx";
+import CoursesLayout, {
+  coursesLayoutLoader,
+} from "./features/courses/routes/courses-layout.jsx";
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
+import Profile, { profileLoader } from "./features/profile/routes/profile.jsx";
 import Calendario from "./features/student/components/Calendario.jsx";
-import DayDetail from './features/student/components/DayDetail.jsx';
-import EventListCoord from './features/student/components/EventListCoord.jsx';
-import CreateEvent, { subjectLoader } from './features/student/routes/create-event.jsx'; // arreglar
-
+import DayDetail from "./features/student/components/DayDetail.jsx";
+import CreateEvent, {
+  subjectLoader,
+} from "./features/student/routes/create-event.jsx"; // arreglar
 
 import StudentLayout from "./features/student/routes/student-layout.jsx";
 export const routes = [
@@ -45,6 +60,17 @@ export const routes = [
         action: logoutAction,
         loader: logoutLoader,
       },
+      {
+        path: "/register",
+        element: <Register />,
+        action: registerAction,
+        loader: registerLoader,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+        loader: profileLoader,
+      },
 
       /* HOME DEL COORDINADOR */
       {
@@ -53,9 +79,17 @@ export const routes = [
         loader: coursesLayoutLoader,
         children: [
           {
-            index: true,
+            path: "", // En lugar de INDEX, uso un path vacio para no tomar el outlet por defecto
             element: <CoursesList />,
             loader: coursesListLoader,
+            children: [
+              {
+                path: "create",
+                element: <CreateCourseRoute />,
+                action: createCourseAction,
+                loader: createCourseLoader,
+              },
+            ],
           },
           {
             path: ":courseId",
@@ -73,27 +107,27 @@ export const routes = [
                 element: <AssignClass />,
                 loader: assignClassLoader,
                 action: assignClassAction,
-              },              
+              },
             ],
           },
           {
             path: ":courseId/events",
-            element: <EventListCoord/>, 
+            element: <CourseEvents />,
             children: [
               {
                 path: "create-event",
-                element: <CreateEvent/>,
-                loader: subjectLoader,                
-              },              
-            ],           
-          }
+                element: <CreateEvent />,
+                loader: subjectLoader,
+              },
+            ],
+          },
         ],
       },
 
       /* HOME DEL ESTUDIANTE */
       {
         path: "/student",
-        element: <StudentLayout/>,
+        element: <StudentLayout />,
         children: [
           {
             index: true,
@@ -105,7 +139,7 @@ export const routes = [
           },
           {
             path: "calendar/:date",
-            element: <DayDetail/>                
+            element: <DayDetail />,
           },
           /* {
             path: "schedule",
@@ -113,7 +147,6 @@ export const routes = [
           }, */
         ],
       },
-      
 
       {
         path: "/schedule", // ESTO QUÉ ONDA?

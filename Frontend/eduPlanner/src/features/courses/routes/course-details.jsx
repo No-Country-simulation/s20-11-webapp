@@ -13,10 +13,12 @@ import {
   Book,
   BookMarked,
   Calendar,
+  CalendarDays,
   CalendarPlus,
+  ChevronRight,
   Clock,
   Coffee,
-  Pencil,
+  Settings,
   Sun,
   Timer,
   Users,
@@ -40,18 +42,18 @@ const courseManagementLinks = [
   },
   {
     title: "Horario",
-    Icon: Calendar,
+    Icon: CalendarDays,
     link: "schedule",
+  },
+  {
+    title: "Eventos",
+    Icon: CalendarPlus,
+    link: "events",
   },
   {
     title: "Materias",
     Icon: BookMarked,
     link: "subjects",
-  },
-  {
-    title: "Eventos",
-    Icon: CalendarPlus,
-    link: "events", //aca redirige a mi componente lista de eventos del coordinador
   },
 ];
 
@@ -59,9 +61,9 @@ export default function CourseDetails() {
   const { courseDetails } = useLoaderData();
   return (
     <>
-      <TitleBar title={courseDetails.name} />
+      <TitleBar title={`${courseDetails.name} - Administración`} />
       <Spacer size="3xs" />
-      <div className="flex flex-col lg:flex-row gap-8 ">
+      <div className="flex flex-col lg:flex-row gap-8 xl:gap-36 ">
         <div className="flex flex-col gap-4 col-span-2">
           {courseManagementLinks.map((link) => (
             <LinkCard
@@ -84,12 +86,13 @@ function LinkCard({ title, Icon, link }) {
       to={link}
       viewTransition
       prefetch="intent"
-      className="bg-gradient-to-r from-background to-secondary/10 via-secondary/30 w-full lg:w-[32rem] transition-all duration-200 text-lg justify-between flex items-center gap-2 p-4 border rounded shadow hover:bg-gradient-to-l  hover:ring-2 hover:ring-primary/20"
+      className="bg-gradient-to-r from-card/50 to-secondary/10 via-secondary/30 w-full lg:w-[32rem] transition-all duration-200 text-lg justify-between flex items-center gap-2 p-4 border rounded shadow hover:bg-gradient-to-l  hover:ring-2 hover:ring-primary/20 group"
     >
-      <div className="">{title}</div>
-      <div className="bg-primary p-2 rounded border text-background shadow">
-        <Icon className="text-background" />
+      <div className="flex items-center gap-6">
+        <Icon className="text-primary" />
+        {title}
       </div>
+      <ChevronRight className="group-hover:text-primary group-hover:brightness-125 group-hover:translate-x-1 transition-all duration-200" />
     </Link>
   );
 }
@@ -148,8 +151,8 @@ function CourseDetailsCard({ courseDetails }) {
         />
       </CardContent>
       <CardFooter className="flex justify-end w-full">
-        <Button variant="secondary" className="w-full sm:w-auto">
-          <Pencil /> Editar detalles
+        <Button variant="outline" className="w-full sm:w-auto">
+          <Settings /> Configurar curso
         </Button>
       </CardFooter>
     </Card>
@@ -162,12 +165,12 @@ function DetailsCard({ label, value, Icon }) {
   if (isMobile) {
     return (
       <div className="flex flex-col  gap-1 border rounded text-balance  p-0 ">
-        <div className="flex gap-2 items-center bg-muted/50 p-1">
+        <div className="flex gap-2 items-center bg-primary/10 p-1">
           <Icon className="w-4 h-4 text-muted-foreground" />
           <div className="text-sm text-foreground ">{label}: </div>
         </div>
 
-        <div className="text-sm text-foreground font-semibold text-center p-1">
+        <div className="text-sm text-foreground font-semibold text-right p-1">
           {value}
         </div>
       </div>
@@ -176,7 +179,7 @@ function DetailsCard({ label, value, Icon }) {
 
   return (
     <div className="flex items-center gap-2 border-b  p-2 ">
-      <Icon className="w-4 h-4 text-muted-foreground" />
+      <Icon className="w-4 h-4 text-primary/80" />
       <div className="flex items-center justify-between w-full">
         <div className="text-sm text-foreground">{label}: </div>
         <div className="text-sm text-foreground font-semibold text-nowrap">

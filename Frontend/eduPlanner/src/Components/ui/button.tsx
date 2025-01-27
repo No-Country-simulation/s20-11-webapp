@@ -20,6 +20,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
+        special: "bg-red-200",
         accent:
           "bg-gradient-to-r from-primary to-tertiary rounded-[30rem] text-tertiary-foreground",
         primary: "bg-primary text-white font-normal text-lg",

@@ -1,10 +1,9 @@
 import { useParams } from "react-router-dom";
-import { useEvents } from "../../../Components/event-provider";
 import EventDetailCalendar from "./EventDetailCalendar";
 
 function DayDetail() {
   const { date } = useParams();
-  const { events } = useEvents();
+  // const { events } = useEvents();
 
   const eventsForSelectedDate = events.filter(
     (event) => event.date.toISOString().split("T")[0] === date

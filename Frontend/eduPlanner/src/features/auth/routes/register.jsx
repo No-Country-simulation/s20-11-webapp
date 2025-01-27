@@ -12,16 +12,16 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { z } from "zod";
 import { useIsPending } from "../../../hooks/use-pending";
-import { LoginSchema } from "../schemas/auth.schemas";
+import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
 import { ERROR_MESSAGES } from "../utils/auth.errors";
 
-export async function loginAction({ request }) {
+export async function registerAction({ request }) {
   const formData = await request.formData();
 
   const submission = await parseWithZod(formData, {
     async: true,
-    schema: LoginSchema.transform(validateAndLogin),
+    schema: LoginSchema.transform(validateAndRegister),
   });
 
   if (submission.status !== "success") {
@@ -37,22 +37,22 @@ export async function loginAction({ request }) {
   return redirect(redirectTo);
 }
 
-export async function loginLoader() {
+export async function registerLoader() {
   await requireAnonymous();
   return null;
 }
 
-export default function Login() {
+export default function Register() {
   const actionData = useActionData();
 
   const isPending = useIsPending();
 
   const [form, fields] = useForm({
-    id: "login-form",
-    constraint: getZodConstraint(LoginSchema),
+    id: "register-form",
+    constraint: getZodConstraint(RegisterSchema),
     lastResult: actionData?.result,
     onValidate({ formData }) {
-      return parseWithZod(formData, { schema: LoginSchema });
+      return parseWithZod(formData, { schema: RegisterSchema });
     },
     shouldRevalidate: "onBlur",
   });
@@ -62,7 +62,7 @@ export default function Login() {
       <Card className=" !rounded-lg w-full md:max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl text-center !font-normal">
-            Iniciar sesión
+            Regístrate
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -89,6 +89,16 @@ export default function Login() {
               errors={fields.password.errors}
             />
 
+            <Field
+              labelProps={{ children: "Confirmar contraseña" }}
+              inputProps={{
+                ...getInputProps(fields.confirmPassword, { type: "password" }),
+                placeholder: "********",
+                autoComplete: "confirm-password",
+              }}
+              errors={fields.confirmPassword.errors}
+            />
+
             <ErrorList errors={form.errors} id={form.errorId} />
           </Form>
         </CardContent>
@@ -100,7 +110,7 @@ export default function Login() {
             type="submit"
             disabled={isPending}
           >
-            Iniciar sesión
+            Registrarse
           </StatusButton>
         </CardFooter>
       </Card>
@@ -108,11 +118,12 @@ export default function Login() {
   );
 }
 
-async function validateAndLogin(data, ctx) {
+async function validateAndRegister(data, ctx) {
   try {
-    const result = await authService.login({
+    const result = await authService.register({
       email: data.email,
       password: data.password,
+      confirmPassword: data.confirmPassword,
     });
     if (!result.success) {
       const errorConfig =

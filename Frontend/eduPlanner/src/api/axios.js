@@ -70,20 +70,12 @@ api.interceptors.request.use(
           const newToken = await refreshToken();
 
           config.headers.Authorization = `Bearer ${newToken}`;
-          console.log(
-            "✅ Authorization header set after refresh to:",
-            config.headers.Authorization
-          );
         } catch (error) {
           clearAuthData();
           window.location.href = LOGIN_URL; // Redirect to login on failure
         }
       } else {
         config.headers.Authorization = `Bearer ${token}`;
-        console.log(
-          "✅ Authorization header set to:",
-          config.headers.Authorization
-        );
       }
     }
     return config;

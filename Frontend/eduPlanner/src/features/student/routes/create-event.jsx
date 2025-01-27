@@ -1,21 +1,20 @@
 import { Spacer } from "@/Components/layout/spacer";
 import { Button } from "@/Components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { subjectService } from "../../courses/services/subject.service";
-import { useState } from "react";
-import { useEvents } from "../../../Components/event-provider";
 /* PARA DATE PICKER */
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react" 
-import { cn } from "@/lib/utils"
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Calendar as CalendarIcon } from "lucide-react";
 
 
 
@@ -28,7 +27,7 @@ export async function subjectLoader() {
 export default function CreateEvent() {
   //TODO: THIS NEEDS TO BE A FORM
   const { subjects } = useLoaderData();
-  const { addEvent } = useEvents();
+  // const { addEvent } = useEvents();
 
   const [subject, setSubject] = useState(null);
   const [title, setTitle] = useState('');

@@ -1,16 +1,14 @@
-import EventDetailList from "../features/student/components/EventDetailList";
-import { useEvents } from "./event-provider";
 import {
   Card,
-  CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/Components/ui/card";
 import { Link, } from "react-router-dom";
+import EventDetailList from "../features/student/components/EventDetailList";
 
 function HomeStudent() {
 
-  const { events } = useEvents();
+  // const { events } = useEvents();
   /* const [date, setDate] = useState(new Date()); */
 
   console.log('events', events)

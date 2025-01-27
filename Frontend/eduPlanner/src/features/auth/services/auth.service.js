@@ -26,9 +26,23 @@ const ROLES = {
 };
 
 export const authService = {
-  //TODO: Implementar el register por acá 👋
-  register: async () => {},
-  //--------------------------------
+  register: async (credentials) => {
+    try {
+      const response = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
+
+      if (response.data.success) {
+        const { tokens, ...userData } = response.data.data;
+
+        saveAuthData(tokens);
+        dispatchAuthStateChange();
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error("Error en el registro:", error);
+      return SERVER_ERROR;
+    }
+  },
   login: async (credentials) => {
     try {
       const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
@@ -38,7 +52,7 @@ export const authService = {
 
         saveAuthData(tokens);
         dispatchAuthStateChange();
-        return response.data;
+        return response.data; // can comment this out
       }
 
       return response.data; // En caso de error, la respuesta ya tiene el formato correcto
@@ -110,6 +124,19 @@ export const authService = {
     } catch (error) {
       console.error("Error decodificando el token:", error);
       return [];
+    }
+  },
+
+  getCurrentUserEmail: () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) return "";
+
+    try {
+      const decoded = jwtDecode(token);
+      return decoded.sub;
+    } catch (error) {
+      console.error("Error decodificando el token:", error);
+      return "";
     }
   },
 

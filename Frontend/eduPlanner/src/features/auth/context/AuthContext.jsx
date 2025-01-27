@@ -42,6 +42,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        email: authService.getCurrentUserEmail(),
         isAuthenticated,
         roles,
         updateAuthState,

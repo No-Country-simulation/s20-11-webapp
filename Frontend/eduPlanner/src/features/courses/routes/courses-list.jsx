@@ -8,10 +8,12 @@ import {
 } from "@/Components/ui/card";
 import { Plus } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
+import { ResponsiveOutletModal } from "../../../Components/responsive-outlet-modal";
 import { courseService } from "../services/course.service";
 
 export async function coursesListLoader() {
   const courses = await courseService.getAllCourses();
+
   return { courses };
 }
 
@@ -21,9 +23,7 @@ export default function CoursesList() {
     <>
       <nav className="flex justify-between items-center">
         <h1 className="text-xl font-bold">Administración de cursos</h1>
-        <Button>
-          <Plus /> Agregar curso
-        </Button>
+        <CreateCourse />
       </nav>
       <Spacer size="3xs" />
 
@@ -51,5 +51,20 @@ function CourseCard({ course }) {
         </CardHeader>
       </Card>
     </Link>
+  );
+}
+
+function CreateCourse() {
+  return (
+    <ResponsiveOutletModal
+      to={`create`}
+      trigger={
+        <Button>
+          <Plus /> Agregar curso
+        </Button>
+      }
+      title={"Crear curso"}
+      description={`Registra un nuevo curso en el sistema`}
+    />
   );
 }

@@ -15,6 +15,7 @@ export async function courseScheduleLoader({ params }) {
   const courseDetails = await courseService.getCourseDetails(courseId);
 
   const courseSchedule = await courseService.getCourseSchedule(courseId);
+
   return { courseDetails, courseSchedule };
 }
 
@@ -23,7 +24,7 @@ export default function CourseSchedule() {
 
   return (
     <>
-      <TitleBar title={`Horario: ${courseDetails.name}`} />
+      <TitleBar title={`${courseDetails.name} - Horario`} />
       <Spacer size="4xs" />
       <div>
         <Schedule courseSchedule={courseSchedule} />

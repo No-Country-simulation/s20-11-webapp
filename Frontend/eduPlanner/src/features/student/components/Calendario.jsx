@@ -1,16 +1,14 @@
+import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { useNavigate } from "react-router-dom";
 import "./Calendario.css"; // Estilos que perzonalicé del componente de shadcn
-import { useEvents } from "../../../Components/event-provider";
 import EventDetailCalendar from "./EventDetailCalendar";
-import { useIsMobile } from "@/hooks/use-mobile.jsx";
-import { Outlet } from "react-router-dom";
 
 function Calendario() {
 
-  const { events } = useEvents();
+  // const { events } = useEvents();
   const [date, setDate] = useState(new Date());
   const navigate = useNavigate(); 
 
