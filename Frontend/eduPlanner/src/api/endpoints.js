@@ -5,6 +5,9 @@ export const API_ENDPOINTS = {
     LOGOUT: "/auth/logout",
     REFRESH: "/auth/refresh",
   },
+  PROFILE: {
+    GET_PROFILE_INFO: "/auth/current-user",
+  },
   COURSES: {
     CREATE_COURSE: "/courses",
     GET_ALL_COURSES: "/courses",

@@ -11,18 +11,16 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import { Spacer } from "../../../Components/layout/spacer";
 import { TitleBar } from "../../../Components/title-bar";
 import { Button } from "../../../Components/ui/button";
+import { requireAuthenticated } from "../../auth/services/auth.service";
+import { profileService } from "../services/profile.service";
 
 export async function profileLoader() {
+  await requireAuthenticated();
+
+  const { data } = await profileService.getProfileInfo();
+
   return {
-    user: {
-      id: 10000,
-      email: "cristobal.npe@gmail.com",
-      roles: ["ROLE_ADMIN"],
-      isProfileComplete: false,
-      firstName: null,
-      lastName: null,
-      profilePhoto: null,
-    },
+    user: data,
   };
 }
 
@@ -76,7 +74,7 @@ export default function Profile() {
               canModify={true}
             />
           </div>
-          <Outlet/>
+          <Outlet />
         </section>
       </main>
     </>
