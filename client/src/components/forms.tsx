@@ -1,14 +1,14 @@
-import { Checkbox, type CheckboxProps } from "@/Components/ui/checkbox";
+import { Checkbox, type CheckboxProps } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import { useInputControl } from "@conform-to/react";
 import { type OTPInputProps, REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useId } from "react";
 import { Input } from "./ui/input";
 import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSeparator,
+    InputOTPSlot,
 } from "./ui/input-otp";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";

@@ -6,14 +6,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
-import { StatusButton } from "../../../Components/ui/status-button";
+import { StatusButton } from "../../../components/ui/status-button";
 
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { UserPlus } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
 import { z } from "zod";
-import { ErrorList, Field } from "../../../Components/forms";
+import { ErrorList, Field } from "../../../components/forms";
 import {
   RegisterStudentSchema
 } from "../schemas/course.schemas";

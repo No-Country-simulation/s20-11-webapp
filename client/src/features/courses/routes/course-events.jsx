@@ -1,5 +1,5 @@
-import { ResponsiveOutletModal } from "../../../Components/responsive-outlet-modal";
-import { TitleBar } from "../../../Components/title-bar";
+import { ResponsiveOutletModal } from "../../../components/responsive-outlet-modal";
+import { TitleBar } from "../../../components/title-bar";
 import EventDetailList from "../../student/components/EventDetailList";
 
 export default function CourseEvents() {

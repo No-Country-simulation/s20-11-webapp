@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "./Components/theme-provider.jsx";
+import { ThemeProvider } from "./components/theme-provider.jsx";
 import {
   TooltipProvider
-} from "./Components/ui/tooltip";
+} from "./components/ui/tooltip";
 import { AuthProvider } from "./features/auth/context/AuthContext.jsx";
 import "./index.css";
 import { routes } from "./routes.jsx";

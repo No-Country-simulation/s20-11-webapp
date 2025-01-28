@@ -8,9 +8,9 @@ import {
 import { cn } from "@/lib/utils";
 import { ChevronRight, Lock, Mail, Pencil, User } from "lucide-react";
 import { Outlet, useLoaderData } from "react-router-dom";
-import { Spacer } from "../../../Components/layout/spacer";
-import { TitleBar } from "../../../Components/title-bar";
-import { Button } from "../../../Components/ui/button";
+import { Spacer } from "../../../components/layout/spacer";
+import { TitleBar } from "../../../components/title-bar";
+import { Button } from "../../../components/ui/button";
 import { requireAuthenticated } from "../../auth/services/auth.service";
 import { profileService } from "../services/profile.service";
 

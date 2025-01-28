@@ -1,6 +1,8 @@
 # Node modules directory
 node_modules/
 
+.idea/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

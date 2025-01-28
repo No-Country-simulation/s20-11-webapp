@@ -1,7 +1,7 @@
 import App, { loader } from "./App.jsx";
-import HomeStudent from "./Components/HomeStudent.jsx";
-import { Error } from "./Components/layout/error.jsx";
-import Layout from "./Components/layout/layout.jsx";
+import HomeStudent from "./components/HomeStudent.jsx";
+import { Error } from "./components/layout/error.jsx";
+import Layout from "./components/layout/layout.jsx";
 import Login, {
   loginAction,
   loginLoader,

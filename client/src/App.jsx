@@ -2,15 +2,15 @@ import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 import { Bell, BookOpen, CalendarDays, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./App.css";
-import Footer from "./Components/layout/Footer";
-import { Button } from "./Components/ui/button";
+import Footer from "./components/layout/Footer";
+import { Button } from "./components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./Components/ui/card";
+} from "./components/ui/card";
 import { requireAnonymous } from "./features/auth/services/auth.service";
 import "./index.css";
 

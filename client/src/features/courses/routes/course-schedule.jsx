@@ -6,7 +6,7 @@ import {
 } from "@/Components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import { useLoaderData } from "react-router-dom";
-import { TitleBar } from "../../../Components/title-bar.jsx";
+import { TitleBar } from "../../../components/title-bar.jsx";
 import { BlockCard } from "../components/schedule-block-card.jsx";
 import { courseService } from "../services/course.service.js";
 import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";

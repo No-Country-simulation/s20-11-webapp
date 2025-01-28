@@ -8,7 +8,7 @@ import {
 } from "@/Components/ui/card";
 import { Plus } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
-import { ResponsiveOutletModal } from "../../../Components/responsive-outlet-modal";
+import { ResponsiveOutletModal } from "../../../components/responsive-outlet-modal";
 import { courseService } from "../services/course.service";
 
 export async function coursesListLoader() {
