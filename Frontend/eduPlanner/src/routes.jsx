@@ -22,6 +22,11 @@ import CourseEvents from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
+import CourseStudents, { courseStudentsAction, courseStudentsLoader } from "./features/courses/routes/course-students.jsx";
+import CourseSubjects, {
+  courseSubjectsAction,
+  courseSubjectsLoader,
+} from "./features/courses/routes/course-subjects.jsx";
 import CreateCourseRoute, {
   createCourseAction,
   createCourseLoader,
@@ -97,7 +102,18 @@ export const routes = [
             element: <CourseDetails />,
             loader: courseDetailsLoader,
           },
-
+          {
+            path: ":courseId/subjects",
+            element: <CourseSubjects />,
+            loader: courseSubjectsLoader,
+            action: courseSubjectsAction,
+          },
+          {
+            path: ":courseId/students",
+            element: <CourseStudents />,
+            loader: courseStudentsLoader,
+            action: courseStudentsAction,
+          },
           {
             path: ":courseId/schedule",
             element: <CourseSchedule />,

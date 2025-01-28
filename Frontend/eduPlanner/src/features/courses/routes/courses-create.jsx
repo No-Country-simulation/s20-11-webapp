@@ -82,10 +82,8 @@ async function validateAndCreateCourse(data, ctx) {
     const result = await courseService.createCourse({
       courseName: data.courseName,
     });
-    console.log("Error thrown before this (1)")
 
     if (!result.success) {
-      console.log("Error thrown before this (2)")
       const errorConfig =
         COURSE_ERROR_MESSAGES[result.error.code] ||
         COURSE_ERROR_MESSAGES.DEFAULT;
@@ -99,10 +97,8 @@ async function validateAndCreateCourse(data, ctx) {
       return z.NEVER;
     }
 
-    console.log(`Result: ${JSON.stringify(result.data)}`);
     return { ...data, createdCourse: result.data };
   } catch (error) {
-    console.log("Error was thrown!");
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: COURSE_ERROR_MESSAGES.SERVER_ERROR.message,

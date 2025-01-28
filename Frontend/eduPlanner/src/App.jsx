@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bell, BookOpen, CalendarDays, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./App.css";
+import Footer from "./Components/layout/Footer";
 import { Button } from "./Components/ui/button";
 import {
   Card,
@@ -23,6 +24,7 @@ export default function App() {
       <Hero />
       <Features />
       <Testimonials />
+      <Footer/>
     </main>
   );
 }

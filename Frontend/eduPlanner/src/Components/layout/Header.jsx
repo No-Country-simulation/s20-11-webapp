@@ -13,11 +13,11 @@ const Header = () => {
   return (
     <>
       <header className="sticky top-0 p-4 h-[60px] bg-background/80 backdrop-blur-sm shadow z-30  flex items-center">
-        <nav className="container px-4 mx-auto flex justify-between items-center">
+        <nav className="container px-1 sm:px-4 mx-auto flex justify-between items-center">
           <div className="flex gap-4 items-center">
             <LogoLink />
           </div>
-          <div id="fila-opciones" className="flex gap-6 items-center">
+          <div id="fila-opciones" className="flex gap-2 sm:gap-6 items-center">
             <ModeToggle />
             {isAuthenticated ? (
               <UserPanel
@@ -29,7 +29,7 @@ const Header = () => {
             ) : (
               <Link viewTransition to="/login">
                 <div className="bg-gradient-to-r from-primary to-tertiary rounded-[20rem] p-[2px]">
-                  <div className="bg-transparent text-background hover:bg-background text-sm hover:text-foreground rounded-[20rem] py-1 px-6 transition-all duration-300">
+                  <div className="text-nowrap bg-transparent text-background hover:bg-background text-sm hover:text-foreground rounded-[20rem] py-1 px-6 transition-all duration-300">
                     Iniciar sesión
                   </div>
                 </div>

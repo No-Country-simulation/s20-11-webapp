@@ -13,6 +13,7 @@ import { courseService } from "../services/course.service";
 
 export async function coursesListLoader() {
   const courses = await courseService.getAllCourses();
+  console.log(courses);
 
   return { courses };
 }

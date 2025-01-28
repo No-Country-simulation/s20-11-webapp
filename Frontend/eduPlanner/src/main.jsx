@@ -2,6 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./Components/theme-provider.jsx";
+import {
+  TooltipProvider
+} from "./Components/ui/tooltip";
 import { AuthProvider } from "./features/auth/context/AuthContext.jsx";
 import "./index.css";
 import { routes } from "./routes.jsx";
@@ -12,7 +15,9 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="uduplanner-ui-theme">
       <AuthProvider>
-        <RouterProvider router={router} />
+        <TooltipProvider>
+          <RouterProvider router={router} />
+        </TooltipProvider>
       </AuthProvider>
     </ThemeProvider>
   </StrictMode>

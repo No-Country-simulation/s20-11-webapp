@@ -8,6 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/Components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import {
   Book,
@@ -24,14 +29,23 @@ import {
   Users,
 } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
+import { requireAdmin } from "../../auth/services/auth.service.js";
 import { courseService } from "../services/course.service.js";
+import { subjectService } from "../services/subject.service.js";
 import { formatTime } from "../utils/time.js";
 import { formatClassDays } from "../utils/weekdays.js";
-export async function courseDetailsLoader({ params }) {
-  const courseId = params.courseId;
-  const courseDetails = await courseService.getCourseDetails(courseId);
 
-  return { courseDetails };
+export async function courseDetailsLoader({ params }) {
+  await requireAdmin();
+  const [course, subjects] = await Promise.all([
+    courseService.getCourseDetails(params.courseId),
+    subjectService.getSubjects(params.courseId),
+  ]);
+
+  return {
+    courseDetails: course,
+    subjects: subjects.data,
+  };
 }
 
 const courseManagementLinks = [
@@ -41,24 +55,25 @@ const courseManagementLinks = [
     link: "students",
   },
   {
-    title: "Horario",
-    Icon: CalendarDays,
-    link: "schedule",
+    title: "Materias",
+    Icon: BookMarked,
+    link: "subjects",
   },
   {
     title: "Eventos",
     Icon: CalendarPlus,
     link: "events",
   },
+
   {
-    title: "Materias",
-    Icon: BookMarked,
-    link: "subjects",
+    title: "Horario",
+    Icon: CalendarDays,
+    link: "schedule",
   },
 ];
 
 export default function CourseDetails() {
-  const { courseDetails } = useLoaderData();
+  const { courseDetails, subjects } = useLoaderData();
   return (
     <>
       <TitleBar title={`${courseDetails.name} - Administración`} />
@@ -71,6 +86,10 @@ export default function CourseDetails() {
               title={link.title}
               Icon={link.Icon}
               link={link.link}
+              disabled={
+                (link.link === "events" || link.link === "schedule") &&
+                subjects.length <= 0
+              }
             />
           ))}
         </div>
@@ -80,7 +99,29 @@ export default function CourseDetails() {
   );
 }
 
-function LinkCard({ title, Icon, link }) {
+function LinkCard({ title, Icon, link, disabled }) {
+  if (disabled) {
+    return (
+      <Tooltip>
+        <TooltipTrigger>
+          <div className="bg-gradient-to-r from-card/50 to-secondary/10 via-secondary/30 w-full lg:w-[32rem] transition-all duration-200 text-lg justify-between flex items-center gap-2 p-4 border rounded shadow cursor-not-allowed  opacity-50">
+            <div className="flex items-center gap-6">
+              <Icon className="text-primary" />
+              {title}
+            </div>
+            <ChevronRight className="" />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>
+            Registra al menos una materia para poder administrar eventos y
+            horario
+          </p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
   return (
     <Link
       to={link}

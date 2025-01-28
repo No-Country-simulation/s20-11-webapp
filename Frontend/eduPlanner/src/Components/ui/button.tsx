@@ -18,7 +18,7 @@ const buttonVariants = cva(
         daypicker:
           "border border-card-border text-foreground bg-background shadow-sm hover:bg-accent hover:text-accent-foreground text-start flex justify-start",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+          "bg-secondary text-secondary-foreground shadow hover:bg-primary/10",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         special: "bg-red-200",
         accent:

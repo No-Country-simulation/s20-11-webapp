@@ -21,15 +21,15 @@ import {
 import { AssignClassSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
 
-export async function assignClassLoader() {
-  const subjects = await subjectService.getSubjects();
-  return { subjects };
+export async function assignClassLoader({ params }) {
+  const { data } = await subjectService.getSubjects(params.courseId);
+  return { subjects: data };
 }
 
 export async function assignClassAction({ request, params }) {
   const formData = await request.formData();
 
-  const submission = await parseWithZod(formData, {
+  const submission = parseWithZod(formData, {
     schema: AssignClassSchema,
   });
 
@@ -42,7 +42,7 @@ export async function assignClassAction({ request, params }) {
 
   const { blockId, subjectId } = submission.value;
 
-  await subjectService.assignSubjectToBlock(blockId, subjectId);
+  await subjectService.assignSubjectToBlock(params.courseId, blockId, subjectId);
 
   return redirect(`/courses/${params.courseId}/schedule`);
 }

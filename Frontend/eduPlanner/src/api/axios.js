@@ -12,7 +12,9 @@ import { API_ENDPOINTS } from "./endpoints";
 const LOGIN_URL = "/login";
 
 // const API_BASE_URL = "https://eduplanner.fly.dev"; //TODO: move to ENV
-const API_BASE_URL = "http://localhost:8080";
+// const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL =
+  "https://f9399tbl-8080.brs.devtunnels.ms";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -20,6 +22,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    "ngrok-skip-browser-warning": "true", //ngrok only
   },
 });
 
