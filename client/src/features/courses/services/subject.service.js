@@ -1,5 +1,5 @@
 import api from "../../../api/axios";
-import { API_ENDPOINTS } from "../../../api/endpoints";
+import { API_ENDPOINTS } from "@/api/endpoints.js";
 
 export const subjectService = {
   createSubject: async (courseId, subject) => {

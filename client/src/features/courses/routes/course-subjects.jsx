@@ -1,9 +1,9 @@
-import { Button } from "@/Components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/Components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2Icon } from "lucide-react";
 import { useLoaderData } from "react-router-dom";
-import { Spacer } from "../../../components/layout/spacer";
-import { TitleBar } from "../../../components/title-bar";
+import { Spacer } from "@/components/layout/spacer.js";
+import { TitleBar } from "@/components/title-bar.jsx";
 import { requireAdmin } from "../../auth/services/auth.service";
 import {
   CREATE_SUBJECT_INTENT,

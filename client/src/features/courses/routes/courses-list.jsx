@@ -1,14 +1,14 @@
-import { Spacer } from "@/Components/layout/spacer";
-import { Button } from "@/Components/ui/button";
+import { Spacer } from "@/components/layout/spacer";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/Components/ui/card";
+} from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import { Link, useLoaderData } from "react-router-dom";
-import { ResponsiveOutletModal } from "../../../components/responsive-outlet-modal";
+import { ResponsiveOutletModal } from "@/components/responsive-outlet-modal.jsx";
 import { courseService } from "../services/course.service";
 
 export async function coursesListLoader() {

@@ -1,18 +1,18 @@
-import { Spacer } from "@/Components/layout/spacer";
-import { TitleBar } from "@/Components/title-bar.jsx";
-import { Button } from "@/Components/ui/button";
+import { Spacer } from "@/components/layout/spacer";
+import { TitleBar } from "@/components/title-bar.jsx";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/Components/ui/card";
+} from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/Components/ui/tooltip";
+} from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import {
   Book,

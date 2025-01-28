@@ -1,13 +1,13 @@
-import { SelectWrapper } from "@/Components/forms";
-import { Spacer } from "@/Components/layout/spacer";
+import { SelectWrapper } from "@/components/forms";
+import { Spacer } from "@/components/layout/spacer";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/Components/ui/select";
-import { StatusButton } from "@/Components/ui/status-button";
+} from "@/components/ui/select";
+import { StatusButton } from "@/components/ui/status-button";
 import { useIsPending } from "@/hooks/use-pending";
 import { getFormProps, useForm, useInputControl } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";

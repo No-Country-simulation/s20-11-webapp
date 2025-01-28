@@ -5,15 +5,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/Components/ui/card";
-import { StatusButton } from "../../../components/ui/status-button";
+} from "@/components/ui/card";
+import { StatusButton } from "@/components/ui/status-button.js";
 
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { UserPlus } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
 import { z } from "zod";
-import { ErrorList, Field } from "../../../components/forms";
+import { ErrorList, Field } from "@/components/forms.js";
 import {
   RegisterStudentSchema
 } from "../schemas/course.schemas";

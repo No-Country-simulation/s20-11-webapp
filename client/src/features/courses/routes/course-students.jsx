@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
-import { Badge } from "@/Components/ui/badge";
-import { Button } from "@/Components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -17,11 +17,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/Components/ui/table";
+} from "@/components/ui/table";
 import { EyeIcon, KeyRound, Mail, UserX } from "lucide-react";
 import { useLoaderData } from "react-router-dom";
-import { Spacer } from "../../../components/layout/spacer";
-import { TitleBar } from "../../../components/title-bar";
+import { Spacer } from "@/components/layout/spacer.js";
+import { TitleBar } from "@/components/title-bar.jsx";
 import { requireAdmin } from "../../auth/services/auth.service";
 import {
   REGISTER_STUDENT_INTENT,

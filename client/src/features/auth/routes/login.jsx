@@ -1,12 +1,12 @@
-import { ErrorList, Field } from "@/Components/forms";
+import { ErrorList, Field } from "@/components/forms";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/Components/ui/card";
-import { StatusButton } from "@/Components/ui/status-button";
+} from "@/components/ui/card";
+import { StatusButton } from "@/components/ui/status-button";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";

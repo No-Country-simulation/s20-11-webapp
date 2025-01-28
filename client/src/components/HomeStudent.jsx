@@ -2,7 +2,7 @@ import {
   Card,
   CardHeader,
   CardTitle
-} from "@/Components/ui/card";
+} from "@/components/ui/card";
 import { Link, } from "react-router-dom";
 import EventDetailList from "../features/student/components/EventDetailList";
 

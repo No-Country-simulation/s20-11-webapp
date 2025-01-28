@@ -1,17 +1,17 @@
-import { ErrorList, Field } from "@/Components/forms";
+import { ErrorList, Field } from "@/components/forms";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/Components/ui/card";
-import { StatusButton } from "@/Components/ui/status-button";
+} from "@/components/ui/card";
+import { StatusButton } from "@/components/ui/status-button";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { z } from "zod";
-import { useIsPending } from "../../../hooks/use-pending";
+import { useIsPending } from "@/hooks/use-pending.jsx";
 import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
 import { ERROR_MESSAGES } from "../utils/auth.errors";

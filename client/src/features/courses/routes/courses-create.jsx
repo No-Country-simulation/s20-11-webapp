@@ -1,10 +1,10 @@
-import { Field } from "@/Components/forms";
-import { StatusButton } from "@/Components/ui/status-button";
+import { Field } from "@/components/forms";
+import { StatusButton } from "@/components/ui/status-button";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { z } from "zod";
-import { useIsPending } from "../../../hooks/use-pending";
+import { useIsPending } from "@/hooks/use-pending.jsx";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { CreateCourseSchema } from "../schemas/course.schemas";
 import { courseService } from "../services/course.service";

@@ -1,16 +1,16 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/Components/ui/card";
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChevronRight, Lock, Mail, Pencil, User } from "lucide-react";
 import { Outlet, useLoaderData } from "react-router-dom";
-import { Spacer } from "../../../components/layout/spacer";
-import { TitleBar } from "../../../components/title-bar";
-import { Button } from "../../../components/ui/button";
+import { Spacer } from "@/components/layout/spacer.js";
+import { TitleBar } from "@/components/title-bar.jsx";
+import { Button } from "@/components/ui/button.js";
 import { requireAuthenticated } from "../../auth/services/auth.service";
 import { profileService } from "../services/profile.service";
 

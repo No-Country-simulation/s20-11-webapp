@@ -1,5 +1,5 @@
 import { Pizza } from "lucide-react";
-import { ResponsiveOutletModal } from "../../../components/responsive-outlet-modal";
+import { ResponsiveOutletModal } from "@/components/responsive-outlet-modal.jsx";
 import { formatTime } from "../utils/time";
 
 export function BlockCard({ block }) {

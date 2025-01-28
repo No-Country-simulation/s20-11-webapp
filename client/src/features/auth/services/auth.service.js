@@ -6,9 +6,9 @@ import {
   saveAuthData,
   TOKEN_EXPIRATION_KEY,
   TOKEN_KEY,
-} from "../../../api/authStorage";
+} from "@/api/authStorage.js";
 import api from "../../../api/axios";
-import { API_ENDPOINTS } from "../../../api/endpoints";
+import { API_ENDPOINTS } from "@/api/endpoints.js";
 import { dispatchAuthStateChange } from "../context/AuthContext";
 
 const SERVER_ERROR = {
