@@ -5,12 +5,12 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { subjectService } from "../../courses/services/subject.service";
 /* PARA DATE PICKER */
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/Components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/Components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
