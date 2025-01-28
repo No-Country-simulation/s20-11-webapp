@@ -23,25 +23,42 @@ import { useLoaderData } from "react-router-dom";
 import { Spacer } from "../../../Components/layout/spacer";
 import { TitleBar } from "../../../Components/title-bar";
 import { requireAdmin } from "../../auth/services/auth.service";
-import { RegisterStudent } from "../components/create-student";
+import {
+  REGISTER_STUDENT_INTENT,
+  RegisterStudent,
+  registerStudentAction,
+} from "../components/register-student";
 import { courseService } from "../services/course.service";
+import { studentsService } from "../services/students.service";
 
 export async function courseStudentsLoader({ params }) {
   await requireAdmin();
 
-  const course = await courseService.getCourseDetails(params.courseId);
+  const [course, students] = await Promise.all([
+    courseService.getCourseDetails(params.courseId),
+    studentsService.getAllStudents(params.courseId),
+  ]);
 
   return {
     course,
+    students: students.data,
   };
 }
 
 export async function courseStudentsAction({ request, params }) {
+  const formData = await request.formData();
+  const intent = formData.get("intent");
+
+  switch (intent) {
+    case REGISTER_STUDENT_INTENT: {
+      return registerStudentAction(formData, params.courseId);
+    }
+  }
   return null;
 }
 
 export default function CourseStudents() {
-  const { course } = useLoaderData();
+  const { course, students } = useLoaderData();
   return (
     <>
       <TitleBar title={`${course.name} - Alumnos`} />
@@ -51,18 +68,25 @@ export default function CourseStudents() {
           <RegisterStudent courseName={course.name} />
         </div>
         <div className="col-span-2 w-full">
-          <StudentsTable />
+          <StudentsTable students={students} />
         </div>
       </div>
     </>
   );
 }
 
-function StudentsTable() {
+function StudentsTable({ students }) {
+  const parseFullName = (firstName, lastName) => {
+    if (firstName && lastName) {
+      return `${firstName} ${lastName}`;
+    }
+    return firstName || lastName || null;
+  };
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>666 Alumnos registrado(s)</CardTitle>
+        <CardTitle>{students.length} Alumnos registrado(s)</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
@@ -74,27 +98,29 @@ function StudentsTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell className="font-medium text-sm">
-                <StudentData
-                  name="Juan Perez"
-                  email="juan@gmail.com"
-                  photoUrl="#"
-                />
-              </TableCell>
-              <TableCell>
-                <Badge>Activo</Badge>
-              </TableCell>
-              <TableCell className="text-right">
-                <StudentOptions
-                  student={{
-                    name: "Juan Perez",
-                    email: "juan@gmail.com",
-                    photoUrl: "#",
-                  }}
-                />
-              </TableCell>
-            </TableRow>
+            {students.map((student) => (
+              <TableRow key={student.id}>
+                <TableCell className="font-medium text-sm">
+                  <StudentData
+                    name={parseFullName(student.firstName, student.lastName)}
+                    email={student.email}
+                    photoUrl={student.profilePhotoThumbnail}
+                  />
+                </TableCell>
+                <TableCell>
+                  <Badge>Activo</Badge>
+                </TableCell>
+                <TableCell className="text-right">
+                  <StudentOptions
+                    student={{
+                      name: parseFullName(student.firstName, student.lastName),
+                      email: student.email,
+                      photoUrl: student.profilePhotoThumbnail,
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>

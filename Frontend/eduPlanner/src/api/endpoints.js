@@ -14,6 +14,10 @@ export const API_ENDPOINTS = {
     GET_COURSE_DETAILS: (courseId) => `/courses/${courseId}`,
     GET_COURSE_SCHEDULE: (courseId) => `/courses/${courseId}/schedule`,
   },
+  STUDENTS: {
+    CREATE_STUDENT: (courseId) => `/courses/${courseId}/students`,
+    GET_ALL_STUDENTS: (courseId) => `/courses/${courseId}/students`,
+  },
   SUBJECTS: {
     CREATE_SUBJECT: (courseId) => `/courses/${courseId}/subjects`,
     GET_ALL_SUBJECTS: (courseId) => `/courses/${courseId}/subjects`,

@@ -15,10 +15,9 @@ import { data, useFetcher, useParams } from "react-router-dom";
 import { z } from "zod";
 import { ErrorList, Field } from "../../../Components/forms";
 import {
-  CreateSubjectSchema,
-  RegisterStudentSchema,
+  RegisterStudentSchema
 } from "../schemas/course.schemas";
-import { subjectService } from "../services/subject.service";
+import { studentsService } from "../services/students.service";
 import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
 export const REGISTER_STUDENT_INTENT = "register-student";
@@ -29,7 +28,6 @@ export function RegisterStudent({ courseName }) {
 
   const actionData = registerStudentFecther.data;
   const isPending = registerStudentFecther.state !== "idle";
-  const shouldClose = actionData?.result.status === "success" && !isPending;
 
   const [form, fields] = useForm({
     id: "register-student-form",
@@ -84,10 +82,10 @@ export function RegisterStudent({ courseName }) {
   );
 }
 
-export async function createSubject(formData, courseId) {
+export async function registerStudentAction(formData, courseId) {
   const submission = await parseWithZod(formData, {
     async: true,
-    schema: CreateSubjectSchema.transform(validateAndCreateSubject),
+    schema: RegisterStudentSchema.transform(validateAndRegisterStudent),
   });
   if (submission.status !== "success") {
     return data(
@@ -99,11 +97,11 @@ export async function createSubject(formData, courseId) {
   return { result: submission.reply() };
 }
 
-async function validateAndCreateSubject(data, ctx) {
+async function validateAndRegisterStudent(data, ctx) {
   try {
-    const result = await subjectService.createSubject(
+    const result = await studentsService.registerStudent(
       data.courseId,
-      data.subjectName
+      data.email
     );
 
     if (!result.success) {

@@ -1,7 +1,9 @@
+
 export const BackendErrorCode = {
   COURSE_NOT_FOUND: "COURSE_NOT_FOUND",
   DUPLICATED_SUBJECT: "DUPLICATED_SUBJECT",
   DUPLICATED_COURSE: "DUPLICATED_COURSE",
+  USER_ALREADY_REGISTERED: "USER_ALREADY_REGISTERED",
   INVALID_COURSE_CONFIGURATION: "INVALID_COURSE_CONFIGURATION",
   INVALID_SUBJECT_ASSIGNMENT: "INVALID_SUBJECT_ASSIGNMENT",
   INVALID_SUBJECT_FOR_TYPE: "INVALID_SUBJECT_FOR_TYPE",
@@ -19,6 +21,10 @@ export const COURSE_ERROR_MESSAGES = {
   [BackendErrorCode.DUPLICATED_SUBJECT]: {
     message: "Ya existe una asignatura con este nombre",
     path: ["subjectName"],
+  },
+  [BackendErrorCode.USER_ALREADY_REGISTERED]: {
+    message: "El correo ya está registrado en sistema",
+    path: ["email"],
   },
   [BackendErrorCode.DUPLICATED_COURSE]: {
     message: "Ya existe un curso con este nombre",
