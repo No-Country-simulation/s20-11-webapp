@@ -1,3 +1,5 @@
+import { Spacer } from "@/components/layout/spacer";
+import { TitleBar } from "@/components/title-bar.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,8 +22,6 @@ import {
 } from "@/components/ui/table";
 import { EyeIcon, KeyRound, Mail, UserX } from "lucide-react";
 import { useLoaderData } from "react-router-dom";
-import { Spacer } from "@/components/layout/spacer.js";
-import { TitleBar } from "@/components/title-bar.jsx";
 import { requireAdmin } from "../../auth/services/auth.service";
 import {
   REGISTER_STUDENT_INTENT,

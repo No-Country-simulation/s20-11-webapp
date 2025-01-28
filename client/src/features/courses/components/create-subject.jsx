@@ -1,3 +1,5 @@
+import { ErrorList, Field } from "@/components/forms";
+import { MobileButton } from "@/components/mobile-button.jsx";
 import {
   Dialog,
   DialogContent,
@@ -7,15 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { StatusButton } from "@/components/ui/status-button";
+import { useDialogAutoClose } from "@/hooks/use-autoclose.jsx";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { PlusIcon, Sparkles } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
 import { z } from "zod";
-import { ErrorList, Field } from "@/components/forms.js";
-import { MobileButton } from "@/components/mobile-button.jsx";
-import { StatusButton } from "@/components/ui/status-button.js";
-import { useDialogAutoClose } from "@/hooks/use-autoclose.jsx";
 import { CreateSubjectSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
 import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
