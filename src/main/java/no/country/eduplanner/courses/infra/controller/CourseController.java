@@ -2,6 +2,7 @@ package no.country.eduplanner.courses.infra.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import no.country.eduplanner.auth.dto.UserData;
 import no.country.eduplanner.courses.application.dto.CourseRequest;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
@@ -52,5 +53,18 @@ public class CourseController implements CourseApi {
     public SortedMap<DayOfWeek, List<ScheduleBlockResponse>> getCurrentScheduleForCourse(@PathVariable Long courseId) {
         return courseService.getSchedule(courseId);
     }
+
+    @PostMapping("/{courseId}/students")
+    public void registerStudentForCourse(@PathVariable Long courseId,
+                                       @RequestBody @Valid CourseRequest.RegisterStudent studentRequest) {
+
+        courseService.registerStudentForCourse(courseId, studentRequest);
+    }
+
+    @GetMapping("/{courseId}/students")
+    public List<UserData> getAllStudentsForCourse(@PathVariable Long courseId) {
+        return courseService.getAllStudentsForCourse(courseId);
+    }
+
 
 }

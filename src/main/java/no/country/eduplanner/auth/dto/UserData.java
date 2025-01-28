@@ -1,7 +1,6 @@
 package no.country.eduplanner.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import no.country.eduplanner.auth.models.UserRole;
 
 import java.util.Set;
 
@@ -47,6 +46,12 @@ public record UserData(
                 description = "URL de la foto de perfil del usuario",
                 example = "https://example.com/profile.jpg"
         )
-        String profilePhoto
+        String profilePhoto,
+
+        @Schema(
+                description = "URL del thumbnail de la foto de perfil del usuario",
+                example = "https://example.com/profile-thumbnail.jpg"
+        )
+        String profilePhotoThumbnail
 ) {
 }

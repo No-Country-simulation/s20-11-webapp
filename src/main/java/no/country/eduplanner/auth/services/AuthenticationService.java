@@ -45,6 +45,7 @@ public class AuthenticationService {
                                        .build();
 
         UserEntity registeredUser = userRepository.save(newUser);
+        log.info("🔐 Registered user: {}", registeredUser.getEmail());
         TokenResponse tokens = generateTokens(registeredUser);
 
         return buildAuthResponse(registeredUser, tokens);

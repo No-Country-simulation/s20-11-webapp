@@ -124,3 +124,6 @@ ALTER TABLE subjects
 ALTER TABLE course_class_days
     ADD CONSTRAINT fk_course_class_days_on_course FOREIGN KEY (course_id) REFERENCES courses (id);
 
+-- changeset crist:1737570984834-16
+ALTER TABLE subjects
+    DROP CONSTRAINT uc_subjects_name;

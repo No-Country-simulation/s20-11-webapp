@@ -17,7 +17,7 @@ import no.country.eduplanner.shared.domain.base.BaseEntity;
 public class Subject extends BaseEntity {
 
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "color", nullable = false)

@@ -19,7 +19,8 @@ public class UserMapper {
                 profile != null && profile.isProfileComplete(),
                 profile != null ? profile.getFirstName() : null,
                 profile != null ? profile.getLastName() : null,
-                profile != null && profile.getPhoto() != null ? profile.getPhoto().getUrl() : null
+                profile != null && profile.getPhoto() != null ? profile.getPhoto().getUrl() : null,
+                profile != null && profile.getPhoto() != null ? profile.getPhoto().getUrl() : null //TODO: apply conversions
         );
 
     }

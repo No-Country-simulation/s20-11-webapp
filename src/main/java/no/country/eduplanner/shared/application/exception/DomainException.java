@@ -4,36 +4,36 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class BaseException extends RuntimeException {
+public class DomainException extends RuntimeException {
 
     private String errorCode;
     private HttpStatus statusCode;
 
-    protected BaseException(String message, String errorCode) {
+    protected DomainException(String message, String errorCode) {
         super(message);
         this.errorCode = errorCode;
         this.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
-    protected BaseException(String message, HttpStatus statusCode, String errorCode) {
+    protected DomainException(String message, HttpStatus statusCode, String errorCode) {
         super(message);
         this.errorCode = errorCode;
         this.statusCode = statusCode;
     }
 
-    public BaseException() {
+    public DomainException() {
         super();
     }
 
-    public BaseException(String message) {
+    public DomainException(String message) {
         super(message);
     }
 
-    public BaseException(String message, Throwable cause) {
+    public DomainException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public BaseException(Throwable cause) {
+    public DomainException(Throwable cause) {
         super(cause);
     }
 }
