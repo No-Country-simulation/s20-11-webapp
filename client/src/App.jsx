@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
 import { Bell, BookOpen, CalendarDays, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./App.css";
