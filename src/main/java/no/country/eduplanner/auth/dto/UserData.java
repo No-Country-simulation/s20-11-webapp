@@ -46,6 +46,12 @@ public record UserData(
                 description = "URL de la foto de perfil del usuario",
                 example = "https://example.com/profile.jpg"
         )
-        String profilePhoto
+        String profilePhoto,
+
+        @Schema(
+                description = "URL del thumbnail de la foto de perfil del usuario",
+                example = "https://example.com/profile-thumbnail.jpg"
+        )
+        String profilePhotoThumbnail
 ) {
 }

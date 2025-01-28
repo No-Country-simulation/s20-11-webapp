@@ -14,10 +14,12 @@ import no.country.eduplanner.courses.application.exception.CourseNotFoundExcepti
 import no.country.eduplanner.courses.application.exception.DuplicatedCourseException;
 import no.country.eduplanner.courses.application.mapper.CourseMapper;
 import no.country.eduplanner.courses.domain.entity.Course;
+import no.country.eduplanner.courses.domain.entity.CourseUser;
 import no.country.eduplanner.courses.domain.entity.Schedule;
 import no.country.eduplanner.courses.domain.entity.ScheduleBlock;
 import no.country.eduplanner.courses.domain.factory.CourseFactory;
 import no.country.eduplanner.courses.infra.persistence.CourseRepository;
+import no.country.eduplanner.courses.infra.persistence.CourseUserRepository;
 import no.country.eduplanner.courses.infra.persistence.ScheduleRepository;
 import no.country.eduplanner.shared.application.exception.UnauthorizedAccessException;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,7 @@ public class CourseService {
     private final CourseAccessService courseAccessService;
     private final UserDataService userDataService;
     private final StudentUserRegistrationService studentRegistrationService;
+    private final CourseUserRepository courseUserRepository;
 
     public CourseResponse.Created createCourse(CourseRequest.Create request) {
         UserData currentUser = userDataService.getCurrentUserData();
@@ -103,6 +106,11 @@ public class CourseService {
         course.addUser(studentUser.getId());
         courseRepository.save(course);
         log.info("👨‍🎓 Student {} added to course {}", studentUser.getEmail(), course.getName());
+    }
+
+    public List<UserData> getAllStudentsForCourse(Long courseId) {
+        courseAccessService.verifyUserHasAccessToCourse(courseId);
+        return userDataService.getUsersDataFromIdsByRole(courseUserRepository.findUserIdsByCourseId(courseId), UserRole.STUDENT);
     }
 
     private void validateCourseRequest(CourseRequest.Create request, Long userId) {

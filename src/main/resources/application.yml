@@ -1,3 +1,4 @@
+
 spring:
   mail:
     host: localhost
@@ -63,9 +64,5 @@ springdoc:
     operations-sorter: method
     tags-sorter: alpha
 
-#logging:
-#  level:
-#    org.hibernate.SQL: DEBUG
-#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-#    liquibase: DEBUG
-#    com.zaxxer.hikari: DEBUG
+server:
+  port: ${SERVER_PORT:8080}
