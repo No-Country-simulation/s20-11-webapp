@@ -11,8 +11,6 @@ export default defineConfig({
   plugins: [react()],
   preview: {
     host: true, // asegura que Vite escuche en 0.0.0.0
-
-    allowedHosts: ['educplanner.onrender.com'], 
   },
   resolve: {
     alias: {
