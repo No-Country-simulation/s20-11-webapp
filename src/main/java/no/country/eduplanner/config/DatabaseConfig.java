@@ -15,7 +15,7 @@ import java.net.URI;
 public class DatabaseConfig {
 
 
-    @Value("${app.datasource.database-url}")
+    @Value("${app.datasource.database-originalUrl}")
     private String databaseUrlFromProperties;
 
     @Value("${app.datasource.username}")

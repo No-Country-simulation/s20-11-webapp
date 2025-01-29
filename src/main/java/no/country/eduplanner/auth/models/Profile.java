@@ -28,13 +28,13 @@ public class Profile {
 
     @Column(name = "profile_photo")
     @Embedded
-    @AttributeOverride(name = "url", column = @Column(name = "profile_photo"))
-    private Image photo;
+    @AttributeOverride(name = "originalUrl", column = @Column(name = "profile_photo"))
+    private Image image;
 
     public boolean isProfileComplete() {
         return StringUtils.hasText(firstName) &&
                StringUtils.hasText(lastName) &&
-               photo != null;
+               image != null;
     }
 
 }
