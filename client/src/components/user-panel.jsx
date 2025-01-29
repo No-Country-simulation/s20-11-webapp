@@ -44,9 +44,7 @@ export function UserPanel({ user }) {
           <ProfileButton />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <LogoutButton />
-        </DropdownMenuItem>
+        <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -70,8 +68,8 @@ function ProfileButton() {
 
 function LogoutButton() {
   return (
-    <div>
-      <Form action="/logout" method="POST">
+    <Form action="/logout" method="POST">
+      <DropdownMenuItem className="!p-0">
         <Button
           variant="ghost"
           className="w-full p-0 hover:no-underline  h-fit flex !justify-start"
@@ -79,7 +77,7 @@ function LogoutButton() {
           <LogOut className=" h-4 w-4" />
           Cerrar sesión
         </Button>
-      </Form>
-    </div>
+      </DropdownMenuItem>
+    </Form>
   );
 }
