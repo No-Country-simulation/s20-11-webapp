@@ -37,7 +37,10 @@ export function BlockCard({ block }) {
   if (isLunchBlock) {
     return (
       <div className={`${baseClasses} bg-muted relative p-2 `}>
-        <Utensils className="absolute top-2 right-4 text-muted-foreground" size={20} />
+        <Utensils
+          className="absolute top-2 right-4 text-muted-foreground"
+          size={20}
+        />
         <h3 className="">{blockLabel}</h3>
         <p className="bg-background/70 rounded-md w-fit  text-sm p-1 px-2">
           {timeRange}
@@ -66,7 +69,7 @@ export function BlockCard({ block }) {
       }}
       className={cn(
         baseClasses,
-        "bg-[var(--subject-color-light)] dark:bg-[var(--subject-color-dark)] hover:ring-[var(--subject-color-dark)] dark:hover:ring-[var(--subject-color-light)] overflow-hidden"
+        "bg-[var(--subject-color-light)] dark:bg-[var(--subject-color-dark)] [&:hover]:ring-[var(--subject-color-dark)] dark:hover:ring-[var(--subject-color-light)] overflow-hidden"
       )}
     >
       <h3 className="p-2  ">{blockLabel}</h3>

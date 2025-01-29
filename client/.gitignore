@@ -51,6 +51,7 @@ pnpm-lock.yaml
 # Build artifacts
 coverage/
 *.tsbuildinfo
+.vite/
 
 # JetBrains IDEs
 *.iml
