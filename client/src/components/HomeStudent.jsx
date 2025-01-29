@@ -55,15 +55,7 @@ function HomeStudent() {
             </CardHeader>
           </Card>
         </Link>
-
-        {/* <div className="grid grid-cols-2 gap-2 md:flex md:flex-col">
-          <div className="calendario bg-blue-500 rounded-md p-4 h-[200px] md:h-[150px]">
-            <p>Calendario</p>
-          </div>
-          <div className="horario bg-green-500 rounded-md p-4 h-[200px] md:h-[150px]">
-            <p>Horario</p>
-          </div>
-        </div> */}
+        
       </div>    
     </div>
   );

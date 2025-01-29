@@ -148,7 +148,7 @@ export const routes = [
         loader: studentLayoutLoader,
         children: [
           {
-            index: true,
+            index: true, //Cuando una ruta padre (/student) tiene varias rutas hijas, la que tiene index: true es la que se carga por defecto cuando el usuario accede a la ruta padre sin especificar ninguna subruta
             element: <HomeStudent />,
           },
           {
