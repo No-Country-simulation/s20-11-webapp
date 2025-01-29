@@ -1,6 +1,5 @@
 import { ResponsiveOutletModal } from "@/components/responsive-outlet-modal.jsx";
 import { TitleBar } from "@/components/title-bar.jsx";
-import EventDetailList from "../../student/components/EventDetailList";
 
 export default function CourseEvents() {
 

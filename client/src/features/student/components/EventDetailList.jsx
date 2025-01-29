@@ -1,7 +1,10 @@
-import PropTypes from "prop-types";
-import { cn } from "@/lib/utils";  
+import { cn } from "@/lib/utils";
 
-function EventDetailList({ events, cardClassName }) { //le pasé classname para pasar clases extra por props al usar el componente en EventListCoord
+export function EventDetailList({ cardClassName }) {
+  //le pasé classname para pasar clases extra por props al usar el componente en EventListCoord
+
+  const events = [];
+
   return (
     <div className="listado-eventos pt-4 text-sm">
       {events.length > 0 ? (
@@ -14,22 +17,23 @@ function EventDetailList({ events, cardClassName }) { //le pasé classname para 
               className={cn(
                 "tarjetita p-2 mb-3 bg-card border rounded-md border-card-border",
                 cardClassName
-              )}  
+              )}
               style={{
                 borderLeftWidth: "8px",
                 borderLeftColor: event.subject.color,
                 "--subject-color": event.subject.color,
               }}
-              key={eventDate.getTime()} 
+              key={eventDate.getTime()}
             >
-              
               <div className="">
                 {/* MATERIA */}
                 <p className="text-sm22 text-gray-700">{event.subject.name}</p>
 
                 {/* LINEA DEL MEDIO */}
                 <div className="linea-del-medio flex justify-between items-center ">
-                  <p className=" text-xl text-gray-700 leading-tight-custom">{event.title}</p>
+                  <p className=" text-xl text-gray-700 leading-tight-custom">
+                    {event.title}
+                  </p>
                   {/* FECHA Y HORA */}
                   <div className="fecha-y-hora text-right h-auto flex flex-col justify-center md:flex md:gap-0.5 md:flex-row">
                     {/* FECHA */}
@@ -37,10 +41,11 @@ function EventDetailList({ events, cardClassName }) { //le pasé classname para 
                       {new Intl.DateTimeFormat("es-ES", {
                         weekday: "short",
                         day: "numeric",
-                        month: "short",            
-                      }).format(eventDate)
-                      .replace(',', '')  // Elimina la coma
-                      .replace(/^\w/, (c) => c.toUpperCase())} 
+                        month: "short",
+                      })
+                        .format(eventDate)
+                        .replace(",", "") // Elimina la coma
+                        .replace(/^\w/, (c) => c.toUpperCase())}
                     </p>
                     <span className=" hidden md:block text-xs">|</span>
                     {/* HORA */}
@@ -48,15 +53,15 @@ function EventDetailList({ events, cardClassName }) { //le pasé classname para 
                       {new Intl.DateTimeFormat("es-ES", {
                         hour: "numeric",
                         minute: "2-digit",
-                      }).format(eventDate)} hs
+                      }).format(eventDate)}{" "}
+                      hs
                     </p>
                   </div>
                 </div>
 
                 {/* DESCRIPCIÓN */}
                 <p className="text-sm22 text-gray-700">{event.description}</p>
-              </div>                          
-              
+              </div>
             </div>
           );
         })
@@ -66,23 +71,3 @@ function EventDetailList({ events, cardClassName }) { //le pasé classname para 
     </div>
   );
 }
-
-EventDetailList.propTypes = {
-  events: PropTypes.arrayOf(
-    PropTypes.shape({
-      subject: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
-      }).isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      date: PropTypes.oneOfType([
-        PropTypes.instanceOf(Date),
-        PropTypes.string
-      ]).isRequired,
-    })
-  ).isRequired,
-  cardClassName: PropTypes.string,  // Permitir clases personalizadas para la tarjeta
-};
-
-export default EventDetailList;

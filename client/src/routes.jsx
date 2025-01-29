@@ -44,7 +44,7 @@ import CreateEvent, {
   subjectLoader,
 } from "./features/student/routes/create-event.jsx"; // arreglar
 
-import StudentLayout from "./features/student/routes/student-layout.jsx";
+import StudentLayout, { studentLayoutLoader } from "./features/student/routes/student-layout.jsx";
 export const routes = [
   {
     element: <Layout />,
@@ -145,6 +145,7 @@ export const routes = [
       {
         path: "/student",
         element: <StudentLayout />,
+        loader: studentLayoutLoader,
         children: [
           {
             index: true,
