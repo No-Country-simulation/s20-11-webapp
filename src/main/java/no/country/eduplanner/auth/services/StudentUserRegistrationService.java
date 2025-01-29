@@ -57,12 +57,15 @@ public class StudentUserRegistrationService {
     }
 
     private String generateTempPassword(String email) {
-        String part = email.split("@")[0]
-                .toLowerCase()
-                .replace(".", "")
-                .substring(0, 8);
 
-        String code = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+
+        String emailName = email.split("@")[0]
+                .toLowerCase()
+                .replace(".", "");
+
+        String part = emailName.substring(0, Math.min(emailName.length(), 8));
+
+        String code = UUID.randomUUID().toString().replace("-", "").substring(0, 10);
         return part + "-" + code;
     }
 

@@ -1,6 +1,7 @@
 package no.country.eduplanner.shared.application.dto;
 
 import lombok.Builder;
+import no.country.eduplanner.shared.domain.vo.AdaptableColor;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ public record NotificationRequest(
         Long courseId,
         Long subjectId,
         LocalDateTime scheduledFor,
-        String assignedColor
+        AdaptableColor assignedColor
 ) {
 
 }

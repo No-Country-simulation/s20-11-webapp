@@ -1,18 +1,29 @@
 package no.country.eduplanner.emails;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.shared.application.events.StudentRegistrationSucceedEvent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
-    public static final String APP_URL = "https://eduplanner.fly.dev/login"; //TODO: GET THIS FROM PROPERTIES/ENVIRONMENT
     private final JavaMailSender mailSender;
+    private final TemplateEngine templateEngine;
+
+    @Value("${app.frontend-url}")
+    public String appUrl;
 
     public void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -22,23 +33,34 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    public void sendHtmlEmail(String to, String subject, String templateName, Context context) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+        String htmlContent = templateEngine.process(templateName, context);
+
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(htmlContent, true);
+
+        mailSender.send(mimeMessage);
+    }
+
     @ApplicationModuleListener
     public void onStudentRegistrationSucceed(StudentRegistrationSucceedEvent event) {
-        sendEmail(event.email(), "Has sido registrado como Estudiante en EducPlanner",
-                """
-                        Bienvenido a EducPlanner! 👋
-                        
-                        Has sido registrado como Estudiante para el curso %s.
-                        
-                        Estas son tus credenciales para ingresar a la plataforma:
-                        
-                        ----------------------------------
-                        Correo Electrónico : %s
-                        Contraseña         : %s
-                        ----------------------------------
-                        
-                        Puedes ingresar a la plataforma en %s
-                        No olvides cambiar la contraseña por tu seguridad!
-                        """.formatted(event.courseName(), event.email(), event.tempPassword(), APP_URL));
+        try {
+            Context context = new Context();
+            context.setVariable("courseName", event.courseName());
+            context.setVariable("email", event.email());
+            context.setVariable("password", event.tempPassword());
+            context.setVariable("link", appUrl);
+            sendHtmlEmail(event.email(),
+                    "Has sido registrado como Estudiante en EducPlanner",
+                    "email-template",
+                    context);
+
+        } catch (Exception e) {
+            log.error("Error sending email", e);
+        }
     }
 }
