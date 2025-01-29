@@ -17,8 +17,8 @@ spring:
   mail:
     host: ${SMTP_HOST:localhost}
     port: ${SMTP_PORT:1025}
-    username: ${SMTP_USERNAME:} # Use environment variables for sensitive data
-    password: ${SMTP_PASSWORD:} # Use environment variables for sensitive data
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
     properties:
       mail:
         smtp:
@@ -36,8 +36,8 @@ spring:
         jdbc:
           time_zone: America/Argentina/Buenos_Aires
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: false # Disable in production to avoid performance overhead
-        show_sql: false # Disable in production to avoid logging sensitive data
+        format_sql: false
+        show_sql: false
     open-in-view: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
@@ -119,7 +119,7 @@ server:
 #      prometheus:
 #        enabled: true
 
-# Swagger/OpenAPI documentation (disable in production or restrict access)
+# Swagger/OpenAPI documentation
 springdoc:
   api-docs:
     enabled: false
