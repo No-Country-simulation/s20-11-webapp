@@ -50,6 +50,7 @@ jwt:
   refresh-token :
     expiration : ${JWT_REFRESH_TOKEN_EXPIRATION}
 app:
+  frontend-url: ${FRONTEND_URL:https://placeholder.remove.me}
   datasource:
     database-url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/eduplanner}
     username: ${DATABASE_USERNAME:admin}
@@ -66,3 +67,4 @@ springdoc:
 
 server:
   port: ${SERVER_PORT:8080}
+
