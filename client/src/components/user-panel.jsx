@@ -70,14 +70,16 @@ function ProfileButton() {
 
 function LogoutButton() {
   return (
-    <Form action="/logout" method="POST">
-      <Button
-        variant="ghost"
-        className="w-full p-0 hover:no-underline  h-fit flex !justify-start"
-      >
-        <LogOut className=" h-4 w-4" />
-        Cerrar sesión
-      </Button>
-    </Form>
+    <div>
+      <Form action="/logout" method="POST">
+        <Button
+          variant="ghost"
+          className="w-full p-0 hover:no-underline  h-fit flex !justify-start"
+        >
+          <LogOut className=" h-4 w-4" />
+          Cerrar sesión
+        </Button>
+      </Form>
+    </div>
   );
 }
