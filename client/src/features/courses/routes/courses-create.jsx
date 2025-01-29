@@ -1,10 +1,10 @@
 import { Field } from "@/components/forms";
 import { StatusButton } from "@/components/ui/status-button";
+import { useIsPending } from "@/hooks/use-pending.jsx";
+import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
-import { z } from "zod";
-import { useIsPending } from "@/hooks/use-pending.jsx";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { CreateCourseSchema } from "../schemas/course.schemas";
 import { courseService } from "../services/course.service";
@@ -19,17 +19,13 @@ export async function createCourseAction({ request }) {
     schema: CreateCourseSchema.transform(validateAndCreateCourse),
   });
 
-  console.log("Submission status:", submission.status);
-  console.log("Submission reply:", submission.reply());
   if (submission.status !== "success") {
     return data(
       { result: submission.reply() },
       { status: submission.status !== "error" ? 400 : 200 }
     );
   }
-  console.log(submission.value);
   const { createdCourse } = submission.value;
-  console.log(`Created course: ${JSON.stringify(createdCourse)}`);
 
   return redirect(`/courses/${createdCourse.id}`);
 }
@@ -76,34 +72,11 @@ export default function CreateCourseRoute() {
     </Form>
   );
 }
-
-async function validateAndCreateCourse(data, ctx) {
-  try {
-    const result = await courseService.createCourse({
+const validateAndCreateCourse = createValidationHandler({
+  serviceCall: (data) =>
+    courseService.createCourse({
       courseName: data.courseName,
-    });
-
-    if (!result.success) {
-      const errorConfig =
-        COURSE_ERROR_MESSAGES[result.error.code] ||
-        COURSE_ERROR_MESSAGES.DEFAULT;
-
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: errorConfig.message,
-        path: errorConfig.path,
-      });
-
-      return z.NEVER;
-    }
-
-    return { ...data, createdCourse: result.data };
-  } catch (error) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: COURSE_ERROR_MESSAGES.SERVER_ERROR.message,
-      path: COURSE_ERROR_MESSAGES.SERVER_ERROR.path,
-    });
-    return z.NEVER;
-  }
-}
+    }),
+  errorMessages: COURSE_ERROR_MESSAGES,
+  responseKey: "createdCourse",
+});

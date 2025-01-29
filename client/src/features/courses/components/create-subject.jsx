@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/dialog";
 import { StatusButton } from "@/components/ui/status-button";
 import { useDialogAutoClose } from "@/hooks/use-autoclose.jsx";
+import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { PlusIcon, Sparkles } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
-import { z } from "zod";
 import { CreateSubjectSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
 import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
@@ -100,32 +100,9 @@ export async function createSubject(formData, courseId) {
   return { result: submission.reply() };
 }
 
-async function validateAndCreateSubject(data, ctx) {
-  try {
-    const result = await subjectService.createSubject(
-      data.courseId,
-      data.subjectName
-    );
-
-    if (!result.success) {
-      const errorConfig =
-        COURSE_ERROR_MESSAGES[result.error.code] ||
-        COURSE_ERROR_MESSAGES.DEFAULT;
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: errorConfig.message,
-        path: errorConfig.path,
-      });
-
-      return z.NEVER;
-    }
-    return { ...data, subjectResponse: result.data };
-  } catch (error) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: COURSE_ERROR_MESSAGES.SERVER_ERROR.message,
-      path: COURSE_ERROR_MESSAGES.SERVER_ERROR.path,
-    });
-    return z.NEVER;
-  }
-}
+const validateAndCreateSubject = createValidationHandler({
+  serviceCall: (data) =>
+    subjectService.createSubject(data.courseId, data.subjectName),
+  errorMessages: COURSE_ERROR_MESSAGES,
+  responseKey: "subjectResponse",
+});

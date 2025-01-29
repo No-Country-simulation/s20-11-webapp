@@ -7,11 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { StatusButton } from "@/components/ui/status-button";
+import { useIsPending } from "@/hooks/use-pending.jsx";
+import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
-import { z } from "zod";
-import { useIsPending } from "@/hooks/use-pending.jsx";
 import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
 import { ERROR_MESSAGES } from "../utils/auth.errors";
@@ -118,31 +118,8 @@ export default function Register() {
   );
 }
 
-async function validateAndRegister(data, ctx) {
-  try {
-    const result = await authService.register({
-      email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-    });
-    if (!result.success) {
-      const errorConfig =
-        ERROR_MESSAGES[result.error.code] || ERROR_MESSAGES.DEFAULT;
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: errorConfig.message,
-        path: errorConfig.path,
-      });
-
-      return z.NEVER;
-    }
-    return { ...data, authResponse: result.data };
-  } catch (error) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: ERROR_MESSAGES.SERVER_ERROR.message,
-      path: ERROR_MESSAGES.SERVER_ERROR.path,
-    });
-    return z.NEVER;
-  }
-}
+const validateAndRegister = createValidationHandler({
+  serviceCall: (data) => authService.register(data),
+  errorMessages: ERROR_MESSAGES,
+  responseKey: "authResponse",
+});

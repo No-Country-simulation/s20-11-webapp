@@ -9,11 +9,11 @@ import {
 import { StatusButton } from "@/components/ui/status-button";
 
 import { ErrorList, Field } from "@/components/forms";
+import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { UserPlus } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
-import { z } from "zod";
 import {
   RegisterStudentSchema
 } from "../schemas/course.schemas";
@@ -97,32 +97,8 @@ export async function registerStudentAction(formData, courseId) {
   return { result: submission.reply() };
 }
 
-async function validateAndRegisterStudent(data, ctx) {
-  try {
-    const result = await studentsService.registerStudent(
-      data.courseId,
-      data.email
-    );
-
-    if (!result.success) {
-      const errorConfig =
-        COURSE_ERROR_MESSAGES[result.error.code] ||
-        COURSE_ERROR_MESSAGES.DEFAULT;
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: errorConfig.message,
-        path: errorConfig.path,
-      });
-
-      return z.NEVER;
-    }
-    return { ...data, subjectResponse: result.data };
-  } catch (error) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: COURSE_ERROR_MESSAGES.SERVER_ERROR.message,
-      path: COURSE_ERROR_MESSAGES.SERVER_ERROR.path,
-    });
-    return z.NEVER;
-  }
-}
+const validateAndRegisterStudent = createValidationHandler({
+  serviceCall: (data) => studentsService.registerStudent(data.courseId, data.email),
+  errorMessages: COURSE_ERROR_MESSAGES,
+  responseKey: "studentResponse",
+});
