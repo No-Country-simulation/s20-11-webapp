@@ -62,13 +62,12 @@ function SubjectCard({ subject }) {
   return (
     <Card
       style={{
-        borderLeftWidth: "6px",
-        borderLeftColor: subject.color,
-        "--subject-color": subject.color,
+        "--subject-color-dark": subject.color.dark,
+        "--subject-color-light": subject.color.light,
       }}
-      className="select-none !rounded-md hover:bg-[var(--subject-color)]  transition-colors duration-300"
+      className="select-none !rounded-md bg-[var(--subject-color-light)] dark:bg-[var(--subject-color-dark)] text-black dark:text-white transition-colors duration-300 hover:bg-[var(--subject-color-dark)] dark:hover:bg-[var(--subject-color-light)] hover:text-white dark:hover:text-black"
     >
-      <CardHeader className="!p-4 flex !flex-row gap-4 items-center">
+      <CardHeader className="!p-6 !px-8 flex !flex-row gap-4 items-center">
         <CardTitle className="text-nowrap">{subject.name}</CardTitle>
       </CardHeader>
     </Card>

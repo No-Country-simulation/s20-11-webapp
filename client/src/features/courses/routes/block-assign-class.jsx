@@ -86,9 +86,10 @@ export default function AssignClass() {
                 <div className="flex items-center gap-2">
                   <div
                     style={{
-                      backgroundColor: subject.color,
+                      "--subject-color-dark": subject.color.dark,
+                      "--subject-color-light": subject.color.light,
                     }}
-                    className="size-4 rounded-full"
+                    className="size-4 rounded-full bg-[var(--subject-color-light)] dark:bg-[var(--subject-color-dark)]"
                   ></div>
                   {subject.name}
                 </div>
