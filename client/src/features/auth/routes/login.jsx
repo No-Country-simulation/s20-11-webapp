@@ -110,10 +110,7 @@ export default function Login() {
 
 const validateAndLogin = createValidationHandler({
   serviceCall: (data) =>
-    authService.login({
-      email: data.email,
-      password: data.password,
-    }),
+    authService.login(data),
   errorMessages: ERROR_MESSAGES,
   responseKey: "authResponse",
 });
