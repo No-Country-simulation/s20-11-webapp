@@ -127,3 +127,10 @@ ALTER TABLE course_class_days
 -- changeset crist:1737570984834-16
 ALTER TABLE subjects
     DROP CONSTRAINT uc_subjects_name;
+
+-- changeset crist:1737570984834-17
+ALTER TABLE subjects ADD dark VARCHAR(20); -- O usa TEXT si necesitas más longitud
+ALTER TABLE subjects ADD light VARCHAR(20);
+
+-- changeset crist:1737570984834-18
+ALTER TABLE subjects DROP COLUMN color;

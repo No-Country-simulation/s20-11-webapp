@@ -48,7 +48,7 @@ public class SubjectService {
 
         validateSubjectRequest(request, courseId);
 
-        Subject newSubject = new Subject(request.name(), colorUtils.generateHexColor(), SubjectType.CLASS, course);
+        Subject newSubject = new Subject(request.name(), colorUtils.createAdaptableColor(), SubjectType.CLASS, course);
 
         return mapper.toSubjectResponse(subjectRepository.save(newSubject));
     }

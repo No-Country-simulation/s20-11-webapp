@@ -1,6 +1,7 @@
 package no.country.eduplanner.notifications.application.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import no.country.eduplanner.shared.domain.vo.AdaptableColor;
 
 import java.time.LocalDateTime;
 
@@ -47,7 +48,7 @@ public record NotificationResponse(
                 description = "Color asociado a la asignatura (en formato hexadecimal)",
                 example = "#FF5733"
         )
-        String subjectColor,
+        AdaptableColor color,
 
         @Schema(
                 description = "Fecha y hora de creación de la notificación",
