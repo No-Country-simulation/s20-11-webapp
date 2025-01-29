@@ -3,6 +3,8 @@ src/main/resources/.env
 *.env
 !.env.example
 
+deploy.sh
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

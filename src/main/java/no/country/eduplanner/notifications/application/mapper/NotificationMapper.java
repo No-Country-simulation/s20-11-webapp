@@ -10,6 +10,7 @@ public class NotificationMapper {
     public NotificationResponse toResponse(Notification entity) {
         return new NotificationResponse(
                 entity.getId(),
+                entity.getHeader(),
                 entity.getTitle(),
                 entity.getMessage(),
                 entity.getCourseId(),

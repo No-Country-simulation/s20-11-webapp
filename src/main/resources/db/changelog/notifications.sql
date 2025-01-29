@@ -24,8 +24,22 @@ CREATE TABLE notifications
 
 
 -- changeset crist:1737650036734-3
-ALTER TABLE notifications ADD dark VARCHAR(20);
-ALTER TABLE notifications ADD light VARCHAR(20);
+ALTER TABLE notifications
+    ADD dark VARCHAR(20);
+ALTER TABLE notifications
+    ADD light VARCHAR(20);
 
 -- changeset crist:1737650036734-4
-ALTER TABLE notifications DROP COLUMN assigned_color;
+ALTER TABLE notifications
+    DROP COLUMN assigned_color;
+
+-- changeset crist:1738177840678-1
+ALTER TABLE notifications
+    ADD header VARCHAR(255);
+ALTER TABLE notifications
+    ADD type VARCHAR(255);
+
+-- changeset crist:1738177840678-5
+ALTER TABLE notifications
+    ALTER COLUMN type SET NOT NULL;
+

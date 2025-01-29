@@ -37,7 +37,7 @@ public class SubjectController implements SubjectApi {
 
     @PostMapping("/send-notification")
     public void publishNotificationForSubject(@RequestBody @Valid NotificationRequest request) {
-        eventPublisher.publishEvent(request);
+        eventPublisher.publishEvent(NotificationRequest.forSubject(request));
     }
 
     @PutMapping("/{courseId}/subjects/add-to-block")

@@ -31,6 +31,7 @@ public class NotificationService {
         courseAccessPort.verifyUserHasAccessToCourse(event.courseId());
 
         Notification notification = Notification.builder()
+                                                .header(event.header() == null ? null : event.header())
                                                 .title(event.title())
                                                 .message(event.message())
                                                 .courseId(event.courseId())

@@ -13,10 +13,15 @@ public record NotificationResponse(
                 example = "12345"
         )
         Long id,
-
         @Schema(
                 description = "Título de la notificación. Puede ser el nombre de la asignatura, por ejemplo.",
                 example = "Matemáticas"
+        )
+        String header,
+
+        @Schema(
+                description = "Título principal de la notificación.",
+                example = "Exámen de potencias"
         )
         String title,
 

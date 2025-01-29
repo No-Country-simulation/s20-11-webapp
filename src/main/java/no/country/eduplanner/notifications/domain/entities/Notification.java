@@ -1,11 +1,9 @@
 package no.country.eduplanner.notifications.domain.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import no.country.eduplanner.notifications.domain.enums.NotificationType;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
 import no.country.eduplanner.shared.domain.vo.AdaptableColor;
 
@@ -19,6 +17,9 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @Table(name = "notifications")
 public class Notification extends BaseEntity {
+
+    @Column(name = "header")
+    private String header;
 
     @Column(nullable = false)
     private String title;
@@ -41,6 +42,11 @@ public class Notification extends BaseEntity {
     @Column(name = "is_expired", nullable = false)
     @Builder.Default
     private boolean isExpired = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    @Builder.Default
+    private NotificationType type = NotificationType.GENERAL;
 
     public void markAsExpired() {
         this.isExpired = true;

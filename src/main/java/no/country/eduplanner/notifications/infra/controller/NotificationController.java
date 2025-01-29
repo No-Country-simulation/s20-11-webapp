@@ -25,7 +25,7 @@ public class NotificationController implements NotificationApi {
     }
 
     // Obtener notificación por id
-    @GetMapping("/{notificationId}")
+    @GetMapping("/details/{notificationId}")
     public NotificationResponse getEventById(@PathVariable Long notificationId) {
         return notificationService.getNotificationById(notificationId);
     }
