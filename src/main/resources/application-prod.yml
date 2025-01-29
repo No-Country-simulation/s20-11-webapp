@@ -1,0 +1,134 @@
+#spring:
+#  mail:
+#    host: prod.email.service
+#    port: 587
+#    username: prod.email@gmail.com
+#    password: prod.email-password
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+# NOT REAL PROD YET 😅
+# Eventually, we will use a different email service for production
+
+spring:
+  mail:
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:1025}
+    username: ${SMTP_USERNAME:} # Use environment variables for sensitive data
+    password: ${SMTP_PASSWORD:} # Use environment variables for sensitive data
+    properties:
+      mail:
+        smtp:
+          auth: ${SMTP_AUTH:false}
+          starttls:
+            enable: ${SMTP_STARTTLS:false}
+          ssl:
+            enable: ${SMTP_SSL:false}
+  # JPA configuration
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: America/Argentina/Buenos_Aires
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false # Disable in production to avoid performance overhead
+        show_sql: false # Disable in production to avoid logging sensitive data
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  # Liquibase configuration
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true
+    default-schema: public
+
+  # Application configuration
+  application:
+    name: EduPlanner
+  docker:
+    compose:
+      lifecycle-management: start_only
+      file: classpath:compose.yaml
+  threads:
+    virtual:
+      enabled: true
+  jackson:
+    time-zone: America/Argentina/Buenos_Aires
+
+  # Datasource configuration
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/eduplanner}
+    username: ${DATABASE_USERNAME:admin}
+    password: ${DATABASE_PASSWORD:admin}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      max-lifetime: 1800000
+
+# JWT configuration
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  expiration: ${JWT_TIME_EXPIRATION}
+  refresh-token:
+    expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    no.country: DEBUG
+    org.springframework: WARN
+    org.hibernate: WARN
+  file:
+    name: logs/app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      file-name-pattern: logs/app.%d{yyyy-MM-dd}.%i.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Server configuration
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Actuator endpoints for monitoring (no actuator yet)
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health, info, metrics, prometheus
+#  endpoint:
+#    health:
+#      show-details: always
+#    metrics:
+#      enabled: true
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true
+
+# Swagger/OpenAPI documentation (disable in production or restrict access)
+springdoc:
+  api-docs:
+    enabled: false
+    path: /docs/api-docs
+  swagger-ui:
+    enabled: false
+    path: /docs/swagger
+    operations-sorter: method
+    tags-sorter: alpha
+
+# Custom application properties
+# nothing here yet
