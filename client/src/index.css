@@ -4,7 +4,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 198, 17%, 20%;
+    --foreground: 198, 17%, 20%; /* color de texto de Consuelo */
     --card: 180 4.8% 95.9%;
     --card-foreground: 224 71.4% 4.1%;
     --card-border: 197 4.3% 68.0%;
@@ -61,6 +61,14 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  [data-dark-mode] {
+    border-left-color: var(--subject-color) !important;
+  }
+  .dark [data-dark-mode] {
+    border-left-color: attr(data-dark-mode) !important;
+  }
+  
 }
 @layer base {
   * {

@@ -1,5 +1,6 @@
 import App, { loader } from "./App.jsx";
-import HomeStudent from "./components/HomeStudent.jsx";
+import HomeStudent /* { eventLoader } */ from "./components/HomeStudent.jsx";
+import { eventLoader } from "./features/student/services/eventLoader.js"
 import { Error } from "./components/layout/error.jsx";
 import Layout from "./components/layout/layout.jsx";
 import Login, {
@@ -45,6 +46,8 @@ import CreateEvent, {
 } from "./features/student/routes/create-event.jsx"; // arreglar
 
 import StudentLayout, { studentLayoutLoader } from "./features/student/routes/student-layout.jsx";
+
+
 export const routes = [
   {
     element: <Layout />,
@@ -150,6 +153,7 @@ export const routes = [
           {
             index: true, //Cuando una ruta padre (/student) tiene varias rutas hijas, la que tiene index: true es la que se carga por defecto cuando el usuario accede a la ruta padre sin especificar ninguna subruta
             element: <HomeStudent />,
+            loader: eventLoader, profileLoader
           },
           {
             path: "calendar",
