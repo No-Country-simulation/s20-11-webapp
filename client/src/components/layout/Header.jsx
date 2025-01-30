@@ -24,7 +24,7 @@ const Header = ({ userData }) => {
                 user={{
                   email,
                   role: userRole,
-                  photo: userData.profilePhotoThumbnail,
+                  photo: userData?.profilePhotoThumbnail ?? "#",
                 }}
               />
             ) : (
