@@ -3,12 +3,14 @@ import { cn } from "@/lib/utils";
 import { useInputControl } from "@conform-to/react";
 import { type OTPInputProps, REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useId } from "react";
+import { Ojotachado } from '../Icons/Ojotachado';
+import { Ojovisible } from "../Icons/Ojovisible";
 import { Input } from "./ui/input";
 import {
-    InputOTP,
-    InputOTPGroup,
-    InputOTPSeparator,
-    InputOTPSlot,
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
 } from "./ui/input-otp";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
@@ -77,6 +79,53 @@ export function Field({
         {...inputProps}
       />
       <div className="min-h-[32px] px-4 pb-3 pt-1">
+        {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
+      </div>
+    </div>
+  );
+}
+
+export function PassField({
+  labelProps,
+  inputProps,
+  errors,
+  className,
+  showPassword = false,
+  togglePasswordVisibility,
+}: {
+  labelProps: React.LabelHTMLAttributes<HTMLLabelElement>;
+  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
+  errors?: ListOfErrors;
+  className?: string;
+  showPassword?: boolean;
+  togglePasswordVisibility?: () => void;
+}) {
+  const fallbackId = useId();
+  const id = inputProps.id ?? fallbackId;
+  const errorId = errors?.length ? `${id}-error` : undefined;
+
+  return (
+    <div className={cn("relative", className)}>
+      <Label htmlFor={id} {...labelProps} />
+      <div className="relative">
+        <Input
+          id={id}
+          {...inputProps} // 🔥 Primero aplicamos todos los props del input
+          type={showPassword ? "text" : "password"} // 🔥 Luego forzamos el `type`
+          aria-invalid={errorId ? true : undefined}
+          aria-describedby={errorId}
+        />
+        {togglePasswordVisibility && (
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+          >
+            {showPassword ? <Ojovisible /> : <Ojotachado />}
+          </button>
+        )}
+      </div>
+      <div className="min-h-[22px] px-4 pt-1">
         {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
       </div>
     </div>
