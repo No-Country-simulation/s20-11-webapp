@@ -25,15 +25,15 @@ public class CloudinaryService {
             String originalUrl = (String) uploadResult.get("url");
 
             // Subida de la imagen reducida con transformación
-            Map thumbnailResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-                    "transformation", ObjectUtils.asMap(
-                            "width", 150,
-                            "height", 150,
-                            "crop", "fill",
-                            "quality", "auto:low"
-                    )
-            ));
-            String thumbnailUrl = (String) thumbnailResult.get("url");
+//            Map thumbnailResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
+//                    "transformation", ObjectUtils.asMap(
+//                            "width", 150,
+//                            "height", 150,
+//                            "crop", "fill",
+//                            "quality", "auto:low"
+//                    )
+//            ));
+            String thumbnailUrl = adjustForLowSize(originalUrl);
 
             // Crear y devolver la entidad Image con ambas URLs
             return new Image(originalUrl, thumbnailUrl);
@@ -41,5 +41,11 @@ public class CloudinaryService {
             throw new ImageUploadException("Error al subir la imagen", e);
         }
     }
+
+    private static String adjustForLowSize(String secureUrl) {
+        if (secureUrl == null) return null;
+        return secureUrl.replace("/upload/", "/upload/w_400,c_scale,q_auto,f_auto,dpr_auto/");
+    }
 }
+
 
