@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido a EducPlanner</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #7b57e5;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .credentials {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .credentials strong {
+            color: #7b57e5;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #7b57e5;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: center;
+            margin: 20px auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #6a4acb;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #7b57e5;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>¡Bienvenido a EducPlanner! 🎓</h1>
+<!--    <p>Estamos emocionados de tenerte como parte de nuestra comunidad educativa.</p>-->
+    <p>Has sido registrado exitosamente como <strong>Estudiante</strong> para el curso: <strong
+            th:text="${courseName}"></strong>.</p>
+
+    <div class="credentials">
+        <p><strong>Correo Electrónico:</strong> <span th:text="${email}"></span></p>
+        <p><strong>Contraseña Temporal:</strong> <span th:text="${password}"></span></p>
+    </div>
+
+    <p>Para comenzar, ingresa a la plataforma utilizando el siguiente enlace:</p>
+    <div class="button-container">
+        <a class="button" th:href="${link}">Acceder a EducPlanner</a>
+    </div>
+
+    <p class="footer">
+        Por tu seguridad, te recomendamos cambiar tu contraseña después de iniciar sesión.<br>
+        Si tienes alguna pregunta, no dudes en contactarnos en <a href="mailto:soporte@eduplanner.com">soporte@eduplanner.com</a>.
+    </p>
+</div>
+</body>
+</html>

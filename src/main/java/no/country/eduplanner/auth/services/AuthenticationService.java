@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,6 +64,7 @@ public class AuthenticationService {
                             request.password())
             );
 
+            log.info("👤 Login successful for user [{}] at [{}]", request.email(), LocalDateTime.now());
             TokenResponse tokens = generateTokens(user);
             return buildAuthResponse(user, tokens);
 

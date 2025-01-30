@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import no.country.eduplanner.courses.domain.enums.SubjectType;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
+import no.country.eduplanner.shared.domain.vo.AdaptableColor;
 
 @Entity
 @Table(name = "subjects")
@@ -20,8 +21,8 @@ public class Subject extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "color", nullable = false)
-    private String color;
+    @Embedded
+    private AdaptableColor color;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)

@@ -22,3 +22,10 @@ CREATE TABLE notifications
     CONSTRAINT pk_notifications PRIMARY KEY (id)
 );
 
+
+-- changeset crist:1737650036734-3
+ALTER TABLE notifications ADD dark VARCHAR(20);
+ALTER TABLE notifications ADD light VARCHAR(20);
+
+-- changeset crist:1737650036734-4
+ALTER TABLE notifications DROP COLUMN assigned_color;

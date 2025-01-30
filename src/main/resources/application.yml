@@ -1,8 +1,8 @@
 
 spring:
   mail:
-    host: localhost
-    port: 1025
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:1025}
     username:
     password:
     properties:
@@ -50,6 +50,7 @@ jwt:
   refresh-token :
     expiration : ${JWT_REFRESH_TOKEN_EXPIRATION}
 app:
+  frontend-url: ${FRONTEND_URL:https://placeholder.remove.me}
   datasource:
     database-url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/eduplanner}
     username: ${DATABASE_USERNAME:admin}
@@ -71,3 +72,4 @@ cloudinary:
   cloud-name: ${CLOUD_NAME:dqc7crpkq}
   api-key: ${API_KEY:442165733268754}
   api-secret: ${API_SECRET:ZcelzzcvTGZdc0-dzFzXjIUBQVc}
+
