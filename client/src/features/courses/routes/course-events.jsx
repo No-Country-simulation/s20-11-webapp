@@ -36,6 +36,12 @@ import { Button } from "../../../components/ui/button";
 
 export default function CourseEvents() {
   return (
+    <div className="flex flex-col sm:flex-row gap-2 justify-between items-center ">
+      <TitleBar title="Eventos" />
+    </div>
+  );
+
+  return (
     <>
       <div className="flex flex-col sm:flex-row gap-2 justify-between items-center ">
         <TitleBar title="Eventos" />
