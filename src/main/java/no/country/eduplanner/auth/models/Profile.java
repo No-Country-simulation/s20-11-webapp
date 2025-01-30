@@ -13,7 +13,7 @@ import no.country.eduplanner.shared.domain.vo.Image;
 import org.springframework.util.StringUtils;
 
 @Embeddable
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Setter
 public class Profile {
