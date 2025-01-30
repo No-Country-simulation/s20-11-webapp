@@ -40,42 +40,46 @@ function Calendario() {
 
 
 
-    const handleDateClick = (selectedDate) => {
-      setDate(selectedDate);
-    
-      // Para ir a la página de detalles del día en mobile
-      if (isMobile) {
-        const formattedDate = selectedDate.toISOString().split("T")[0]; // Para que se vea YYYY-MM-DD
-        navigate(`/student/calendar/${formattedDate}`);  // Ruta relativa a /student/calendar
-      }
-    };
+  const handleDateClick = (selectedDate) => {
+    setDate(selectedDate);
+
+    if (isMobile) {
+        // 🔥 Aseguramos que la fecha tenga hora 00:00 en zona horaria local
+        const adjustedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+        const formattedDate = adjustedDate.toISOString().split("T")[0];
+
+        navigate(`/student/calendar/${formattedDate}`);
+    }
+};
 
  
   return (
     
     <div className="md:pt-12 sm:px-4 md:px-0">   
          
-      <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-6 md:flex-row md:gap-40">
+      <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-20 md:flex-row md:gap-40">
         <div>
             <h1 className="text-foreground pt-10 pb-12 text-3xl text-left">Calendario</h1>
             <Calendar
-              onChange={handleDateClick}
-              value={date}
-              tileClassName={tileClassName}
-              formatShortWeekday={(locale, date) =>
-                ['L', 'M', 'M', 'J', 'V', 'S', 'D'][date.getDay()]
-              }
-              formatMonthYear={(locale, date) =>
-                date.toLocaleDateString('es-ES', {
-                  month: 'long', 
-                  year: 'numeric'
-                }).replace(/^./, (str) => str.toUpperCase()).replace('de ', '') 
-              }
-            />
+                onChange={handleDateClick}
+                value={date}
+                locale="es-ES"
+                tileClassName={tileClassName}
+                formatShortWeekday={(locale, date) => {
+                  const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D']; 
+                  return weekdays[date.getDay() === 0 ? 6 : date.getDay() - 1]; // 🔥 Reorganiza los días
+                }}
+                formatMonthYear={(locale, date) =>
+                  date.toLocaleDateString('es-ES', {
+                    month: 'long', 
+                    year: 'numeric'
+                  }).replace(/^./, (str) => str.toUpperCase()).replace('de ', '') 
+                }
+              />
         </div>
         
         <div className="titulo-y-eventos hidden sm:block md:pt-12 md:w-full">          
-          <p className="fecha-seleccionada text-xl">
+          <p className="fecha-seleccionada text-2xl ">
            {date.toLocaleDateString('es-ES', {
               weekday: 'long',
               day: 'numeric',

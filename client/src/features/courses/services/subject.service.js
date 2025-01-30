@@ -23,6 +23,7 @@ export const subjectService = {
     );
     return data;
   },
+  
   assignSubjectToBlock: async (courseId, blockId, subjectId) => {
     try {
       console.log(`Received blockId: ${blockId} and subjectId: ${subjectId}`);

@@ -5,7 +5,7 @@
   max-width: 100%;
   background: #F4F5F5;
   border: 1px solid #ccc; /* Borde gris */
-  border-radius: 12px;
+  border-radius: 6px;
   font-family: 'Roboto', sans-serif;
   box-shadow: none; /* Quitar sombra */
   display: flex;
@@ -25,7 +25,7 @@
   color: #4a4a4a; /* Gris oscuro */
   font-weight: normal; /* Sin negrita */
   font-size: 1.4rem;
-  text-transform: capitalize; /* Para mostrar el mes con la primera letra en mayúscula */
+  text-transform: capitalize; /* Mostrar el mes con la primera letra en mayúscula */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,8 +45,8 @@
 /* Contenedor de los días del mes */
 .react-calendar__month-view__days {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días */
-  grid-template-rows: repeat(6, 1fr); /* 6 filas para distribuir bien */
+  grid-template-columns: repeat(7, 1fr); /* 7 columnas */
+  grid-template-rows: repeat(6, 1fr); /* 6 filas */
   height: 100%;
   row-gap: 15px; /* Espaciado vertical entre filas */
   justify-content: space-between;
@@ -65,16 +65,18 @@
 }
 
 .react-calendar__tile:enabled:hover {
-  background: #BFC3C4; /* gris */
+  background: #BFC3C4; /* Gris */
   color: #523A99; /* Violeta oscuro */
 }
 
+/* Día actual (hoy) */
 .react-calendar__tile--now {
   border: 3px solid #523A99 !important;  
   border-radius: 6px;
 }
 
-/* Días resaltados (eventos importantes) */
+/* 🔥 🔥 🔥 🔥 🔥 */
+/* 🎨 DÍAS RESALTADOS (con eventos) → tienen una barra violeta */
 .react-calendar__tile.highlight::after {
   content: "";
   display: block;
@@ -85,7 +87,7 @@
   border-radius: 3px;
 }
 
-/* Día seleccionado con barra blanca */
+/* 🔥 Día SELECCIONADO sin eventos → SOLO fondo violeta */
 .react-calendar__tile--active {
   background: #7B57E5 !important; /* Fondo violeta */
   color: white !important;
@@ -94,7 +96,8 @@
   position: relative;
 }
 
-.react-calendar__tile--active::after {
+/* 🔥 Día SELECCIONADO CON EVENTOS → Mantiene la barra blanca */
+.react-calendar__tile.highlight.react-calendar__tile--active::after {
   content: "";
   display: block;
   width: 80%;
@@ -102,6 +105,11 @@
   background-color: white !important; /* Barra blanca */
   margin: 2px auto 0 auto;
   border-radius: 3px;
+}
+
+/* 🔥 Día sin eventos seleccionado NO tiene barra */
+.react-calendar__tile--active::after {
+  display: none; /* 🔥 Oculta la barra si no tiene eventos */
 }
 
 /* Días fuera del mes actual */
