@@ -25,7 +25,6 @@ import { courseService } from "../services/course.service";
 
 export async function coursesListLoader() {
   const courses = await courseService.getAllCourses();
-  console.log(courses);
 
   return { courses };
 }
@@ -50,22 +49,20 @@ export default function CoursesList() {
           title={"Total Cursos"}
           value={4}
           description={"Cursos bajo administración en el período actual"}
-          Icon={<Book />}
+          Icon={<Book size={40} />}
         />
 
         <StatsCard
           title={"Estudiantes Activos"}
           value={144}
-          description={
-            "Totalidad de estudiantes de todos los cursos registrados"
-          }
-          Icon={<Users />}
+          description={"Totalidad de estudiantes de todos los cursos"}
+          Icon={<Users size={40} />}
         />
         <StatsCard
           title={"Notificaciones"}
           value={14}
           description={"Eventos y avisos activos a través de tus cursos"}
-          Icon={<Calendar />}
+          Icon={<Calendar size={40} />}
         />
       </div>
       <Spacer size="3xs" />
@@ -119,13 +116,17 @@ function CoursesSearch({ searchQuery, setSearchQuery }) {
 
 function StatsCard({ title, value, description, Icon }) {
   return (
-    <div className="bg-card shadow border rounded-lg p-4 sm:p-6">
-      <div className="flex !flex-row items-center justify-between">
-        <div>{title}</div>
+    <div className="bg-card shadow border rounded-lg p-4 sm:p-6 flex justify-between items-center group">
+      <div>
+        <div className="flex !flex-row items-center justify-between">
+          <div>{title}</div>
+        </div>
+        <div className="text-3xl font-bold text-primary">{value}</div>
+        <div className="text-sm text-muted-foreground">{description}</div>
+      </div>
+      <div className="text-primary group-hover:rotate-3 group-hover:scale-105 transition-all">
         {Icon}
       </div>
-      <div className="text-3xl font-semibold">{value}</div>
-      <div className="text-sm text-muted-foreground">{description}</div>
     </div>
   );
 }
