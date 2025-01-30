@@ -1,7 +1,7 @@
 package no.country.eduplanner.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.web.multipart.MultipartFile;
+import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Solicitud de modificacion del perfil de usuario")
 public record ProfileRequest(
@@ -10,15 +10,18 @@ public record ProfileRequest(
                 description = "Nombre del usuario",
                 example = "Juan"
         )
-        String firstName ,
+        @NotBlank
+        String firstName,
 
         @Schema(
                 description = "Apellido del usuario",
                 example = "Perez"
         )
+        @NotBlank
         String lastName
 ) {
-public ProfileRequest{}
+    public ProfileRequest {
+    }
 
 }
 
