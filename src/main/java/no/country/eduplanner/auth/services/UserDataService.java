@@ -1,5 +1,6 @@
 package no.country.eduplanner.auth.services;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.dto.ProfileRequest;
 import no.country.eduplanner.auth.dto.UserData;
@@ -20,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,7 +50,7 @@ public class UserDataService {
             return Collections.emptyList();
         }
 
-        List<UserEntity> foundUsers = userRepository.findAllByIdsAndRole(userIds,role);
+        List<UserEntity> foundUsers = userRepository.findAllByIdsAndRole(userIds, role);
 
         return foundUsers.stream()
                          .map(userMapper::toUserData)
@@ -58,20 +58,12 @@ public class UserDataService {
     }
 
     @Transactional
-    public UserData updateUser(ProfileRequest profileRequest, MultipartFile file) {
-        UserData currentUserData = getCurrentUserData();
-
-        UserEntity user = userRepository.findById(currentUserData.id())
-                                        .orElseThrow(() -> new UserNotFoundException(currentUserData.id()));
+    public UserData updateUserProfilePhoto(MultipartFile file) {
+        UserEntity user = getCurrentUserEntity();
 
         Profile profile = Optional.ofNullable(user.getProfileInfo()).orElse(new Profile());
 
-        if (profileRequest != null) {
-            profile.setFirstName(profileRequest.firstName());
-            profile.setLastName(profileRequest.lastName());
-        }
 
-        // Si hay una nueva imagen, subirla a Cloudinary y actualizar la referencia
         if (file != null && !file.isEmpty()) {
 
             Image newImage = cloudinaryService.uploadImage(file);
@@ -83,4 +75,26 @@ public class UserDataService {
         return userMapper.toUserData(userRepository.save(user));
     }
 
+    @Transactional
+    public UserData updateUserProfileInfo(@Valid ProfileRequest profileRequest) {
+
+        UserEntity user = getCurrentUserEntity();
+
+        Profile profile = Optional.ofNullable(user.getProfileInfo()).orElse(new Profile());
+
+        if (profileRequest != null) {
+            profile.setFirstName(profileRequest.firstName() != null ? profileRequest.firstName() : null);
+            profile.setLastName(profileRequest.lastName() != null ? profileRequest.lastName() : null);
+        }
+        user.setProfileInfo(profile);
+
+        return userMapper.toUserData(userRepository.save(user));
+    }
+
+    private UserEntity getCurrentUserEntity() {
+        UserData currentUserData = getCurrentUserData();
+
+        return userRepository.findById(currentUserData.id())
+                             .orElseThrow(() -> new UserNotFoundException(currentUserData.id()));
+    }
 }
