@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 import {
   Book,
   Calendar,
@@ -44,10 +45,10 @@ export default function CoursesList() {
   return (
     <>
       <Spacer size="3xs" />
-      <div className="grid sm:grid-cols-3 gap-2 sm:gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6">
         <StatsCard
           title={"Total Cursos"}
-          value={4}
+          value={courses.length}
           description={"Cursos bajo administración en el período actual"}
           Icon={<Book size={40} />}
         />
@@ -63,6 +64,7 @@ export default function CoursesList() {
           value={14}
           description={"Eventos y avisos activos a través de tus cursos"}
           Icon={<Calendar size={40} />}
+          className={"sm:col-span-2 lg:col-span-1"}
         />
       </div>
       <Spacer size="3xs" />
@@ -114,9 +116,14 @@ function CoursesSearch({ searchQuery, setSearchQuery }) {
   );
 }
 
-function StatsCard({ title, value, description, Icon }) {
+function StatsCard({ title, value, description, Icon, className }) {
   return (
-    <div className="bg-card shadow border rounded-lg p-4 sm:p-6 flex justify-between items-center group">
+    <div
+      className={cn(
+        "  bg-card gap-2 shadow border rounded-lg p-4 sm:p-6 flex justify-between items-center group",
+        className
+      )}
+    >
       <div>
         <div className="flex !flex-row items-center justify-between">
           <div>{title}</div>
