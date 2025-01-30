@@ -44,7 +44,7 @@ public class CloudinaryService {
 
     private static String adjustForLowSize(String secureUrl) {
         if (secureUrl == null) return null;
-        return secureUrl.replace("/upload/", "/upload/w_400,c_scale,q_auto,f_auto,dpr_auto/");
+        return secureUrl.replace("/upload/", "/upload/w_150,c_scale,q_auto,f_auto,dpr_auto/");
     }
 }
 
