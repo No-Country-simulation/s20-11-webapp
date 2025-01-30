@@ -190,7 +190,7 @@ function CreateCourseCard() {
               <CardTitle className="text-xl font-semibold text-muted-foreground">
                 Nuevo Curso
               </CardTitle>
-              <PlusIcon className="text-primary group-hover:scale-125 transition-transform duration-300" />
+              <PlusIcon className="text-primary group-hover:scale-150 group-hover:translate-y-2 transition-all duration-300" />
             </div>
             <CardDescription>
               Haz click para agregar un nuevo curso
