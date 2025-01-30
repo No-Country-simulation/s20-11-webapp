@@ -14,10 +14,10 @@ export default function CourseEvents() {
   const { events/* , user  */} = useLoaderData();
 
 
-const baseClasses ="select-none justify-center flex justify-center items-center rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[20rem] md:w-[10rem] shadow text-foreground";
+const baseClasses ="select-none justify-center flex justify-center items-center rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[11rem] md:w-[11rem] shadow text-foreground";
 
   return (
-    <div className="px-4 sm:px-8 md:pt-10 ">
+    <div className="px-4 sm:px-8 sm:pt-10 md:pt-10 ">
       <h2 className="pt-4 text-3xl pb-10">Eventos</h2>
 
       {/* BOTON AGREGAR EVENTO */}      

@@ -23,6 +23,9 @@ import CourseEvents from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
+import CourseScheduleStudent, {
+  courseScheduleLoaderStu,
+} from "./features/student/routes/course-schedule-stu.jsx"
 import CourseStudents, { courseStudentsAction, courseStudentsLoader } from "./features/courses/routes/course-students.jsx";
 import CourseSubjects, {
   courseSubjectsAction,
@@ -159,11 +162,18 @@ export const routes = [
           {
             path: "calendar",
             element: <Calendario />,
+            loader: eventLoader
           },
           {
             path: "calendar/:date",
             element: <DayDetail />,
+            loader: eventLoader
           },
+          {
+            path: "schedule",
+            element: <CourseScheduleStudent />, //no va a traer los datos del service porque le falta el id de params que usa en el caso de courses
+            loader: courseScheduleLoaderStu,
+          }
           /* {
             path: "schedule",
             element: //Aca falta el componente de horario estudiante

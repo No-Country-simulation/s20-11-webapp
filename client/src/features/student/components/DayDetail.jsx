@@ -1,14 +1,14 @@
 import {useParams} from "react-router-dom";
 import EventDetailCalendar from "./EventDetailCalendar";
+import { useLoaderData } from "react-router-dom";
 
 function DayDetail() {
-    const {date} = useParams();
-    // const { events } = useEvents();
+    const {date} = useParams();    
 
-    const events = []
+    const { events/* , user  */} = useLoaderData();
 
-    const eventsForSelectedDate = events.filter(
-        (event) => event.date.toISOString().split("T")[0] === date
+    const eventsForSelectedDate = events.data.filter(
+        (event) => new Date(event.scheduledFor).toISOString().split("T")[0] === date
     );
 
     // Convertir la fecha de la URL a un objeto Date

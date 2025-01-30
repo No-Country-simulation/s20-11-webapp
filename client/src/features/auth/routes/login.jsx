@@ -1,4 +1,4 @@
-import { ErrorList, Field } from "@/components/forms";
+import { ErrorList, Field, PassField } from "@/components/forms";
 import {
   Card,
   CardContent,
@@ -12,6 +12,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { z } from "zod";
 import { useIsPending } from "../../../hooks/use-pending";
+import { useState } from "react";
 import { LoginSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
 import { ERROR_MESSAGES } from "../utils/auth.errors";
@@ -46,6 +47,16 @@ export default function Login() {
   const actionData = useActionData();
 
   const isPending = useIsPending();
+
+
+//  OJITO PARA VER U OCULTAR PASSWORD
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+
 
   const [form, fields] = useForm({
     id: "login-form",
@@ -86,7 +97,7 @@ export default function Login() {
               errors={fields.email.errors}
             />
 
-            <Field
+            <PassField
               labelProps={{
                 children: (
                   <>
@@ -96,10 +107,12 @@ export default function Login() {
                 ),
               }}
               inputProps={{
-                ...getInputProps(fields.password, { type: "password" }),
+                ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
                 placeholder: "********",
                 autoComplete: "current-password",
               }}
+              showPassword={showPassword} // ✅ Estado dinámico
+              togglePasswordVisibility={togglePasswordVisibility} // ✅ Cambia el estado
               errors={fields.password.errors}
             />
 

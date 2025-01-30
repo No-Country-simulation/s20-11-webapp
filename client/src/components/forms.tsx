@@ -13,6 +13,8 @@ import {
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 export type ListOfErrors = Array<string | null | undefined> | null | undefined;
+import { Ojovisible } from "../Icons/Ojovisible"
+import { Ojotachado } from '../Icons/Ojotachado';
 
 export function ErrorList({
   id,
@@ -82,6 +84,54 @@ export function Field({
     </div>
   );
 }
+
+export function PassField({
+  labelProps,
+  inputProps,
+  errors,
+  className,
+  showPassword = false,
+  togglePasswordVisibility,
+}: {
+  labelProps: React.LabelHTMLAttributes<HTMLLabelElement>;
+  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
+  errors?: ListOfErrors;
+  className?: string;
+  showPassword?: boolean;
+  togglePasswordVisibility?: () => void;
+}) {
+  const fallbackId = useId();
+  const id = inputProps.id ?? fallbackId;
+  const errorId = errors?.length ? `${id}-error` : undefined;
+
+  return (
+    <div className={cn("relative", className)}>
+      <Label htmlFor={id} {...labelProps} />
+      <div className="relative">
+        <Input
+          id={id}
+          {...inputProps} // 🔥 Primero aplicamos todos los props del input
+          type={showPassword ? "text" : "password"} // 🔥 Luego forzamos el `type`
+          aria-invalid={errorId ? true : undefined}
+          aria-describedby={errorId}
+        />
+        {togglePasswordVisibility && (
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+          >
+            {showPassword ? <Ojovisible /> : <Ojotachado />}
+          </button>
+        )}
+      </div>
+      <div className="min-h-[22px] px-4 pt-1">
+        {errorId ? <ErrorList id={errorId} errors={errors} /> : null}
+      </div>
+    </div>
+  );
+}
+
 
 export function OTPField({
   labelProps,

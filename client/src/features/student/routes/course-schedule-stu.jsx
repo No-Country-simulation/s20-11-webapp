@@ -6,23 +6,22 @@ import {
 } from "@/components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import { useLoaderData } from "react-router-dom";
-import { TitleBar } from "@/components/title-bar.jsx";
-import { BlockCard } from "../components/schedule-block-card.jsx";
-import { courseService } from "../services/course.service.js";
-import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";
+import { BlockCard } from "../../courses/components/schedule-block-card.jsx"
+import { courseService } from "../../courses/services/course.service.js"
+import { WEEKDAY_TRANSLATIONS } from "../../courses/utils/weekdays.js"
 
-export async function courseScheduleLoader({ params }) {
+export async function courseScheduleLoaderStu({ params }) {
   const courseId = params.courseId;
   const courseDetails = await courseService.getCourseDetails(courseId);
 
   const courseSchedule = await courseService.getCourseSchedule(courseId);
-  console.log("courseSchedule en loader:", courseSchedule);
+  console.log("courseScheduleStu en loader:", courseSchedule);
   return { courseDetails, courseSchedule };
 }
 
 
 
-export default function CourseSchedule() {
+export default function CourseScheduleStudent() {
   const { courseDetails, courseSchedule } = useLoaderData();
 
 
@@ -30,7 +29,7 @@ export default function CourseSchedule() {
   return (
     <>
     <div className="px-4 sm:px-2 sm:pt-10 md:pt-10 ">
-      <h2 className="pt-4 text-3xl pb-10 sm:pl-3">Horario</h2>
+      <h2 className="pt-4 text-3xl pb-10 sm:pl-3">Horario Estudiante</h2>
       {/* <TitleBar title={`${courseDetails.name} - Horario`} /> */}
       <Spacer size="4xs" />
         <div>

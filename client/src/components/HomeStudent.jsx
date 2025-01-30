@@ -26,14 +26,14 @@ function HomeStudent() {
   
 
   return (
-    <div className="flex-grow container mx-auto px-4 sm:px-8 pt-4 md:pt-10 pb-8">
+    <div className="flex-grow container mx-auto md:mx-0 px-4 sm:px-4 pt-4 md:pt-10 pb-8">
       <h1 className="text-3xl mb-3">
           {user.firstName ? `¡Hola, ${user.firstName}!` : "¡Hola!"}
       </h1>
       <h2 className="pt-4 text-2xl pb-4">Próximas evaluaciones</h2>
-      <div className="contenedor-general grid grid-cols-1 sm:grid-cols-1 gap-10 md:grid-cols-[1fr_auto] md:gap-48">
+      <div className="contenedor-general grid grid-cols-1 sm:grid-cols-1 gap-10 md:grid-cols-[1.5fr,1fr] md:gap-24">
         {/* Novedades */}
-        <EventDetailList events={events}/>
+        <EventDetailList events={events} cardClassName="md:w-[450px]"/>
         
 
         {/* Calendario y horario */}
@@ -58,7 +58,7 @@ function HomeStudent() {
                   viewTransition
                   prefetch="intent"
                   className="hover:ring-2 hover:ring-primary rounded-xl transition-all duration-300"
-                  to={`/student/calendar`}
+                  to={`/student/schedule`}
                 >
                 <Card className="bg-card w-full sm:w-[327px] md:w-[305px] pb-3 !rounded-md">
                   <CardHeader className="flex !flex-row justify-start items-center gap-6">

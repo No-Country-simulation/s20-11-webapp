@@ -5,10 +5,12 @@ import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
 import "./Calendario.css"; // Estilos que perzonalicé del componente de shadcn
 import EventDetailCalendar from "./EventDetailCalendar";
+import { useLoaderData } from "react-router-dom";
 
 function Calendario() {
 
   // const { events } = useEvents();
+  const { events/* , user  */} = useLoaderData();
   const [date, setDate] = useState(new Date());
   const navigate = useNavigate(); 
 
@@ -17,7 +19,7 @@ function Calendario() {
   const isMobile = useIsMobile();
 
   const highlightedDates = Array.from(
-    new Set(events.map((event) => event.date.toDateString()))
+    new Set(events.data.map((event) => new Date(event.scheduledFor).toDateString())) // 🔥 Convierte a Date
   ).map((dateStr) => new Date(dateStr));
 
 
@@ -31,8 +33,8 @@ function Calendario() {
   };
 
 
-  const eventsForSelectedDate = events.filter(
-    (event) => event.date.toDateString() === date.toDateString()
+  const eventsForSelectedDate = events.data.filter(
+    (event) => new Date(event.scheduledFor).toDateString() === date.toDateString()
   );
 
 
@@ -51,11 +53,11 @@ function Calendario() {
  
   return (
     
-    <div className="md:px-28 md:pt-12 sm:p-">   
+    <div className="md:pt-12 sm:px-4 md:px-0">   
          
       <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-6 md:flex-row md:gap-40">
         <div>
-            <h1 className="text-foreground pb-12 text-3xl text-left">Calendario</h1>
+            <h1 className="text-foreground pt-10 pb-12 text-3xl text-left">Calendario</h1>
             <Calendar
               onChange={handleDateClick}
               value={date}
@@ -72,7 +74,7 @@ function Calendario() {
             />
         </div>
         
-        <div className="titulo-y-eventos hidden md:block md:pt-12 md:w-full">          
+        <div className="titulo-y-eventos hidden sm:block md:pt-12 md:w-full">          
           <p className="fecha-seleccionada text-xl">
            {date.toLocaleDateString('es-ES', {
               weekday: 'long',
@@ -87,11 +89,7 @@ function Calendario() {
             <EventDetailCalendar  events={eventsForSelectedDate}/>            
           </div>
         </div>
-      </div>  
-      {/* <div className="">
-         <Outlet />   
-      </div> */}
-       
+      </div>       
     </div>
     
   );

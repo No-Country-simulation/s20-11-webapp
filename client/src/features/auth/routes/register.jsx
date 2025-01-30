@@ -1,4 +1,4 @@
-import { ErrorList, Field } from "@/components/forms";
+import { ErrorList, Field, PassField } from "@/components/forms";
 import {
   Card,
   CardContent,
@@ -12,6 +12,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { z } from "zod";
 import { useIsPending } from "@/hooks/use-pending.jsx";
+import { useState } from "react";
 import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
 import { ERROR_MESSAGES } from "../utils/auth.errors";
@@ -57,6 +58,23 @@ export default function Register() {
     shouldRevalidate: "onBlur",
   });
 
+
+//  OJITO PARA VER U OCULTAR PASSWORD
+const [showPassword, setShowPassword] = useState(false);
+
+const togglePasswordVisibility = () => {
+  setShowPassword((prev) => !prev); // 🔥 Alterna entre `true` y `false`
+};
+
+//  OJITO PARA VER U OCULTAR CONFPASSWORD
+const [showConfPassword, setShowConfPassword] = useState(false);
+
+const toggleConfPasswordVisibility = () => {
+  setShowConfPassword((prev) => !prev); // 🔥 Alterna entre `true` y `false`
+};
+
+
+
   return (
     <main className=" flex flex-col gap-2 pt-8 lg:pt-12 items-center lg:items-start">
       <Card className="!rounded-md w-full md:max-w-sm bg-card px-3 py-4 h-[426px] sm:w-[360px]">
@@ -86,7 +104,7 @@ export default function Register() {
               errors={fields.email.errors}
             />
 
-            <Field
+            <PassField
               labelProps={{
                 children: (
                   <>
@@ -96,28 +114,32 @@ export default function Register() {
                 ),
               }}
               inputProps={{
-                ...getInputProps(fields.password, { type: "password" }),
+                ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
                 placeholder: "********",
                 autoComplete: "current-password",
               }}
+              showPassword={showPassword} // ✅ Estado dinámico
+              togglePasswordVisibility={togglePasswordVisibility} // ✅ Cambia el estado
               errors={fields.password.errors}
             />
 
-            <Field
-            labelProps={{
-              children: (
-                <>
-                  Confirmar contraseña
-                  <span className="text-destructive">*</span> {/* Asterisco rojo */}
-                </>
-              ),
-            }}              
-              inputProps={{
-                ...getInputProps(fields.confirmPassword, { type: "password" }),
-                placeholder: "********",
-                autoComplete: "confirm-password",
+            <PassField
+              labelProps={{
+                children: (
+                  <>
+                    Confirmar contraseña
+                    <span className="text-destructive">*</span> {/* Asterisco rojo */}
+                  </>
+                ),
               }}
-              errors={fields.confirmPassword.errors}
+              inputProps={{
+                ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
+                placeholder: "********",
+                autoComplete: "current-password",
+              }}
+              showPassword={showConfPassword} // ✅ Estado dinámico
+              togglePasswordVisibility={toggleConfPasswordVisibility} // ✅ Cambia el estado
+              errors={fields.password.errors}
             />
 
             <ErrorList errors={form.errors} id={form.errorId} />
