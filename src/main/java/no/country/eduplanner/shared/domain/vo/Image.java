@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.awt.font.TextHitInfo;
 import java.util.Objects;
 
 @Embeddable
@@ -15,14 +16,22 @@ import java.util.Objects;
 public class Image {
 
     @Column(name = "image_url")
-    private String url;
+    private String originalUrl;
+
+    @Column(name = "thumbnail_url")
+    private String thumbnailUrl;
 
 
     protected Image() {
     }
 
     private Image(String url) {
-        this.url = url;
+        this.originalUrl = url;
+    }
+
+    public Image(String originalUrl, String thumbnailUrl) {
+        this.originalUrl = originalUrl;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     public static Image fromUrl(String url) {
@@ -33,11 +42,11 @@ public class Image {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Image image)) return false;
-        return Objects.equals(url, image.url);
+        return Objects.equals(originalUrl, image.originalUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(url);
+        return Objects.hashCode(originalUrl);
     }
 }

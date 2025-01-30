@@ -31,3 +31,6 @@ CREATE TABLE users
 ALTER TABLE user_roles
     ADD CONSTRAINT fk_user_roles_on_user_entity FOREIGN KEY (user_id) REFERENCES users (id);
 
+-- changeset crist:1738241837006-1
+ALTER TABLE users ADD thumbnail_url VARCHAR(255);
+
