@@ -68,3 +68,8 @@ springdoc:
 server:
   port: ${SERVER_PORT:8080}
 
+cloudinary:
+  cloud-name: ${CLOUD_NAME:dqc7crpkq}
+  api-key: ${API_KEY:442165733268754}
+  api-secret: ${API_SECRET:ZcelzzcvTGZdc0-dzFzXjIUBQVc}
+

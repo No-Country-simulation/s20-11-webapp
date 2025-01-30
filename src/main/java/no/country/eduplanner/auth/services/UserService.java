@@ -18,6 +18,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
@@ -40,5 +41,6 @@ public class UserService implements UserDetailsService {
                 ue.getRoles()
         );
     }
+
 
 }
