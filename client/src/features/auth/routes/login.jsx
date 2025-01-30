@@ -58,8 +58,8 @@ export default function Login() {
   });
 
   return (
-    <main className=" flex flex-col pt-8 lg:pt-24 items-center lg:items-start">
-      <Card className=" !rounded-lg w-full md:max-w-sm">
+    <main className=" flex flex-col gap-2 pt-8 lg:pt-12 items-center lg:items-start">
+      <Card className=" !rounded-md w-full md:max-w-sm bg-card px-3 py-4 h-[339px] sm:w-[360px]">
         <CardHeader>
           <CardTitle className="text-2xl text-center !font-normal">
             Iniciar sesión
@@ -68,7 +68,14 @@ export default function Login() {
         <CardContent>
           <Form {...getFormProps(form)} method="post">
             <Field
-              labelProps={{ children: "Correo electrónico" }}
+              labelProps={{
+                children: (
+                  <>
+                    Correo
+                    <span className="text-destructive">*</span> {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
                 ...getInputProps(fields.email, { type: "email" }),
                 placeholder: "correo@ejemplo.com",
@@ -80,7 +87,14 @@ export default function Login() {
             />
 
             <Field
-              labelProps={{ children: "Contraseña" }}
+              labelProps={{
+                children: (
+                  <>
+                    Contraseña
+                    <span className="text-destructive">*</span> {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
                 ...getInputProps(fields.password, { type: "password" }),
                 placeholder: "********",

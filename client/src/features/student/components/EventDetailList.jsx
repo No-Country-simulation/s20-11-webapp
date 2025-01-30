@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 export function EventDetailList({ cardClassName, events }) {
   return (
-    <div className="listado-eventos pt-4 text-sm">
+    <div className="listado-eventos text-sm">
       {events.data.length > 0 ? (
         events.data.map((event) => {
           // Convertir la fecha desde "scheduledFor"

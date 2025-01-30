@@ -58,8 +58,8 @@ export default function Register() {
   });
 
   return (
-    <main className=" flex flex-col pt-8 lg:pt-24 items-center lg:items-start">
-      <Card className=" !rounded-lg w-full md:max-w-sm">
+    <main className=" flex flex-col gap-2 pt-8 lg:pt-12 items-center lg:items-start">
+      <Card className="!rounded-md w-full md:max-w-sm bg-card px-3 py-4 h-[426px] sm:w-[360px]">
         <CardHeader>
           <CardTitle className="text-2xl text-center !font-normal">
             Regístrate
@@ -68,7 +68,14 @@ export default function Register() {
         <CardContent>
           <Form {...getFormProps(form)} method="post">
             <Field
-              labelProps={{ children: "Correo electrónico" }}
+              labelProps={{
+                children: (
+                  <>
+                    Correo
+                    <span className="text-destructive">*</span> {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
                 ...getInputProps(fields.email, { type: "email" }),
                 placeholder: "correo@ejemplo.com",
@@ -80,7 +87,14 @@ export default function Register() {
             />
 
             <Field
-              labelProps={{ children: "Contraseña" }}
+              labelProps={{
+                children: (
+                  <>
+                    Contraseña
+                    <span className="text-destructive">*</span> {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
                 ...getInputProps(fields.password, { type: "password" }),
                 placeholder: "********",
@@ -90,7 +104,14 @@ export default function Register() {
             />
 
             <Field
-              labelProps={{ children: "Confirmar contraseña" }}
+            labelProps={{
+              children: (
+                <>
+                  Confirmar contraseña
+                  <span className="text-destructive">*</span> {/* Asterisco rojo */}
+                </>
+              ),
+            }}              
               inputProps={{
                 ...getInputProps(fields.confirmPassword, { type: "password" }),
                 placeholder: "********",
@@ -110,7 +131,7 @@ export default function Register() {
             type="submit"
             disabled={isPending}
           >
-            Registrarse
+            Registrarte
           </StatusButton>
         </CardFooter>
       </Card>
