@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils"
 import { ErrorList, Field, PassField } from "@/components/forms";
 import {
   Card,
@@ -43,7 +44,7 @@ export async function loginLoader() {
   return null;
 }
 
-export default function Login() {
+export default function Login({classNameMas}) {
   const actionData = useActionData();
   const isPending = useIsPending();
 
@@ -65,7 +66,7 @@ export default function Login() {
   });
 
   return (
-    <main className=" flex flex-col pt-8 lg:pt-24 items-center lg:items-start">
+    <main  className={cn("flex flex-col pt-8 lg:pt-24 items-center lg:items-start", classNameMas)}>
       <Card className=" !rounded-lg w-full md:max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl text-center !font-normal">

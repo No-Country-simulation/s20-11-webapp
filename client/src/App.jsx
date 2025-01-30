@@ -13,6 +13,12 @@ import {
 } from "./components/ui/card";
 import { requireAnonymous } from "./features/auth/services/auth.service";
 import "./index.css";
+import ImagenPrincipal from "./assets/ImagenPrincipal.png"
+import Head from "./assets/head.svg"
+import Student from "./assets/student.png"
+import Compu from "./assets/Compu.png"
+import Header from "./components/layout/Header";
+import Login from "./features/auth/routes/login";
 
 export async function loader(params) {
   await requireAnonymous();
@@ -20,16 +26,67 @@ export async function loader(params) {
 
 export default function App() {
   return (
-    <main className="flex-grow">
-      <Hero />
-      <Features />
-      <Testimonials />
-      <Footer/>
-    </main>
+    <>
+    <Header/>
+    <div className="">
+      <div
+        className="p-20 h-[600px] w-full bg-cover bg-center flex flex-row justify-between items-center"
+        style={{ backgroundImage: `url(${ImagenPrincipal})` }}
+        
+      >
+        <h1 className="text-white w-[523px] text-5xl">Educplanner: La plataforma definitiva para la gestión escolar</h1>
+        <Login classNameMas="lg:pt-0 pt-0 w-[381px] bg-card !rounded-md"/>
+      </div>
+      <div className="mt-10 bg-muted py-10 w-full flex flex-col items-center justify-center">
+          <h2 className="text-4xl font-semibold text-primary pb-10">Dos roles, una solución</h2>
+          <div className="flex flex-row gap-32">
+              <div>
+                <h4 className="text-xl font-semibold">Estudiante</h4>
+                <p className="w-[382px] text-lg">Accede a tu horario semanal y mensual, visualiza los eventos importantes, recibe notificaciones, y gestiona tu perfil personal.</p>
+              </div>
+              <img src={Head} alt="" className="w-[195px] h-[195px]" />
+              <div>
+                <h4 className="text-xl font-semibold">Administrador</h4>
+                <p className="w-[382px] text-lg">Gestiona el calendario académico completo, crea y publica eventos, gestiona estudiantes y profesores. Tiene control sobre el horario, materias y estudiantes, facilitando la administración diaria del centro educativo.</p>
+              </div>
+          </div>          
+      </div>
+          <h2 className="text-4xl font-semibold text-primary pt-24 pb-12 pl-20">Interfaz del Estudiante: Organizada e Intuitiva</h2>
+          <div className="flex pl-44 items-center gap-48">
+            <p className="text-2xl w-[478px]">Visualiza tu horario semanal y mensual, con eventos importantes marcados. No te pierdas ni una clase o entrega, mantente al tanto de las actividades importantes.</p>
+            <img src={Student} alt="" className="w-[602px] h-[300px]" />
+          </div>
+          <h2 className="text-4xl font-semibold text-primary pt-24 pb-12 pl-20">Horario semanal: Siempre a tiempo</h2>
+          <div className="bg-muted mx-20 flex flex-row gap-[100px] items-center pr-[30px]">
+            <img src={Compu} alt="" className="w-[383px] h-[408px]" />
+            <div className="flex flex-col gap-[50px]">
+                <div className="flex flex-row gap-5 items-center">
+                    <div className="w-[45px] h-[45px] bg-gradient-to-br from-tertiary to-primary rounded-lg flex flex-row justify-center items-center">
+                      <p className="text-white text-lg">1</p>
+                    </div>
+                    <p className="text-2xl">Visualiza tu horario semanal de clases de forma clara y concisa.</p>
+                </div>
+                <div className="flex flex-row gap-5 items-center">
+                    <div className="w-[45px] h-[45px] bg-gradient-to-br from-tertiary to-primary rounded-lg flex flex-row justify-center items-center">
+                      <p className="text-white text-lg">2</p>
+                    </div>
+                    <p className="text-2xl">Mantente al tanto de tus responsabilidades académicas.</p>
+                </div>
+                <div className="flex flex-row gap-5 items-center">
+                    <div className="w-[45px] h-[45px] bg-gradient-to-br from-tertiary to-primary rounded-lg flex flex-row justify-center items-center">
+                      <p className="text-white text-lg">3</p>
+                    </div>
+                    <p className="text-2xl">Planifica tus actividades y asegúrate de no perderte ninguna clase.</p>
+                </div>
+            </div>
+          </div>
+          <h2 className="text-4xl font-semibold text-primary pt-24 pb-12 pl-20">Panel administrador: Control total</h2>
+    </div>
+    </>
   );
 }
 
-function Hero() {
+/* function Hero() {
   return (
     <section className="py-20  text-foreground">
       <div className="container mx-auto text-center">
@@ -146,4 +203,4 @@ function Testimonials() {
       </div>
     </section>
   );
-}
+} */
