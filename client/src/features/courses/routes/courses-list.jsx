@@ -100,7 +100,7 @@ export default function CoursesList() {
 }
 function CoursesSearch({ searchQuery, setSearchQuery }) {
   return (
-    <div className="flex gap-1 justify-center items-center w-[25rem] ">
+    <div className="flex gap-1 justify-center items-center sm:w-[25rem] ">
       <Input
         autoFocus
         type="text"
