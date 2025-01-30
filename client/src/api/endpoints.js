@@ -26,5 +26,10 @@ export const API_ENDPOINTS = {
     REMOVE_SUBJECT_FROM_BLOCK: (courseId) =>
       `/courses/${courseId}/subjects/remove-from-block`,
     SEND_NOTIFICATION: "/subjects/send-notification",
+    PUBLISH_EVENT: (courseId) => `/courses/${courseId}/send-notification`,
+  },
+  EVENTS: {
+    GET_ALL_EVENTS: (courseId) => `/notifications/${courseId}`,
+    GET_EVENT_DETAILS: (eventId) => `/notifications/details/${eventId}`,
   },
 };

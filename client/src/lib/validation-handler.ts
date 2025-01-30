@@ -1,12 +1,13 @@
 import { z } from "zod";
 
-
-export function createValidationHandler<T>({
+export function createValidationHandler<T, R>({
   serviceCall,
   errorMessages,
   responseKey = "responseData",
 }: {
-  serviceCall: (data: T) => Promise<any>;
+  serviceCall: (
+    data: T
+  ) => Promise<{ success: boolean; error?: { code: string }; data: R }>;
   errorMessages: ErrorMessageCollection;
   responseKey?: string;
 }) {
