@@ -1,4 +1,4 @@
-import { ErrorList, Field } from "@/components/forms";
+import { ErrorList, Field, PassField } from "@/components/forms";
 import {
   Card,
   CardContent,
@@ -11,6 +11,7 @@ import { useIsPending } from "@/hooks/use-pending.jsx";
 import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { useState } from "react";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
@@ -57,6 +58,20 @@ export default function Register() {
     shouldRevalidate: "onBlur",
   });
 
+  //  OJITO PARA VER U OCULTAR PASSWORD
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev); // 🔥 Alterna entre `true` y `false`
+  };
+
+  //  OJITO PARA VER U OCULTAR CONFPASSWORD
+  const [showConfPassword, setShowConfPassword] = useState(false);
+
+  const toggleConfPasswordVisibility = () => {
+    setShowConfPassword((prev) => !prev); // 🔥 Alterna entre `true` y `false`
+  };
+
   return (
     <main className=" flex flex-col pt-8 lg:pt-24 items-center lg:items-start">
       <Card className=" !rounded-lg w-full md:max-w-sm">
@@ -68,7 +83,15 @@ export default function Register() {
         <CardContent>
           <Form {...getFormProps(form)} method="post">
             <Field
-              labelProps={{ children: "Correo electrónico" }}
+              labelProps={{
+                children: (
+                  <>
+                    Correo
+                    <span className="text-destructive">*</span>{" "}
+                    {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
                 ...getInputProps(fields.email, { type: "email" }),
                 placeholder: "correo@ejemplo.com",
@@ -79,23 +102,43 @@ export default function Register() {
               errors={fields.email.errors}
             />
 
-            <Field
-              labelProps={{ children: "Contraseña" }}
+            <PassField
+              labelProps={{
+                children: (
+                  <>
+                    Contraseña
+                    <span className="text-destructive">*</span>{" "}
+                    {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
-                ...getInputProps(fields.password, { type: "password" }),
+                ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
                 placeholder: "********",
                 autoComplete: "current-password",
               }}
+              showPassword={showPassword} // ✅ Estado dinámico
+              togglePasswordVisibility={togglePasswordVisibility} // ✅ Cambia el estado
               errors={fields.password.errors}
             />
 
-            <Field
-              labelProps={{ children: "Confirmar contraseña" }}
-              inputProps={{
-                ...getInputProps(fields.confirmPassword, { type: "password" }),
-                placeholder: "********",
-                autoComplete: "confirm-password",
+            <PassField
+              labelProps={{
+                children: (
+                  <>
+                    Confirmar contraseña
+                    <span className="text-destructive">*</span>{" "}
+                    {/* Asterisco rojo */}
+                  </>
+                ),
               }}
+              inputProps={{
+                ...getInputProps(fields.confirmPassword, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
+                placeholder: "********",
+                autoComplete: "current-password",
+              }}
+              showPassword={showConfPassword} // ✅ Estado dinámico
+              togglePasswordVisibility={toggleConfPasswordVisibility} // ✅ Cambia el estado
               errors={fields.confirmPassword.errors}
             />
 
