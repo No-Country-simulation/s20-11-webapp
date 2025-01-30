@@ -23,6 +23,7 @@ export function ResponsiveOutletModal({
   description,
   to,
   titleClassName,  // Nueva prop para personalizar la clase del título
+  contentClassName
 }) {
   const isMobile = useIsMobile();
 
@@ -60,11 +61,11 @@ export function ResponsiveOutletModal({
   }
 
   return (
-    <Dialog open={isModalActive} onOpenChange={onClose}>
+    <Dialog open={isModalActive} onOpenChange={onClose} className={contentClassName}>
       <DialogTrigger asChild>
         <Link to={to}>{trigger}</Link>
       </DialogTrigger>
-      <DialogContent className="">
+      <DialogContent >
         <DialogHeader>
         {isModalActive && <DialogTitle className={titleClassName}>{title}</DialogTitle>}
           {description && <DialogDescription>{description}</DialogDescription>}

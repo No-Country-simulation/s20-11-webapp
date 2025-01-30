@@ -67,7 +67,7 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 bg-card">
       <div className="flex flex-col gap-4">
         <div className="titulo">
           <p className="text-sm22">Título</p>

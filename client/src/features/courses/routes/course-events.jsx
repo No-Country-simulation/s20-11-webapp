@@ -25,13 +25,14 @@ const baseClasses ="select-none justify-center flex justify-center items-center 
         <ResponsiveOutletModal
           to={"create-event"}
           trigger={
-            <div className={`${baseClasses} px-2.5 py-1.5 bg-primary text-white flex flex-row items-center gap-2`}>
+            <div className={`${baseClasses} px-2.5 py-1.5 bg-primary text-foreground flex flex-row items-center gap-2`}>
               <p className="text-2xl">+</p>
               <h3>Agregar Evento</h3>
             </div>
           }
           title={"Nuevo anuncio"}
-          titleClassName="text-xl font-normal pb-3"
+          titleClassName="bg-card text-xl font-normal pb-3"
+          contentClassName="bg-card"
         />
       </div>
 
