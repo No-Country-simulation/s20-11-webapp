@@ -13,11 +13,13 @@ import { Form, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 export function UserPanel({ user }) {
   const fallback = user.email.charAt(0).toUpperCase();
+
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="size-9 rounded-full cursor-pointer">
-          <AvatarImage src={"#"} alt={user.email} />
+          <AvatarImage src={user.photo ?? "#"} alt={user.email} />
           <AvatarFallback className="rounded-lg">{fallback}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -30,7 +32,7 @@ export function UserPanel({ user }) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar className="h-8 w-8 rounded-full">
-              <AvatarImage src={"#"} alt={user.email} />
+              <AvatarImage src={user.photo ?? "#"} alt={user.email} />
               <AvatarFallback className="rounded-lg">{fallback}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">

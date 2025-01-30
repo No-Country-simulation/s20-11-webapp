@@ -1,7 +1,7 @@
 import App, { loader } from "./App.jsx";
-import HomeStudent from "./components/HomeStudent.jsx";
+import HomeStudent, { homeStudentLoader } from "./components/HomeStudent.jsx";
 import { Error } from "./components/layout/error.jsx";
-import Layout from "./components/layout/layout.jsx";
+import Layout, { layoutLoader } from "./components/layout/layout.jsx";
 import Login, {
   loginAction,
   loginLoader,
@@ -37,7 +37,7 @@ import CoursesLayout, {
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
-import Profile, { profileLoader } from "./features/profile/routes/profile.jsx";
+import Profile, { profileAction, profileLoader } from "./features/profile/routes/profile.jsx";
 import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
 import CreateEvent, {
@@ -49,6 +49,7 @@ export const routes = [
   {
     element: <Layout />,
     errorElement: <Error />,
+    loader: layoutLoader,
     children: [
       {
         path: "/",
@@ -76,6 +77,7 @@ export const routes = [
         path: "/profile",
         element: <Profile />,
         loader: profileLoader,
+        action: profileAction
       },
 
       /* HOME DEL COORDINADOR */
@@ -151,6 +153,7 @@ export const routes = [
           {
             index: true,
             element: <HomeStudent />,
+            loader: homeStudentLoader
           },
           {
             path: "calendar",

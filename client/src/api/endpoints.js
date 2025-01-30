@@ -7,6 +7,8 @@ export const API_ENDPOINTS = {
   },
   PROFILE: {
     GET_PROFILE_INFO: "/auth/current-user",
+    UPLOAD_PROFILE_PHOTO: "/auth/current-user/photo",
+    UPDATE_PROFILE_INFO: "/auth/current-user/info"
   },
   COURSES: {
     CREATE_COURSE: "/courses",

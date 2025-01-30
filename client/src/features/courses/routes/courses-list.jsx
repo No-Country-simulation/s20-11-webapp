@@ -102,7 +102,7 @@ function CoursesSearch({ searchQuery, setSearchQuery }) {
   return (
     <div className="flex gap-1 justify-center items-center w-[25rem] ">
       <Input
-        autofocus
+        autoFocus
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

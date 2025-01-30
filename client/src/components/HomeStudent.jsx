@@ -3,13 +3,18 @@ import { Link, useLoaderData } from "react-router-dom";
 import IconCalendario from "../assets/Icon-calendario.svg";
 import IconHorario from "../assets/Icon-horario.svg";
 /* import { calendarService } from "../features/student/services/calendar.service" */
+import { profileService } from "../features/profile/services/profile.service";
 import { EventDetailList } from "../features/student/components/EventDetailList";
+import { calendarService } from "../features/student/services/calendar.service";
 
-//esto lo moví a la carpeta service, archivo eventLoader, junto con el llamado a profileService.getProfileInfo()
-/* export async function eventLoader() {
-  const events = await calendarService.getEvents();
-  return { events };
-} */
+export async function homeStudentLoader() {
+  const [events, user] = await Promise.all([
+    calendarService.getEvents(),
+    profileService.getProfileInfo(),
+  ]);
+
+  return { events, user };
+}
 
 function HomeStudent() {
   const { events, user } = useLoaderData();

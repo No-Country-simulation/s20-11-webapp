@@ -5,7 +5,7 @@ import { useAuth } from "../../features/auth/context/AuthContext";
 import { ModeToggle } from "../mode-toggle";
 import { UserPanel } from "../user-panel";
 
-const Header = () => {
+const Header = ({ userData }) => {
   const { isAuthenticated, email, isAdmin, isStudent } = useAuth();
 
   const userRole = isAdmin ? "Coordinador" : "Estudiante";
@@ -24,6 +24,7 @@ const Header = () => {
                 user={{
                   email,
                   role: userRole,
+                  photo: userData.profilePhotoThumbnail,
                 }}
               />
             ) : (

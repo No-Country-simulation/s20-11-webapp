@@ -1,7 +1,6 @@
 import { Spacer } from "@/components/layout/spacer";
 import { TitleBar } from "@/components/title-bar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -10,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChevronRight, Lock, Mail, Pencil, User } from "lucide-react";
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Form, Outlet, useLoaderData } from "react-router-dom";
 import { requireAuthenticated } from "../../auth/services/auth.service";
 import { profileService } from "../services/profile.service";
 
@@ -22,6 +21,26 @@ export async function profileLoader() {
   return {
     user: data,
   };
+}
+
+export async function profileAction({ request }) {
+  await requireAuthenticated();
+
+  const formData = await request.formData();
+  const file = formData.get("file");
+
+  if (!file) {
+    return { error: "No file selected" };
+  }
+
+  // Validate file type and size if needed
+  if (!file.type.startsWith("image/")) {
+    return { error: "Only image files are allowed" };
+  }
+
+  await profileService.uploadProfilePhoto(file);
+
+  return null;
 }
 
 export default function Profile() {
@@ -44,18 +63,12 @@ export default function Profile() {
         <section className="flex flex-col  items-center sm:items-start ">
           <div className="mx-12 w-fit relative">
             <Avatar className="!size-36  rounded-full cursor-pointer">
-              <AvatarImage src={"#"} alt={`Foto de perfil`} />
+              <AvatarImage src={user.profilePhoto} alt={`Foto de perfil`} />
               <AvatarFallback className="!text-[64px] !font-normal ">
                 {fallback}
               </AvatarFallback>
             </Avatar>
-            <Button
-              size="icon"
-              variant={"outline"}
-              className="absolute bottom-0 right-0"
-            >
-              <Pencil />
-            </Button>
+            <UploadProfilePhoto />
           </div>
           <Spacer size="xs" />
 
@@ -78,6 +91,38 @@ export default function Profile() {
         </section>
       </main>
     </>
+  );
+}
+
+function UploadProfilePhoto() {
+  return (
+    <Form
+      method="post"
+      encType="multipart/form-data"
+      className="absolute bottom-0 right-0"
+    >
+      <input
+        type="file"
+        id="avatar-upload"
+        accept="image/*"
+        name="file"
+        className="hidden"
+        onChange={(e) => e.target.form.requestSubmit()}
+      />
+      <label
+        htmlFor="avatar-upload"
+        className={cn(
+          "inline-flex items-center justify-center rounded-md text-sm font-medium",
+          "ring-offset-background transition-colors focus-visible:outline-none",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "disabled:pointer-events-none disabled:opacity-50",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          "h-10 w-10"
+        )}
+      >
+        <Pencil className="h-4 w-4" />
+      </label>
+    </Form>
   );
 }
 
