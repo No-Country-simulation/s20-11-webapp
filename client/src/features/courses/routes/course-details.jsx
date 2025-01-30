@@ -211,7 +211,7 @@ function DetailsCard({ label, value, Icon }) {
           <div className="text-sm text-foreground ">{label}: </div>
         </div>
 
-        <div className="text-sm text-foreground font-semibold text-right p-1">
+        <div className="text-sm text-foreground font-semibold text-left p-1">
           {value}
         </div>
       </div>

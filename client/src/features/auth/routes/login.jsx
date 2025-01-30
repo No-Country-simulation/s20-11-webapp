@@ -1,4 +1,4 @@
-import { ErrorList, Field } from "@/components/forms";
+import { ErrorList, Field, PassField } from "@/components/forms";
 import {
   Card,
   CardContent,
@@ -10,6 +10,7 @@ import { StatusButton } from "@/components/ui/status-button";
 import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { useState } from "react";
 import { data, Form, redirect, useActionData } from "react-router-dom";
 import { useIsPending } from "../../../hooks/use-pending";
 import { LoginSchema } from "../schemas/auth.schemas";
@@ -44,8 +45,14 @@ export async function loginLoader() {
 
 export default function Login() {
   const actionData = useActionData();
-
   const isPending = useIsPending();
+
+  //  OJITO PARA VER U OCULTAR PASSWORD
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const [form, fields] = useForm({
     id: "login-form",
@@ -68,7 +75,15 @@ export default function Login() {
         <CardContent>
           <Form {...getFormProps(form)} method="post">
             <Field
-              labelProps={{ children: "Correo electrónico" }}
+              labelProps={{
+                children: (
+                  <>
+                    Correo
+                    <span className="text-destructive">*</span>{" "}
+                    {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
                 ...getInputProps(fields.email, { type: "email" }),
                 placeholder: "correo@ejemplo.com",
@@ -79,13 +94,23 @@ export default function Login() {
               errors={fields.email.errors}
             />
 
-            <Field
-              labelProps={{ children: "Contraseña" }}
+            <PassField
+              labelProps={{
+                children: (
+                  <>
+                    Contraseña
+                    <span className="text-destructive">*</span>{" "}
+                    {/* Asterisco rojo */}
+                  </>
+                ),
+              }}
               inputProps={{
-                ...getInputProps(fields.password, { type: "password" }),
+                ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
                 placeholder: "********",
                 autoComplete: "current-password",
               }}
+              showPassword={showPassword} // ✅ Estado dinámico
+              togglePasswordVisibility={togglePasswordVisibility} // ✅ Cambia el estado
               errors={fields.password.errors}
             />
 
@@ -109,8 +134,7 @@ export default function Login() {
 }
 
 const validateAndLogin = createValidationHandler({
-  serviceCall: (data) =>
-    authService.login(data),
+  serviceCall: (data) => authService.login(data),
   errorMessages: ERROR_MESSAGES,
   responseKey: "authResponse",
 });

@@ -18,7 +18,7 @@ import AssignClass, {
 import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
-import CourseEvents from "./features/courses/routes/course-events.jsx";
+import CourseEvents, { courseEventsLoader } from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
@@ -130,6 +130,7 @@ export const routes = [
           {
             path: ":courseId/events",
             element: <CourseEvents />,
+            loader: courseEventsLoader,
             children: [
               {
                 path: "create-event",
