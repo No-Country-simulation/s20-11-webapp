@@ -1,5 +1,6 @@
 package no.country.eduplanner.auth.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.controller.apidocs.CurrentUserApi;
 import no.country.eduplanner.auth.dto.ProfileRequest;
@@ -20,12 +21,18 @@ public class CurrentUserController implements CurrentUserApi {
         return userDataService.getCurrentUserData();
     }
 
-    @PutMapping()
-    public UserData updateUserProfile(
-            @RequestPart(value = "profile", required = false) ProfileRequest profileRequest,  // Perfil sin imagen
-            @RequestPart(value = "file", required = false) MultipartFile file // Imagen opcional
+    @PutMapping("/info")
+    public UserData updateUserProfileInfo(
+            @RequestBody @Valid ProfileRequest profileRequest  // Perfil sin imagen
     ) {
-        return userDataService.updateUser(profileRequest, file);
+        return userDataService.updateUserProfileInfo(profileRequest);
+
+    }
+
+    @PutMapping("/photo")
+    public UserData updateUserProfilePhoto(@RequestPart(value = "file", required = false) MultipartFile file // Imagen opcional
+    ) {
+        return userDataService.updateUserProfilePhoto(file);
 
     }
 
