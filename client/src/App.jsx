@@ -17,6 +17,12 @@ import ImagenPrincipal from "./assets/ImagenPrincipal.png"
 import Head from "./assets/head.svg"
 import Student from "./assets/student.png"
 import Compu from "./assets/Compu.png"
+import Pencil from "./assets/Pencil.svg"
+import Time from "./assets/Time.svg"
+import Eventos from "./assets/Eventos.svg"
+import User from "./assets/User.svg"
+import Materias from "./assets/Materias.svg"
+import IconHorario from "./assets/Icon-horario.svg"
 import Header from "./components/layout/Header";
 import Login from "./features/auth/routes/login";
 
@@ -35,19 +41,19 @@ export default function App() {
         
       >
         <h1 className="text-white w-[523px] text-5xl">Educplanner: La plataforma definitiva para la gestión escolar</h1>
-        <Login classNameMas="lg:pt-0 pt-0 w-[381px] bg-card !rounded-md"/>
+        <Login classNameMas="lg:!pt-0 !pt-0 w-[381px] bg-card !rounded-md" />
       </div>
-      <div className="mt-10 bg-muted py-10 w-full flex flex-col items-center justify-center">
+      <div className="mt-10 bg-muted py-8 w-full flex flex-col items-center justify-center">
           <h2 className="text-4xl font-semibold text-primary pb-10">Dos roles, una solución</h2>
-          <div className="flex flex-row gap-32">
+          <div className="flex flex-row gap-[100px] p-20">
               <div>
                 <h4 className="text-xl font-semibold">Estudiante</h4>
-                <p className="w-[382px] text-lg">Accede a tu horario semanal y mensual, visualiza los eventos importantes, recibe notificaciones, y gestiona tu perfil personal.</p>
+                <p className="w-[300px]">Accede a tu horario semanal y mensual, visualiza los eventos importantes, recibe notificaciones, y gestiona tu perfil personal.</p>
               </div>
               <img src={Head} alt="" className="w-[195px] h-[195px]" />
               <div>
                 <h4 className="text-xl font-semibold">Administrador</h4>
-                <p className="w-[382px] text-lg">Gestiona el calendario académico completo, crea y publica eventos, gestiona estudiantes y profesores. Tiene control sobre el horario, materias y estudiantes, facilitando la administración diaria del centro educativo.</p>
+                <p className="w-[300px]">Gestiona el calendario académico completo, crea y publica eventos, gestiona estudiantes y profesores. Tiene control sobre el horario, materias y estudiantes, facilitando la administración diaria del centro educativo.</p>
               </div>
           </div>          
       </div>
@@ -81,7 +87,54 @@ export default function App() {
             </div>
           </div>
           <h2 className="text-4xl font-semibold text-primary pt-24 pb-12 pl-20">Panel administrador: Control total</h2>
+          <div className="flex flex-row justify-center items-center gap-[30px] p-10">
+              <div className="p-[10px] bg-muted w-[450px] flex flex-row gap-[30px] items-center border border-primary rounded-md">
+                  <img src={Pencil} alt="" className="w-[66px] h-[66px]" />
+                  <div className="flex flex-col justify-center gap-[15px]">
+                    <h4 className="text-xl font-semibold">Elige el curso</h4>
+                    <p className="w-[340px] ">Accede a la información del curso que necesitas editar.</p>
+                  </div>
+              </div>
+              <div className="p-[10px] bg-muted w-[450px] flex flex-row gap-[30px] items-center border border-primary rounded-md">
+                  <img src={Time} alt="" className="w-[66px] h-[66px]" />
+                  <div className="flex flex-col justify-center gap-[15px]">
+                    <h4 className="text-xl font-semibold">Gestión Integral</h4>
+                    <p className="w-[340px] ">Gestiona los horarios, materias, eventos y estudiantes de cada curso.</p>
+                  </div>
+              </div>
+          </div>
+          <div className="py-20 px-[80px] flex flex-row">
+              <div className="p-[10px] w-[282px] flex flex-col gap-[20px] items-center justify-center ">
+                  <img src={Eventos} alt="" className="w-[66px] h-[66px]" />
+                  <div className="flex flex-col justify-center items-center">
+                    <h4 className="text-xl font-semibold">Eventos</h4>
+                    <p className="w-[200px] text-center">Crea y publica eventos para los estudiantes.</p>
+                  </div>
+              </div>
+              <div className="p-[10px] w-[282px] flex flex-col gap-[20px] items-center justify-center ">
+                  <img src={User} alt="" className="w-[66px] h-[66px]" />
+                  <div className="flex flex-col justify-center items-center">
+                    <h4 className="text-xl font-semibold">Estudiantes</h4>
+                    <p className="w-[200px] text-center">Agrega nuevos estudiantes al curso.</p>
+                  </div>
+              </div>
+              <div className="p-[10px] w-[282px] flex flex-col gap-[20px] items-center justify-center ">
+                  <img src={IconHorario} alt="" className="w-[66px] h-[66px]" />
+                  <div className="flex flex-col justify-center items-center">
+                    <h4 className="text-xl font-semibold">Horario</h4>
+                    <p className="w-[200px] text-center">Edita el horario semanal del curso.</p>
+                  </div>
+              </div>
+              <div className="p-[10px] w-[282px] flex flex-col gap-[20px] items-center justify-center ">
+                  <img src={Materias} alt="" className="w-[66px] h-[66px]" />
+                  <div className="flex flex-col justify-center items-center">
+                    <h4 className="text-xl font-semibold">Materias</h4>
+                    <p className="w-[200px] text-center">Reubica Materias y Profesores</p>
+                  </div>
+              </div>
+          </div>
     </div>
+    <Footer/>
     </>
   );
 }
