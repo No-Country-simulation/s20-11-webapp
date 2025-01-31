@@ -11,7 +11,7 @@ function Calendario() {
   // const { events } = useEvents();
   const { events/* , user  */} = useLoaderData();
   const [date, setDate] = useState(new Date());
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   console.log('events', events)
 

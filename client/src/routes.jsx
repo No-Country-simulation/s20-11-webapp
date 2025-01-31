@@ -1,4 +1,3 @@
-import App, { loader } from "./App.jsx";
 import HomeStudent, { homeStudentLoader } from "./components/HomeStudent.jsx";
 import { Error } from "./components/layout/error.jsx";
 import Layout, { layoutLoader } from "./components/layout/layout.jsx";
@@ -42,6 +41,7 @@ import CoursesLayout, {
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
+import App, { loader } from "./features/landing/App.jsx";
 import Profile, {
   profileAction,
   profileLoader,
@@ -55,23 +55,28 @@ import CreateEvent, {
 import StudentLayout, {
   studentLayoutLoader,
 } from "./features/student/routes/student-layout.jsx";
+
+
 export const routes = [
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    loader: loader,
+    children: [
+      {
+        index: true,
+        element: <Login />,
+        action: loginAction,
+        loader: loginLoader,
+      },
+    ],
+  },
   {
     element: <Layout />,
     errorElement: <Error />,
     loader: layoutLoader,
     children: [
-      {
-        path: "/",
-        element: <App />,
-        loader: loader,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-        action: loginAction,
-        loader: loginLoader,
-      },
       {
         path: "/logout",
         action: logoutAction,

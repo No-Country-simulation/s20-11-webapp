@@ -65,71 +65,69 @@ export default function Login() {
   });
 
   return (
-    <main className=" flex flex-col pt-8 lg:pt-24 items-center lg:items-start">
-      <Card className=" !rounded-lg w-full md:max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl text-center !font-normal">
-            Iniciar sesión
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...getFormProps(form)} method="post">
-            <Field
-              labelProps={{
-                children: (
-                  <>
-                    Correo
-                    <span className="text-destructive">*</span>{" "}
-                    {/* Asterisco rojo */}
-                  </>
-                ),
-              }}
-              inputProps={{
-                ...getInputProps(fields.email, { type: "email" }),
-                placeholder: "correo@ejemplo.com",
-                autoFocus: true,
-                className: "lowercase",
-                autoComplete: "email",
-              }}
-              errors={fields.email.errors}
-            />
+    <Card className=" !rounded-lg w-full md:max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl text-center !font-normal">
+          Iniciar sesión
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Form {...getFormProps(form)} method="post">
+          <Field
+            labelProps={{
+              children: (
+                <>
+                  Correo
+                  <span className="text-destructive">*</span>{" "}
+                  {/* Asterisco rojo */}
+                </>
+              ),
+            }}
+            inputProps={{
+              ...getInputProps(fields.email, { type: "email" }),
+              placeholder: "correo@ejemplo.com",
+              autoFocus: true,
+              className: "lowercase",
+              autoComplete: "email",
+            }}
+            errors={fields.email.errors}
+          />
 
-            <PassField
-              labelProps={{
-                children: (
-                  <>
-                    Contraseña
-                    <span className="text-destructive">*</span>{" "}
-                    {/* Asterisco rojo */}
-                  </>
-                ),
-              }}
-              inputProps={{
-                ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
-                placeholder: "********",
-                autoComplete: "current-password",
-              }}
-              showPassword={showPassword} // ✅ Estado dinámico
-              togglePasswordVisibility={togglePasswordVisibility} // ✅ Cambia el estado
-              errors={fields.password.errors}
-            />
+          <PassField
+            labelProps={{
+              children: (
+                <>
+                  Contraseña
+                  <span className="text-destructive">*</span>{" "}
+                  {/* Asterisco rojo */}
+                </>
+              ),
+            }}
+            inputProps={{
+              ...getInputProps(fields.password, { type: "password" }), // 🔥 Mantén `{ type: "password" }`
+              placeholder: "********",
+              autoComplete: "current-password",
+            }}
+            showPassword={showPassword} // ✅ Estado dinámico
+            togglePasswordVisibility={togglePasswordVisibility} // ✅ Cambia el estado
+            errors={fields.password.errors}
+          />
 
-            <ErrorList errors={form.errors} id={form.errorId} />
-          </Form>
-        </CardContent>
-        <CardFooter>
-          <StatusButton
-            className="w-full"
-            form={form.id}
-            status={isPending ? "pending" : form.status ?? "idle"}
-            type="submit"
-            disabled={isPending}
-          >
-            Iniciar sesión
-          </StatusButton>
-        </CardFooter>
-      </Card>
-    </main>
+          <ErrorList errors={form.errors} id={form.errorId} />
+        </Form>
+      </CardContent>
+      <CardFooter>
+        <StatusButton
+          className="w-full"
+          form={form.id}
+          status={isPending ? "pending" : form.status ?? "idle"}
+          type="submit"
+          disabled={isPending}
+        >
+          Iniciar sesión
+        </StatusButton>
+      </CardFooter>
+    </Card>
   );
 }
 

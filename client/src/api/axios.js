@@ -9,7 +9,7 @@ import {
 } from "./authStorage";
 import { API_ENDPOINTS } from "./endpoints";
 
-const LOGIN_URL = "/login";
+const LOGIN_URL = "/";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
