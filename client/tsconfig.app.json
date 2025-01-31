@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".", 
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx", // Habilita JSX para React
+    "strict": true, // Opcional, habilita comprobaciones estrictas
+    "esModuleInterop": true, // Interoperabilidad con CommonJS
+    "moduleResolution": "node", // Resolución de módulos tipo Node.js
+    "skipLibCheck": true // Ignora verificaciones de bibliotecas externas
+  },
+  "include": ["src/**/*"], // Incluye todos los archivos en src/
+  "exclude": ["node_modules"] // Excluye node_modules
+}
