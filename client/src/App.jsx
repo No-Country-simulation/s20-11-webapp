@@ -34,7 +34,7 @@ export default function App() {
   return (
     <>
     {/* <Header/> */}
-    <div className="">
+    <div className="!p-0 !w-full !max-w-full !mx-0 !px-0">
       <div
         className="p-20 h-[600px] w-full bg-cover bg-center flex flex-row justify-between items-center"
         style={{ backgroundImage: `url(${ImagenPrincipal})` }}
