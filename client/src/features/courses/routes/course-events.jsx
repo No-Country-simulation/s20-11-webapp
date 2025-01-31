@@ -1,61 +1,133 @@
-import { ResponsiveOutletModal } from "@/components/responsive-outlet-modal.jsx";
-/* import { TitleBar } from "@/components/title-bar.jsx"; */
+import { TitleBar } from "@/components/title-bar.jsx";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Bell, Eye, EyeClosed, Plus } from "lucide-react";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { Spacer } from "../../../components/layout/spacer";
+import { requireAdmin } from "../../auth/services/auth.service";
 import { profileService } from "../../profile/services/profile.service";
-import { EventDetailList } from "../../student/components/EventDetailList";
-import { calendarService } from "../../student/services/calendar.service";
+import { notificationsService } from "../services/notifications.service";
 
-export async function courseEventsLoader() {
+export async function courseEventsLoader({ params }) {
+  await requireAdmin();
+
   const [events, user] = await Promise.all([
-    calendarService.getEvents(),
+    notificationsService.getCourseEvents(params.courseId),
     profileService.getProfileInfo(),
   ]);
 
-  console.log(JSON.stringify(events,null,2))
-  console.log(JSON.stringify(user,null,2))
-
-  return { events, user };
+  return { events: events.data, user };
 }
 
 export default function CourseEvents() {
-  /* return (
-    <>
-      <TitleBar title="Eventos" />      
-    </>
-  ); */
+  const { user, events } = useLoaderData();
 
-  const { events /* , user  */ } = useLoaderData();
+  //filter expired. Button to show expired.
 
-  const baseClasses =
-    "select-none justify-center flex justify-center items-center rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[11rem] md:w-[11rem] shadow text-foreground";
+  const activeEvents = events.filter((event) => !event.expired);
+
+  const [showAll, setShowAll] = useState(false);
+
+  const eventsToShow = showAll ? events : activeEvents;
 
   return (
-    <div className="px-4 sm:px-8 sm:pt-10 md:pt-10 ">
-      <h2 className="pt-4 text-3xl pb-10">Eventos</h2>
-
-      {/* BOTON AGREGAR EVENTO */}
-      <div className="">
-        <ResponsiveOutletModal
-          to={"create-event"}
-          trigger={
-            <div
-              className={`${baseClasses} px-2.5 py-1.5 bg-primary text-foreground flex flex-row items-center gap-2`}
-            >
-              <p className="text-2xl">+</p>
-              <h3>Agregar Evento</h3>
-            </div>
-          }
-          title={"Nuevo anuncio"}
-          titleClassName="bg-card text-xl font-normal pb-3"
-          contentClassName="bg-card"
-        />
+    <>
+      <TitleBar title="Eventos" />
+      <Spacer size="3xs" />
+      <div className="grid lg:grid-cols-5 gap-8">
+        <div className="col-span-3 ">
+          <div className="flex flex-col sm:flex-row justify-between items-center mr-3 gap-2">
+            <h1 className="text-2xl">
+              {showAll ? "Todos los" : "Próximos"} eventos (
+              {eventsToShow.length})
+            </h1>
+            {events.length > 0 && (
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => setShowAll((current) => !current)}
+                  variant="secondary"
+                >
+                  {showAll ? <EyeClosed /> : <Eye />}
+                  {showAll ? "Ocultar Expirados" : "Incluir Expirados"}
+                </Button>
+                <AddEvent />
+              </div>
+            )}
+          </div>
+          <Spacer size="3xs" />
+          {events.length <= 0 ? (
+            <EmptyEventsPanel />
+          ) : (
+            <ScrollArea className=" h-[calc(100dvh-17rem)] pr-3 ">
+              <Spacer size="5xs" />
+              {eventsToShow.map((event) => (
+                <>
+                  <EventCard key={event.id} {...event} />
+                  <Spacer size="5xs" />
+                </>
+              ))}
+            </ScrollArea>
+          )}
+        </div>
       </div>
+    </>
+  );
+}
 
-      {/* LISTA DE EVENTOS */}
-      <div className="">
-        <h3 className="py-7 text-2xl">Próximos eventos</h3>
-        <EventDetailList events={events} cardClassName="md:w-[670px]" />
+function EmptyEventsPanel() {
+  return (
+    <div className="bg-secondary/20 border-dashed border-2 border-border/20 rounded shadow p-4 h-[calc(100dvh-25rem)] grid place-content-center text-center">
+      <div className="text-muted-foreground flex items-center gap-2 flex-col justify-center">
+        <Bell size={30} />
+        Aún no hay eventos publicados para este curso.
+        <AddEvent />
       </div>
+    </div>
+  );
+}
+
+function AddEvent() {
+  return (
+    <Button>
+      <Plus /> Agregar evento
+    </Button>
+  );
+}
+
+function EventCard({
+  header,
+  title,
+  message,
+  color,
+  scheduledFor,
+  createdAt,
+  expired,
+}) {
+  const formattedScheduledFor =
+    format(new Date(scheduledFor), "HH:mm") + " hrs";
+
+  return (
+    <div
+      style={{
+        "--border-color-light": color.light,
+        "--border-color-dark": color.dark,
+      }}
+      className={cn(
+        "border bg-secondary/70 dark:bg-secondary/20 border-l-8 border-l-[var(--border-color-light)] dark:border-l-[var(--border-color-dark)]  p-3 rounded shadow flex items-center gap-3 justify-between hover:ring-2 ring-[var(--border-color-light)] dark:ring-[var(--border-color-dark)] cursor-pointer",
+        expired && "opacity-65"
+      )}
+    >
+      <div>
+        <div className="text-sm text-muted-foreground">
+          {header ?? "No header"}
+        </div>
+        <div className="text-lg">{title}</div>
+        <div className="text-sm text-muted-foreground">{message}</div>
+      </div>
+      <div>{formattedScheduledFor}</div>
     </div>
   );
 }

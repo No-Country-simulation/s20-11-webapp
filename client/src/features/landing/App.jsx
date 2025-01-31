@@ -38,7 +38,7 @@ function Hero() {
         Educplanner: La plataforma definitiva para la gestión escolar
       </h1>
       {/* <Login classNameMas="lg:!pt-0 !pt-0 w-[381px] !bg-card !rounded-md" /> */}
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }

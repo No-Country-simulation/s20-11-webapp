@@ -14,4 +14,17 @@ export const notificationsService = {
       return error.response.data;
     }
   },
+  getCourseEvents: async (courseId) => {
+
+    try {
+      const { data } = await api.get(API_ENDPOINTS.EVENTS.GET_ALL_EVENTS(courseId));
+      return data;
+    } catch (error) {
+      console.error(
+        "Error en getCourseEvents:",
+        error.response.data
+      );
+      return error.response.data;
+    }
+  },
 };
