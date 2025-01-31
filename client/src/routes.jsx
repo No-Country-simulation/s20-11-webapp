@@ -18,6 +18,7 @@ import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
 import CourseEvents, {
+  courseEventsAction,
   courseEventsLoader,
 } from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
@@ -48,14 +49,10 @@ import Profile, {
 } from "./features/profile/routes/profile.jsx";
 import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
-import CreateEvent, {
-  subjectLoader,
-} from "./features/student/routes/create-event.jsx"; // arreglar
 
 import StudentLayout, {
   studentLayoutLoader,
 } from "./features/student/routes/student-layout.jsx";
-
 
 export const routes = [
   {
@@ -148,13 +145,7 @@ export const routes = [
             path: ":courseId/events",
             element: <CourseEvents />,
             loader: courseEventsLoader,
-            children: [
-              {
-                path: "create-event",
-                element: <CreateEvent />,
-                loader: subjectLoader,
-              },
-            ],
+            action: courseEventsAction,
           },
         ],
       },

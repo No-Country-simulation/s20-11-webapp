@@ -19,7 +19,7 @@ export const CreateEventSchema = z.object({
   message: z.string(),
   courseId: z.number(),
   subjectId: z.number(),
-  scheduledFor: z.string(),
+  scheduledFor: z.date(),
 });
 
 export const RegisterStudentSchema = z.object({

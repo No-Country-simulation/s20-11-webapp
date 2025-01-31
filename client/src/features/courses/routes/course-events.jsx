@@ -8,7 +8,7 @@ import { Fragment, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { requireAdmin } from "../../auth/services/auth.service";
-import { CreateEvent } from "../components/create-event";
+import { createEvent, CreateEvent } from "../components/create-event";
 import { notificationsService } from "../services/notifications.service";
 import { subjectService } from "../services/subject.service";
 
@@ -21,6 +21,20 @@ export async function courseEventsLoader({ params }) {
   ]);
 
   return { events: events.data, subjects: subjects.data };
+}
+
+export async function courseEventsAction({ request }) {
+  await requireAdmin();
+
+  const formData = await request.formData();
+
+  const intent = formData.get("intent");
+
+  switch (intent) {
+    case "create-event": {
+      return await createEvent(formData);
+    }
+  }
 }
 
 export default function CourseEvents() {
@@ -117,7 +131,7 @@ function EventCard({
         "--border-color-dark": color.dark,
       }}
       className={cn(
-        "border bg-secondary/70 dark:bg-secondary/20 border-l-8 border-l-[var(--border-color-light)] dark:border-l-[var(--border-color-dark)]  p-3 rounded shadow flex items-center gap-3 justify-between hover:ring-2 ring-[var(--border-color-light)] dark:ring-[var(--border-color-dark)] cursor-pointer",
+        "transition-all duration-200 border bg-secondary/70 dark:bg-secondary/20 border-l-8 border-l-[var(--border-color-light)] dark:border-l-[var(--border-color-dark)]  p-3 rounded shadow flex items-center gap-3 justify-between hover:ring-2 ring-[var(--border-color-light)] dark:ring-[var(--border-color-dark)] cursor-pointer",
         expired && "opacity-65"
       )}
     >
@@ -128,7 +142,7 @@ function EventCard({
         <div className="text-lg">{title}</div>
         <div className="text-sm text-muted-foreground">{message}</div>
       </div>
-      <div>{formattedScheduledFor}</div>
+      <div className="text-nowrap">{formattedScheduledFor}</div>
     </div>
   );
 }
