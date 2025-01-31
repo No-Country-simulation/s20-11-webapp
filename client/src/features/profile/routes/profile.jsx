@@ -8,8 +8,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { ChevronRight, Lock, Mail, Pencil, User } from "lucide-react";
+import { ChevronRight, Loader2, Lock, Mail, Pencil, User } from "lucide-react";
 import { Form, Outlet, useLoaderData } from "react-router-dom";
+import { useIsPending } from "../../../hooks/use-pending";
 import { requireAuthenticated } from "../../auth/services/auth.service";
 import { profileService } from "../services/profile.service";
 
@@ -45,6 +46,7 @@ export async function profileAction({ request }) {
 
 export default function Profile() {
   const { user } = useLoaderData();
+  const isPending = useIsPending();
 
   const parseFullName = (firstName, lastName) => {
     if (firstName && lastName) {
@@ -61,14 +63,19 @@ export default function Profile() {
       <Spacer size="xs" />
       <main className="grid sm:grid-cols-2 gap-4">
         <section className="flex flex-col  items-center sm:items-start ">
-          <div className="mx-12 w-fit relative">
-            <Avatar className="!size-36  rounded-full cursor-pointer">
+          <div className="mx-12 w-fit relative  ">
+            <Avatar className="!size-36  rounded-full cursor-pointer ">
               <AvatarImage src={user.profilePhoto} alt={`Foto de perfil`} />
               <AvatarFallback className="!text-[64px] !font-normal ">
                 {fallback}
               </AvatarFallback>
             </Avatar>
             <UploadProfilePhoto />
+            {isPending && (
+              <div className="bg-black/80 size-36 absolute top-0 right-0 rounded-full grid place-items-center">
+                <Loader2 className="  animate-spin text-primary" size={48} />
+              </div>
+            )}
           </div>
           <Spacer size="xs" />
 
@@ -99,7 +106,7 @@ function UploadProfilePhoto() {
     <Form
       method="post"
       encType="multipart/form-data"
-      className="absolute bottom-0 right-0"
+      className="absolute bottom-0 right-0 z-10"
     >
       <input
         type="file"
@@ -112,7 +119,7 @@ function UploadProfilePhoto() {
       <label
         htmlFor="avatar-upload"
         className={cn(
-          "inline-flex items-center justify-center rounded-md text-sm font-medium",
+          "inline-flex items-center justify-center rounded-md text-sm font-medium cursor-pointer",
           "ring-offset-background transition-colors focus-visible:outline-none",
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "disabled:pointer-events-none disabled:opacity-50",
