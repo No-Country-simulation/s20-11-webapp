@@ -159,6 +159,8 @@ function DateTimePicker({ form, fields }) {
     ? new Date(scheduledForField.value)
     : null;
 
+
+
   const handleDateSelect = (selectedDate) => {
     if (selectedDate) {
       let newDate = selectedDate;
@@ -280,9 +282,24 @@ const validateAndCreateEvent = createValidationHandler({
       title: data.title,
       message: data.message,
       subjectId: data.subjectId,
-      scheduledFor: data.scheduledFor,
+      scheduledFor: toUTCISO(data.scheduledFor),
       courseId: data.courseId,
     }),
   errorMessages: COURSE_ERROR_MESSAGES,
   responseKey: "eventResponse",
 });
+
+
+
+const toUTCISO = (date) => {
+  if (!date) return null;
+  return new Date(
+    Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes()
+    )
+  ).toISOString();
+};
