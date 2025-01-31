@@ -1,5 +1,4 @@
 import { ErrorList, Field, SelectWrapper } from "@/components/forms";
-import { MobileButton } from "@/components/mobile-button.jsx";
 
 import {
   Dialog,
@@ -20,10 +19,16 @@ import {
 import { StatusButton } from "@/components/ui/status-button";
 import { useDialogAutoClose } from "@/hooks/use-autoclose.jsx";
 import { createValidationHandler } from "@/lib/validation-handler";
-import { getFormProps, getInputProps, useForm, useInputControl } from "@conform-to/react";
+import {
+  getFormProps,
+  getInputProps,
+  useForm,
+  useInputControl,
+} from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { Bell, BellPlus } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
+import { Button } from "../../../components/ui/button";
 import { CreateEventSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
 import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
@@ -53,12 +58,16 @@ export function CreateEvent({ subjects }) {
   return (
     <Dialog open={open} onOpenChange={setOpen} className="">
       <DialogTrigger asChild>
-        <MobileButton Icon={BellPlus} label="Publicar Evento" />
+        <Button>
+          <BellPlus /> Publicar Evento
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Publicar Evento</DialogTitle>
-          <DialogDescription>Se enviará una notificación a todos los estudiantes del curso.</DialogDescription>
+          <DialogDescription>
+            Se enviará una notificación a todos los estudiantes del curso.
+          </DialogDescription>
         </DialogHeader>
         <createEventFetcher.Form method="post" {...getFormProps(form)}>
           <Field
