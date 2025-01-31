@@ -45,6 +45,7 @@ import CreateEvent, {
 } from "./features/student/routes/create-event.jsx"; // arreglar
 
 import StudentLayout, { studentLayoutLoader } from "./features/student/routes/student-layout.jsx";
+import { eventLoader } from "./features/student/services/eventLoader.js";
 export const routes = [
   /* {
     path: "/",
@@ -157,6 +158,7 @@ export const routes = [
           {
             index: true,
             element: <HomeStudent />,
+            loader: eventLoader
           },
           {
             path: "calendar",
