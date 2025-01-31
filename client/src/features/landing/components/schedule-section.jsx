@@ -12,7 +12,7 @@ export function ScheduleSection() {
       <h2 className="text-4xl font-semibold text-primary pt-24 pb-12 pl-20">
         Horario semanal: Siempre a tiempo
       </h2>
-      <div className="bg-muted mx-20 flex flex-row gap-[100px] items-center pr-[30px]">
+      <div className="bg-muted dark:bg-muted/20 mx-20 flex flex-row gap-[100px] items-center pr-[30px]">
         <img src={Compu} alt="" className="w-[383px] h-[408px]" />
         <div className="flex flex-col gap-[50px]">
           {features.map((feature, index) => (

@@ -45,7 +45,7 @@ function Hero() {
 
 function Features() {
   return (
-    <div className="mt-10 bg-muted py-8 w-full flex flex-col items-center justify-center">
+    <div className="mt-10 bg-muted dark:bg-muted/20 py-8 w-full flex flex-col items-center justify-center">
       <h2 className="text-4xl font-semibold text-primary pb-10">
         Dos roles, una solución
       </h2>
