@@ -60,7 +60,9 @@ export const routes = [
       {
         path: "/",
         element: <App />,
-        loader: loader,
+        action: loginAction,
+        loader: loader, loginLoader
+        
       },
       {
         path: "/login",
