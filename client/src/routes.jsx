@@ -47,21 +47,28 @@ import CreateEvent, {
 import StudentLayout, { studentLayoutLoader } from "./features/student/routes/student-layout.jsx";
 import { eventLoader } from "./features/student/services/eventLoader.js";
 export const routes = [
-  /* {
+  {
+    element: <Layout noContainer={true}/>,
+    errorElement: <Error />,
+    children: [
+      {
     path: "/",
     element: <App />,
-    loader: loader,
-  }, */
+    action: loginAction,
+    loader: loader, loginLoader
+      }
+    ]
+  },
   {
     
     element: <Layout />,
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        /* path: "/",
         element: <App />,
         action: loginAction,
-        loader: loader, loginLoader
+        loader: loader, loginLoader */
         
       },
       {
