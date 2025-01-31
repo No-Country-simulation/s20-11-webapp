@@ -119,8 +119,13 @@ function EventCard({
   createdAt,
   expired,
 }) {
-  const formattedScheduledFor =
+  const formattedScheduledForTime =
     format(new Date(scheduledFor), "HH:mm") + " hrs";
+
+  const formattedScheduledForDate = format(
+    new Date(scheduledFor),
+    "dd/MM/yyyy"
+  );
 
   return (
     <div
@@ -140,7 +145,10 @@ function EventCard({
         <div className="text-lg">{title}</div>
         <div className="text-sm text-muted-foreground">{message}</div>
       </div>
-      <div className="text-nowrap">{formattedScheduledFor}</div>
+      <div className="text-nowrap text-sm text-center">
+        <div className="font-semibold">{formattedScheduledForTime}</div>
+        <div className="text-muted-foreground">{formattedScheduledForDate}</div>
+      </div>
     </div>
   );
 }

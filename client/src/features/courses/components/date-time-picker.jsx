@@ -17,7 +17,7 @@ import { useInputControl } from "@conform-to/react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-export function DateTimePicker({ form, fields }) {
+export function DateTimePicker({ fields }) {
   const scheduledForField = useInputControl(fields.scheduledFor);
   const dateValue = scheduledForField.value
     ? new Date(scheduledForField.value)

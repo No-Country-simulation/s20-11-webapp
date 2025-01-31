@@ -117,7 +117,7 @@ export function CreateEvent({ subjects }) {
             </Select>
           </SelectWrapper>
           <Spacer size="3xs" />
-          <DateTimePicker form={form} fields={fields} />
+          <DateTimePicker fields={fields} />
           <ErrorList errors={fields.scheduledFor.errors} />
           <Spacer size="4xs" />
           <input
