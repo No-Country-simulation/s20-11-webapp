@@ -1,5 +1,5 @@
-import api from "../../../api/axios.js";
 import { API_ENDPOINTS } from "@/api/endpoints.js";
+import api from "../../../api/axios.js";
 
 export const courseService = {
   getAllCourses: async () => {
@@ -13,6 +13,15 @@ export const courseService = {
       return data;
     } catch (error) {
       console.error("Error en getAllCourses:", error.response.data);
+      return error.response.data;
+    }
+  },
+  getStats: async () => {
+    try {
+      const { data } = await api.get(API_ENDPOINTS.COURSES.GET_STATS);
+      return data;
+    } catch (error) {
+      console.error("Error en getStats for courses:", error.response.data);
       return error.response.data;
     }
   },

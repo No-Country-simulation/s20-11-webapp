@@ -23,15 +23,25 @@ import {
 import { useMemo, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { courseService } from "../services/course.service";
+import { notificationsService } from "../services/notifications.service";
 
 export async function coursesListLoader() {
-  const courses = await courseService.getAllCourses();
+  const [courses, coursesStatsResponse, notificationStatsResponse] =
+    await Promise.all([
+      courseService.getAllCourses(),
+      courseService.getStats(),
+      notificationsService.getStats(),
+    ]);
 
-  return { courses };
+  return {
+    courses,
+    coursesStats: coursesStatsResponse.data,
+    notificationStats: notificationStatsResponse.data,
+  };
 }
 
 export default function CoursesList() {
-  const { courses } = useLoaderData();
+  const { courses, coursesStats, notificationStats } = useLoaderData();
   const isMobile = useIsMobile();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,13 +65,13 @@ export default function CoursesList() {
 
         <StatsCard
           title={"Estudiantes Activos"}
-          value={144}
+          value={coursesStats.totalStudents}
           description={"Totalidad de estudiantes de todos los cursos"}
           Icon={<Users size={40} />}
         />
         <StatsCard
           title={"Notificaciones"}
-          value={14}
+          value={notificationStats.nonExpiredNotifications}
           description={"Eventos y avisos activos a través de tus cursos"}
           Icon={<Calendar size={40} />}
           className={"sm:col-span-2 lg:col-span-1"}
@@ -150,6 +160,8 @@ function EmptyCoursesPlaceholder() {
 }
 
 function CourseCard({ course }) {
+  const students = course.totalStudents === 1 ? "estudiante" : "estudiantes";
+
   return (
     <Link
       viewTransition
@@ -159,12 +171,10 @@ function CourseCard({ course }) {
     >
       <Card className="h-[6rem]  !bg-gradient-to-br from-primary/5 via-card to-primary/10">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">
-            {course.name}{" "}
-          </CardTitle>
+          <CardTitle className="text-xl font-semibold">{course.name}</CardTitle>
           <CardDescription>
-            <Users className="inline-flex mr-1" size={16} /> 3 estudiantes
-            inscritos
+            <Users className="inline-flex mr-1" size={16} />{" "}
+            {`${course.totalStudents} ${students}`} inscritos
           </CardDescription>
         </CardHeader>
       </Card>
