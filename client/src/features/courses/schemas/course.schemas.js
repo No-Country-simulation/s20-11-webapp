@@ -19,7 +19,9 @@ export const CreateEventSchema = z.object({
   message: z.string(),
   courseId: z.number(),
   subjectId: z.number(),
-  scheduledFor: z.date(),
+  scheduledFor: z.date().refine((date) => date >= new Date(), {
+    message: "La fecha y hora no pueden estar en el pasado",
+  }),
 });
 
 export const RegisterStudentSchema = z.object({
