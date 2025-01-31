@@ -4,26 +4,27 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Bell, Eye, EyeClosed, Plus } from "lucide-react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { requireAdmin } from "../../auth/services/auth.service";
-import { profileService } from "../../profile/services/profile.service";
+import { CreateEvent } from "../components/create-event";
 import { notificationsService } from "../services/notifications.service";
+import { subjectService } from "../services/subject.service";
 
 export async function courseEventsLoader({ params }) {
   await requireAdmin();
 
-  const [events, user] = await Promise.all([
+  const [events, subjects] = await Promise.all([
     notificationsService.getCourseEvents(params.courseId),
-    profileService.getProfileInfo(),
+    subjectService.getSubjects(params.courseId),
   ]);
 
-  return { events: events.data, user };
+  return { events: events.data, subjects: subjects.data };
 }
 
 export default function CourseEvents() {
-  const { user, events } = useLoaderData();
+  const { events, subjects } = useLoaderData();
 
   //filter expired. Button to show expired.
 
@@ -53,7 +54,7 @@ export default function CourseEvents() {
                   {showAll ? <EyeClosed /> : <Eye />}
                   {showAll ? "Ocultar Expirados" : "Incluir Expirados"}
                 </Button>
-                <AddEvent />
+                <CreateEvent subjects={subjects} />
               </div>
             )}
           </div>
@@ -64,10 +65,10 @@ export default function CourseEvents() {
             <ScrollArea className=" h-[calc(100dvh-17rem)] pr-3 ">
               <Spacer size="5xs" />
               {eventsToShow.map((event) => (
-                <>
+                <Fragment key={event.id}>
                   <EventCard key={event.id} {...event} />
                   <Spacer size="5xs" />
-                </>
+                </Fragment>
               ))}
             </ScrollArea>
           )}

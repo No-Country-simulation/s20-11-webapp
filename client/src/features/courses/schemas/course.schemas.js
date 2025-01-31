@@ -14,6 +14,14 @@ export const CreateSubjectSchema = z.object({
   courseId: z.number(),
 });
 
+export const CreateEventSchema = z.object({
+  title: z.string(),
+  message: z.string(),
+  courseId: z.number(),
+  subjectId: z.number(),
+  scheduledFor: z.string(),
+});
+
 export const RegisterStudentSchema = z.object({
   email: z.string().email(),
   courseId: z.number(),
