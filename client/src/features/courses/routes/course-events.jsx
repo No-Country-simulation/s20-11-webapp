@@ -40,8 +40,6 @@ export async function courseEventsAction({ request }) {
 export default function CourseEvents() {
   const { events, subjects } = useLoaderData();
 
-  //filter expired. Button to show expired.
-
   const activeEvents = events.filter((event) => !event.expired);
 
   const [showAll, setShowAll] = useState(false);
