@@ -18,11 +18,16 @@ import AssignClass, {
 import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
-import CourseEvents, { courseEventsLoader } from "./features/courses/routes/course-events.jsx";
+import CourseEvents, {
+  courseEventsLoader,
+} from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
   courseScheduleLoader,
 } from "./features/courses/routes/course-schedule.jsx";
-import CourseStudents, { courseStudentsAction, courseStudentsLoader } from "./features/courses/routes/course-students.jsx";
+import CourseStudents, {
+  courseStudentsAction,
+  courseStudentsLoader,
+} from "./features/courses/routes/course-students.jsx";
 import CourseSubjects, {
   courseSubjectsAction,
   courseSubjectsLoader,
@@ -37,14 +42,19 @@ import CoursesLayout, {
 import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
-import Profile, { profileAction, profileLoader } from "./features/profile/routes/profile.jsx";
+import Profile, {
+  profileAction,
+  profileLoader,
+} from "./features/profile/routes/profile.jsx";
 import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
 import CreateEvent, {
   subjectLoader,
 } from "./features/student/routes/create-event.jsx"; // arreglar
 
-import StudentLayout, { studentLayoutLoader } from "./features/student/routes/student-layout.jsx";
+import StudentLayout, {
+  studentLayoutLoader,
+} from "./features/student/routes/student-layout.jsx";
 export const routes = [
   {
     element: <Layout />,
@@ -77,7 +87,7 @@ export const routes = [
         path: "/profile",
         element: <Profile />,
         loader: profileLoader,
-        action: profileAction
+        action: profileAction,
       },
 
       /* HOME DEL COORDINADOR */
@@ -153,7 +163,7 @@ export const routes = [
           {
             index: true,
             element: <HomeStudent />,
-            loader: homeStudentLoader
+            loader: homeStudentLoader,
           },
           {
             path: "calendar",
@@ -169,10 +179,9 @@ export const routes = [
           }, */
         ],
       },
-
       {
-        path: "/schedule", // ESTO QUÉ ONDA?
-        element: <CoursesLayout />,
+        path: "*",
+        element: <>Not Found</>, // mejorar
       },
     ],
   },

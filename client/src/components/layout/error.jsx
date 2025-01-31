@@ -11,7 +11,7 @@ export function Error() {
       <div className="border p-9 rounded-xl shadow ">
         <div>
           <h1 className="text-5xl font-bold justify-center flex items-center gap-2">
-            Error{" "}
+            Error
             <pre className="text-destructive text-7xl">{error.status}</pre>
           </h1>
           <p className="text-muted-foreground text-center">
