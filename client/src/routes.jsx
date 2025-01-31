@@ -46,21 +46,21 @@ import CreateEvent, {
 
 import StudentLayout, { studentLayoutLoader } from "./features/student/routes/student-layout.jsx";
 export const routes = [
-  {
+  /* {
     path: "/",
     element: <App />,
     loader: loader,
-  },
+  }, */
   {
     
     element: <Layout />,
     errorElement: <Error />,
     children: [
-      /* {
+      {
         path: "/",
         element: <App />,
         loader: loader,
-      }, */
+      },
       {
         path: "/login",
         element: <Login />,

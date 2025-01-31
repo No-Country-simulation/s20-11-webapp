@@ -33,7 +33,7 @@ export async function loader(params) {
 export default function App() {
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     <div className="">
       <div
         className="p-20 h-[600px] w-full bg-cover bg-center flex flex-row justify-between items-center"
@@ -41,7 +41,7 @@ export default function App() {
         
       >
         <h1 className="text-white w-[523px] text-5xl">Educplanner: La plataforma definitiva para la gestión escolar</h1>
-        <Login classNameMas="lg:!pt-0 !pt-0 w-[381px] bg-card !rounded-md" />
+        <Login classNameMas="lg:!pt-0 !pt-0 w-[381px] !bg-card !rounded-md" />
       </div>
       <div className="mt-10 bg-muted py-8 w-full flex flex-col items-center justify-center">
           <h2 className="text-4xl font-semibold text-primary pb-10">Dos roles, una solución</h2>
@@ -134,7 +134,7 @@ export default function App() {
               </div>
           </div>
     </div>
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 }
