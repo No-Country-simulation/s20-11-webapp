@@ -42,7 +42,7 @@ import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
 import App, { loader } from "./features/landing/App.jsx";
-import Profile, { profileLoader } from "./features/profile/routes/profile.jsx";
+import Profile, { profileAction, profileLoader } from "./features/profile/routes/profile.jsx";
 import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
 import CreateEvent, {
@@ -87,6 +87,7 @@ export const routes = [
         path: "/profile",
         element: <Profile />,
         loader: profileLoader,
+        action: profileAction,
       },
 
       /* HOME DEL COORDINADOR */
@@ -178,10 +179,9 @@ export const routes = [
           }, */
         ],
       },
-
       {
-        path: "/schedule", // ESTO QUÉ ONDA?
-        element: <CoursesLayout />,
+        path: "*",
+        element: <>Not Found</>, // mejorar
       },
     ],
   },

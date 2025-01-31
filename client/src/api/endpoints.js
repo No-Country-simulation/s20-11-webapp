@@ -7,12 +7,15 @@ export const API_ENDPOINTS = {
   },
   PROFILE: {
     GET_PROFILE_INFO: "/auth/current-user",
+    UPLOAD_PROFILE_PHOTO: "/auth/current-user/photo",
+    UPDATE_PROFILE_INFO: "/auth/current-user/info"
   },
   COURSES: {
     CREATE_COURSE: "/courses",
     GET_ALL_COURSES: "/courses",
     GET_COURSE_DETAILS: (courseId) => `/courses/${courseId}`,
     GET_COURSE_SCHEDULE: (courseId) => `/courses/${courseId}/schedule`,
+    GET_STATS: "/courses/stats"
   },
   STUDENTS: {
     CREATE_STUDENT: (courseId) => `/courses/${courseId}/students`,
@@ -31,5 +34,6 @@ export const API_ENDPOINTS = {
   EVENTS: {
     GET_ALL_EVENTS: (courseId) => `/notifications/${courseId}`,
     GET_EVENT_DETAILS: (eventId) => `/notifications/details/${eventId}`,
+    GET_STATS: "/notifications/stats"
   },
 };
