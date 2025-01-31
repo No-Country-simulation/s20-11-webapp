@@ -41,6 +41,12 @@ public sealed interface CourseResponse {
                     example = "Cuarto B"
             )
             String name,
+
+            @Schema(
+                    description = "Cantidad de estudiantes registrados en el curso",
+                    example = "42"
+            )
+            Long totalStudents,
             @Schema(
                     description = "Información de auditoría del curso"
             )
@@ -109,6 +115,12 @@ public sealed interface CourseResponse {
                     example = "60"
             )
             Long lunchDurationInMinutes,
+
+            @Schema(
+                    description = "Cantidad de estudiantes registrados en el curso",
+                    example = "42"
+            )
+            Long totalStudents,
 
             @Schema(
                     description = "Información de auditoría del curso"

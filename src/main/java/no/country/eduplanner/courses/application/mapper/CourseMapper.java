@@ -31,6 +31,7 @@ public class CourseMapper {
                 course.getBlockDuration().toMinutes(),
                 course.getBreakDuration().toMinutes(),
                 course.getLunchDuration().toMinutes(),
+                course.getTotalStudents(),
                 AuditInfo.fromBaseEntity(course)
 
         );
@@ -40,6 +41,7 @@ public class CourseMapper {
         return new CourseResponse.Basic(
                 course.getId(),
                 course.getName(),
+                course.getTotalStudents(),
                 AuditInfo.fromBaseEntity(course)
         );
     }

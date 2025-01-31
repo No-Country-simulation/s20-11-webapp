@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CourseService {
+public class CourseService  {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
@@ -66,6 +66,10 @@ public class CourseService {
 
         return courseMapper.toCreated(course);
     }
+
+
+
+
 
     public CourseResponse.Detailed getCourseDetailsById(Long courseId) {
         Course course = courseAccessService.getCourseWithClassDaysAndAccessCheck(courseId);

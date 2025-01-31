@@ -2,6 +2,7 @@ package no.country.eduplanner.notifications.infra.controller;
 
 import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.notifications.application.dto.NotificationResponse;
+import no.country.eduplanner.notifications.application.dto.NotificationStats;
 import no.country.eduplanner.notifications.application.services.NotificationService;
 import no.country.eduplanner.notifications.infra.controller.apidocs.NotificationApi;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,12 @@ public class NotificationController implements NotificationApi {
     public NotificationResponse getEventById(@PathVariable Long notificationId) {
         return notificationService.getNotificationById(notificationId);
     }
+
+    @GetMapping("/stats")
+    public NotificationStats getNotificationStats() {
+        return notificationService.getNotificationStats();
+    }
+
 // TODO:
 //    // Actualizar un evento
 //    @PutMapping("/{id}")

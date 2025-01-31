@@ -1,7 +1,6 @@
 package no.country.eduplanner.auth.services;
 
 import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import no.country.eduplanner.auth.exceptions.ImageUploadException;
 import no.country.eduplanner.shared.domain.vo.Image;
 import org.springframework.stereotype.Service;
@@ -21,18 +20,18 @@ public class CloudinaryService {
     public Image uploadImage(MultipartFile file) {
         try {
             // Subida de la imagen original
-            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), Map.of(
+                    "resource_type", "auto",
+                    "fetch_format", "auto",
+                    "quality", "auto",
+                    "format", "webp",
+                    "compression", "low",
+                    "flags", "lossy",
+                    "asset_folder", "educplanner-profile-photos"
+            ));
             String originalUrl = (String) uploadResult.get("url");
 
-            // Subida de la imagen reducida con transformación
-//            Map thumbnailResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-//                    "transformation", ObjectUtils.asMap(
-//                            "width", 150,
-//                            "height", 150,
-//                            "crop", "fill",
-//                            "quality", "auto:low"
-//                    )
-//            ));
+
             String thumbnailUrl = adjustForLowSize(originalUrl);
 
             // Crear y devolver la entidad Image con ambas URLs

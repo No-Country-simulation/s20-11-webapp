@@ -2,6 +2,7 @@ package no.country.eduplanner.auth.services;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.auth.dto.ProfileRequest;
 import no.country.eduplanner.auth.dto.UserData;
 import no.country.eduplanner.auth.exceptions.UserNotFoundException;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -59,6 +61,7 @@ public class UserDataService {
 
     @Transactional
     public UserData updateUserProfilePhoto(MultipartFile file) {
+        log.info("📷 Received file : {}", file.getOriginalFilename());
         UserEntity user = getCurrentUserEntity();
 
         Profile profile = Optional.ofNullable(user.getProfileInfo()).orElse(new Profile());
@@ -71,7 +74,7 @@ public class UserDataService {
         }
 
         user.setProfileInfo(profile);
-
+        log.info("📷 Updated profile photo for user {}", user.getEmail());
         return userMapper.toUserData(userRepository.save(user));
     }
 
@@ -87,6 +90,7 @@ public class UserDataService {
             profile.setLastName(profileRequest.lastName() != null ? profileRequest.lastName() : null);
         }
         user.setProfileInfo(profile);
+
 
         return userMapper.toUserData(userRepository.save(user));
     }

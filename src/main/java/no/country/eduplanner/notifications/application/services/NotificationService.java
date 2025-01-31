@@ -3,8 +3,11 @@ package no.country.eduplanner.notifications.application.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import no.country.eduplanner.auth.services.UserDataService;
 import no.country.eduplanner.courses.application.api.CourseAccessPort;
+import no.country.eduplanner.courses.application.api.CourseInfoPort;
 import no.country.eduplanner.notifications.application.dto.NotificationResponse;
+import no.country.eduplanner.notifications.application.dto.NotificationStats;
 import no.country.eduplanner.notifications.application.mapper.NotificationMapper;
 import no.country.eduplanner.notifications.domain.entities.Notification;
 import no.country.eduplanner.notifications.infra.persistence.NotificationRepository;
@@ -24,6 +27,8 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final NotificationMapper notificationMapper;
     private final CourseAccessPort courseAccessPort;
+    private final CourseInfoPort courseInfoPort;
+    private final UserDataService userDataService;
 
     @ApplicationModuleListener
     public void handleNotificationCreation(NotificationRequest event) {
@@ -46,7 +51,6 @@ public class NotificationService {
 
     }
 
-
     public List<NotificationResponse> getAllNotificationsForCourse(Long courseId) {
 
         courseAccessPort.verifyUserHasAccessToCourse(courseId);
@@ -65,6 +69,35 @@ public class NotificationService {
         courseAccessPort.verifyUserHasAccessToCourse(notification.getCourseId());
 
         return notificationMapper.toResponse(notification);
+    }
+
+    public NotificationStats getNotificationStats() {
+
+        return new NotificationStats(
+                countNotificationsForCurrentUserCourses(),
+                countActiveNotificationsForCurrentUserCourses(),
+                countExpiredNotificationsForCurrentUserCourses());
+    }
+
+    private long countNotificationsForCurrentUserCourses() {
+        List<Long> courseIds = courseInfoPort.getAllCourseIdsAssociatedWithCurrentUser();
+        if (courseIds.isEmpty()) return 0;
+
+        return notificationRepository.countByCourseIdIn(courseIds);
+    }
+
+    private long countActiveNotificationsForCurrentUserCourses() {
+        List<Long> courseIds = courseInfoPort.getAllCourseIdsAssociatedWithCurrentUser();
+        if (courseIds.isEmpty()) return 0;
+
+        return notificationRepository.countByCourseIdInAndIsExpired(courseIds, false);
+    }
+
+    private long countExpiredNotificationsForCurrentUserCourses() {
+        List<Long> courseIds = courseInfoPort.getAllCourseIdsAssociatedWithCurrentUser();
+        if (courseIds.isEmpty()) return 0;
+
+        return notificationRepository.countByCourseIdInAndIsExpired(courseIds, true);
     }
 
 //    public void deleteEvent(Long id) {

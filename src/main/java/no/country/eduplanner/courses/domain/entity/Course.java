@@ -67,6 +67,11 @@ public class Course extends BaseEntity {
     @Column(name = "created_by_user_id", nullable = false)
     private Long createdByUserId;
 
+
+    public long getTotalStudents() {
+        return courseUsers.size() - 1; // Exclude the coordinator
+    }
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
         schedule.setCourse(this);

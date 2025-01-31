@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.auth.dto.UserData;
 import no.country.eduplanner.courses.application.dto.CourseRequest;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
+import no.country.eduplanner.courses.application.dto.CourseStats;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
+import no.country.eduplanner.courses.application.service.CourseInfoService;
 import no.country.eduplanner.courses.application.service.CourseService;
 import no.country.eduplanner.courses.infra.controller.apidocs.CourseApi;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import java.util.SortedMap;
 public class CourseController implements CourseApi {
 
     private final CourseService courseService;
+    private final CourseInfoService courseInfoService;
 
     @PostMapping
     public ResponseEntity<CourseResponse.Created> createCourse(@RequestBody @Valid CourseRequest.Create request) {
@@ -66,5 +69,8 @@ public class CourseController implements CourseApi {
         return courseService.getAllStudentsForCourse(courseId);
     }
 
-
+    @GetMapping("/stats")
+    public CourseStats getCourseStats() {
+        return courseInfoService.getCourseStats();
+    }
 }
