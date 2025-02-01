@@ -85,7 +85,7 @@ const refreshToken = async () => {
  * Reads the stored expiration time (expiresAt), and sets a timeout to refresh the token
  * 1 minute before it expires.
  */
-const scheduleTokenRefresh = () => {
+export const scheduleTokenRefresh = () => {
   // Clear any previously set timeout
   if (refreshTimeout) {
     clearTimeout(refreshTimeout);

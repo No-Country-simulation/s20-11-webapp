@@ -8,7 +8,7 @@ import {
 import { API_ENDPOINTS } from "@/api/endpoints.js";
 import { jwtDecode } from "jwt-decode";
 import { redirect } from "react-router-dom";
-import api from "../../../api/axios";
+import api, { scheduleTokenRefresh } from "../../../api/axios";
 import { dispatchAuthStateChange } from "../context/AuthContext";
 
 const SERVER_ERROR = {
@@ -35,6 +35,7 @@ export const authService = {
 
         saveAuthData(tokens);
         dispatchAuthStateChange();
+        scheduleTokenRefresh()
       }
 
       return response.data;
@@ -52,6 +53,7 @@ export const authService = {
 
         saveAuthData(tokens);
         dispatchAuthStateChange();
+        scheduleTokenRefresh()
         return response.data; // can comment this out
       }
 
