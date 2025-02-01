@@ -138,6 +138,7 @@ api.interceptors.response.use(
       !originalRequest._retry &&
       error.response.data?.error?.code === BackendErrorCode.TOKEN_EXPIRED
     ) {
+      console.log(`Retrying original request after auth error: ${JSON.stringify(error.response,null,2 )}`)
       originalRequest._retry = true;
 
       if (!isRefreshing) {

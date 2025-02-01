@@ -4,11 +4,9 @@ export const TOKEN_EXPIRATION_KEY = "tokenExpiresAt";
 
 // Helper para guardar los datos de autenticación en el localStorage
 export const saveAuthData = ({ token, refreshToken, expiresAt }) => {
-
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
   localStorage.setItem(TOKEN_EXPIRATION_KEY, expiresAt);
-
 };
 
 // Helper para limpiar los datos de autenticación del localStorage
@@ -27,7 +25,7 @@ export const isTokenAboutToExpire = () => {
 
   const expirationTime = new Date(expiresAt).getTime();
   const currentTime = Date.now();
-  const bufferTime = 5 * 60 * 1000;
+  const bufferTime = 2 * 60 * 1000;
 
   const isAboutToExpire = expirationTime - currentTime < bufferTime;
 
