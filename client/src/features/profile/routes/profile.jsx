@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ChevronRight, Loader2, Lock, Mail, Pencil, User } from "lucide-react";
-import { Form, Outlet, useLoaderData } from "react-router-dom";
+import { Form, NavLink, Outlet, useLoaderData } from "react-router-dom";
 import { useIsPending } from "../../../hooks/use-pending";
 import { requireAuthenticated } from "../../auth/services/auth.service";
 import { profileService } from "../services/profile.service";
@@ -61,7 +61,7 @@ export default function Profile() {
     <>
       <TitleBar title="Perfil" />
       <Spacer size="xs" />
-      <main className="grid sm:grid-cols-2 gap-4">
+      <main className="grid sm:grid-cols-2 gap-4 sm:gap-36">
         <section className="flex flex-col  items-center sm:items-start ">
           <div className="mx-12 w-fit relative  ">
             <Avatar className="!size-36  rounded-full cursor-pointer ">
@@ -80,12 +80,14 @@ export default function Profile() {
           <Spacer size="xs" />
 
           <div className="flex flex-col gap-7 w-full">
-            <ProfileCard
-              Icon={User}
-              label="Nombre"
-              value={parseFullName(user.firstName, user.lastName)}
-              canModify={true}
-            />
+            <NavLink viewTransition to="update">
+              <ProfileCard
+                Icon={User}
+                label="Nombre"
+                value={parseFullName(user.firstName, user.lastName)}
+                canModify={true}
+              />
+            </NavLink>
             <ProfileCard Icon={Mail} label="Correo" value={user.email} />
             <ProfileCard
               Icon={Lock}
@@ -94,6 +96,8 @@ export default function Profile() {
               canModify={true}
             />
           </div>
+        </section>
+        <section className=" my-auto">
           <Outlet />
         </section>
       </main>

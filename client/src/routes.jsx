@@ -42,12 +42,19 @@ import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
 import App, { loader } from "./features/landing/App.jsx";
+import ProfileUpdate, {
+  profileUpdateAction,
+  profileUpdateLoader,
+} from "./features/profile/routes/profile-update.jsx";
 import Profile, {
   profileAction,
   profileLoader,
 } from "./features/profile/routes/profile.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
-import StudentCalendar, { studentCalendarAction, studentCalendarLoader } from "./features/student/routes/student-calendar.jsx";
+import StudentCalendar, {
+  studentCalendarAction,
+  studentCalendarLoader,
+} from "./features/student/routes/student-calendar.jsx";
 import StudentHome, {
   studentHomeAction,
   studentHomeLoader,
@@ -93,6 +100,14 @@ export const routes = [
         element: <Profile />,
         loader: profileLoader,
         action: profileAction,
+        children: [
+          {
+            path: "update",
+            element: <ProfileUpdate />,
+            loader: profileUpdateLoader,
+            action: profileUpdateAction,
+          },
+        ],
       },
 
       /* HOME DEL COORDINADOR */
@@ -169,7 +184,7 @@ export const routes = [
             path: "calendar",
             element: <StudentCalendar />,
             loader: studentCalendarLoader,
-            action: studentCalendarAction
+            action: studentCalendarAction,
           },
           {
             path: "calendar/:date",

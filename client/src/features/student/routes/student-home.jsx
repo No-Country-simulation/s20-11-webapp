@@ -82,7 +82,7 @@ export default function StudentHome() {
       <section className="grid lg:grid-cols-5 gap-y-6 sm:gap-6">
         <div className="col-span-3 ">
           <div>
-            {!isProfileComplete && <ProfileCompletionCard />}
+            {!isProfileComplete && <ProfileCompletionCard user={user}/>}
             <h1 className="text-3xl">{greeting}</h1>
             <Spacer size="4xs" />
             <div className="flex justify-between items-center mr-5">
@@ -98,7 +98,7 @@ export default function StudentHome() {
               <EventsContainer
                 className={cn(
                   "h-[calc(100dvh-22rem)]",
-                  isProfileComplete && "h-[calc(100dvh-14rem)]"
+                  isProfileComplete && "h-[calc(100dvh-13rem)] "
                 )}
                 events={activeEvents}
               />
@@ -232,7 +232,12 @@ function OptionsButtonCard({ icon, label, to }) {
   );
 }
 
-function ProfileCompletionCard() {
+function ProfileCompletionCard({ user }) {
+  const hasUserName = user.firstName && user.lastName;
+  const hasProfilePhoto = !!user.profilePhoto;
+
+  const progressValue = hasUserName || hasProfilePhoto ? 66 : 33;
+
   return (
     <Alert className="mb-8">
       <User2 className="w-4 h-4" />
@@ -242,7 +247,7 @@ function ProfileCompletionCard() {
           <p className="mt-2 text-sm">
             Completa tu perfil para personalizar tu experiencia
           </p>
-          <Progress value={33} className="h-2 mt-2 w-48" />
+          <Progress value={progressValue} className="h-2 mt-2 w-48" />
         </div>
         <Link viewTransition prefetch="intent" to={"/profile"}>
           <Button>Completar Perfil</Button>
