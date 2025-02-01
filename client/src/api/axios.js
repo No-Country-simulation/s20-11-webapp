@@ -45,6 +45,11 @@ const refreshToken = async () => {
       refreshToken: newRefreshToken,
       expiresAt,
     } = response.data.data;
+
+    console.log(
+      `Success on refresh : ${JSON.stringify(response.data.data, null, 2)}`
+    );
+
     saveAuthData({ token, refreshToken: newRefreshToken, expiresAt });
     console.log(`🔃 Token refreshed successfully`);
     return token;

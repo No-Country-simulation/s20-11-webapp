@@ -1,4 +1,3 @@
-import HomeStudent, { homeStudentLoader } from "./components/HomeStudent.jsx";
 import { Error } from "./components/layout/error.jsx";
 import Layout, { layoutLoader } from "./components/layout/layout.jsx";
 import Login, {
@@ -49,6 +48,10 @@ import Profile, {
 } from "./features/profile/routes/profile.jsx";
 import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
+import StudentHome, {
+  studentHomeAction,
+  studentHomeLoader,
+} from "./features/student/routes/student-home.jsx";
 
 import StudentLayout, {
   studentLayoutLoader,
@@ -158,8 +161,9 @@ export const routes = [
         children: [
           {
             index: true,
-            element: <HomeStudent />,
-            loader: homeStudentLoader,
+            element: <StudentHome />,
+            loader: studentHomeLoader,
+            action: studentHomeAction,
           },
           {
             path: "calendar",
@@ -169,10 +173,6 @@ export const routes = [
             path: "calendar/:date",
             element: <DayDetail />,
           },
-          /* {
-            path: "schedule",
-            element: //Aca falta el componente de horario estudiante
-          }, */
         ],
       },
       {

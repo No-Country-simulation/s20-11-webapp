@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
     GET_COURSE_DETAILS: (courseId) => `/courses/${courseId}`,
     GET_COURSE_SCHEDULE: (courseId) => `/courses/${courseId}/schedule`,
     GET_STATS: "/courses/stats",
+    GET_CURRENT_STUDENT_COURSE: "/courses/for-current-student",
   },
   STUDENTS: {
     CREATE_STUDENT: (courseId) => `/courses/${courseId}/students`,
