@@ -1,10 +1,9 @@
 package no.country.eduplanner.courses.application.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockRequest;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
-import no.country.eduplanner.courses.application.dto.SubjectRequest;
-import no.country.eduplanner.courses.application.dto.SubjectResponse;
+import lombok.extern.slf4j.Slf4j;
+import no.country.eduplanner.courses.application.dto.*;
 import no.country.eduplanner.courses.application.exception.DuplicatedSubjectException;
 import no.country.eduplanner.courses.application.exception.InvalidSubjectAssignmentException;
 import no.country.eduplanner.courses.application.exception.ScheduleBlockNotFoundException;
@@ -16,6 +15,7 @@ import no.country.eduplanner.courses.domain.entity.Subject;
 import no.country.eduplanner.courses.domain.enums.SubjectType;
 import no.country.eduplanner.courses.infra.persistence.ScheduleBlockRepository;
 import no.country.eduplanner.courses.infra.persistence.SubjectRepository;
+import no.country.eduplanner.notifications.domain.enums.NotificationType;
 import no.country.eduplanner.shared.application.dto.NotificationRequest;
 import no.country.eduplanner.shared.application.utils.ColorUtils;
 import org.springframework.context.ApplicationEventPublisher;
@@ -29,6 +29,7 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -68,7 +69,7 @@ public class SubjectService {
 
         scheduleBlock.updateSubjectForBlock(subject);
 
-        eventPublisher.publishEvent(buildSubjectUpdatedNotificationRequest(courseId, subject, scheduleBlock));
+//        eventPublisher.publishEvent(buildSubjectUpdatedNotificationRequest(courseId, subject, scheduleBlock));
 
 
         return mapper.toScheduleBlockResponse(scheduleBlockRepository.save(scheduleBlock));
@@ -92,6 +93,27 @@ public class SubjectService {
         return mapper.toScheduleBlockResponse(scheduleBlockRepository.save(scheduleBlock));
     }
 
+    public void publishNotificationForSubject(@Valid SubjectNotificationRequest request) { //This should take a SubjectNotificationRequest/ no type no color required
+
+
+        log.info("🔔 Attempting to publish notification for subject with id: {}", request.subjectId());
+
+        Subject subject = subjectRepository.findById(request.subjectId())
+                                           .orElseThrow(() -> new SubjectNotFoundException(request.subjectId()));
+
+        eventPublisher.publishEvent(NotificationRequest.builder()
+                                                       .header(subject.getName())
+                                                       .title(request.title())
+                                                       .message(request.message())
+                                                       .courseId(request.courseId())
+                                                       .subjectId(request.subjectId())
+                                                       .scheduledFor(request.scheduledFor())
+                                                       .assignedColor(subject.getColor())
+                                                       .type(NotificationType.FOR_SUBJECT)
+                                                       .build());
+
+    }
+
     private static NotificationRequest buildSubjectUpdatedNotificationRequest(Long courseId, Subject subject, ScheduleBlock scheduleBlock) {
         return NotificationRequest.builder()
                                   .title("Horario de materia actualizado")
@@ -106,6 +128,7 @@ public class SubjectService {
                                   .subjectId(subject.getId())
                                   .assignedColor(subject.getColor())
                                   .build();
+
     }
 
     private void validateSubjectRequest(SubjectRequest request, Long courseId) {
