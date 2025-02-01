@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockRequest;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
-import no.country.eduplanner.courses.application.dto.SubjectRequest;
-import no.country.eduplanner.courses.application.dto.SubjectResponse;
+import no.country.eduplanner.courses.application.dto.*;
 import no.country.eduplanner.shared.application.dto.NotificationRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -93,7 +90,7 @@ public interface SubjectApi {
                             schema = @Schema(implementation = NotificationRequest.class)
                     )
             )
-            @Valid NotificationRequest request
+            @Valid SubjectNotificationRequest request
     );
 
     @Operation(

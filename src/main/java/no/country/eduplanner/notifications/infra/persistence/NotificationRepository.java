@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-    List<Notification> findAllByCourseIdOrderByScheduledForDesc(Long courseId);
+    List<Notification> findAllByCourseIdOrderByScheduledForAsc(Long courseId);
 
     @Query("""
             select n from Notification n
