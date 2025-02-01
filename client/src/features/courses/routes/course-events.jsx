@@ -1,8 +1,8 @@
 import { TitleBar } from "@/components/title-bar.jsx";
 import { Button } from "@/components/ui/button";
 import { Bell, Eye, EyeClosed, Plus } from "lucide-react";
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useFetchers, useLoaderData, useRevalidator } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { createEvent, CreateEvent } from "../components/create-event";
@@ -44,6 +44,16 @@ export default function CourseEvents() {
 
   const eventsToShow = showAll ? events : activeEvents;
 
+  const createEventFetcher = useFetchers().filter(
+    (f) => f.key === "create-event"
+  )[0];
+
+  const revalidator = useRevalidator();
+
+  useEffect(() => {
+    revalidator.revalidate();
+  }, [createEventFetcher]);
+
   return (
     <>
       <TitleBar title="Eventos" />
@@ -80,7 +90,7 @@ export default function CourseEvents() {
   );
 }
 
-function EmptyEventsPanel({subjects}) {
+function EmptyEventsPanel({ subjects }) {
   return (
     <div className="bg-secondary/20 border-dashed border-2 border-border/20 rounded shadow p-4 h-[calc(100dvh-25rem)] grid place-content-center text-center">
       <div className="text-muted-foreground flex items-center gap-2 flex-col justify-center">
