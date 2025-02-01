@@ -95,7 +95,7 @@ public class AuthenticationService {
         }
 
         TokenResponse tokenResponse = generateTokens(user);
-        log.info("🔐 Refreshed token for user: {}", user.getEmail());
+        log.info("🔐 Refreshed token for user: [{}] at [{}]", userEmail, LocalDateTime.now());
         return tokenResponse;
     }
 
