@@ -1,5 +1,6 @@
 package no.country.eduplanner.shared.application.dto;
 
+import jakarta.validation.constraints.Future;
 import lombok.Builder;
 import no.country.eduplanner.notifications.domain.enums.NotificationType;
 import no.country.eduplanner.shared.domain.vo.AdaptableColor;
@@ -13,6 +14,7 @@ public record NotificationRequest(
         String message,
         Long courseId,
         Long subjectId,
+        @Future
         LocalDateTime scheduledFor,
         AdaptableColor assignedColor,
         NotificationType type
