@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CourseService  {
+public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
@@ -68,7 +68,20 @@ public class CourseService  {
     }
 
 
+    public CourseResponse.Detailed getCourseForCurrentStudent() {
+        UserData currentUser = userDataService.getCurrentUserData();
+        if (!currentUser.roles().contains(UserRole.STUDENT.getAuthority())) {
+            throw new UnauthorizedAccessException("Solo estudiantes pueden ver su curso asignado");
+        }
+        CourseUser courseUser = courseUserRepository
+                .findByUserId(currentUser.id())
+                .orElseThrow(() -> new CourseNotFoundException(currentUser.id()));
 
+        Course course = courseRepository.findByIdWithClassDays(courseUser.getCourse().getId())
+                                        .orElseThrow(() -> new CourseNotFoundException(courseUser.getCourse().getId()));
+
+        return courseMapper.toDetailed(course);
+    }
 
 
     public CourseResponse.Detailed getCourseDetailsById(Long courseId) {
