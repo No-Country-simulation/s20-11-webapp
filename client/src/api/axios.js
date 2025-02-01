@@ -2,9 +2,9 @@ import axios from "axios";
 import { BackendErrorCode } from "../features/auth/utils/auth.errors";
 import {
   clearAuthData,
-  isTokenAboutToExpire,
   REFRESH_TOKEN_KEY,
   saveAuthData,
+  TOKEN_EXPIRATION_KEY,
   TOKEN_KEY,
 } from "./authStorage";
 import { API_ENDPOINTS } from "./endpoints";
@@ -14,6 +14,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 let isRefreshing = false;
 let refreshSubscribers = [];
+let refreshTimeout = null;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -35,10 +36,9 @@ const processQueue = (error, token = null) => {
   refreshSubscribers = [];
 };
 
-// Lógica para refrescar el token
 const refreshToken = async () => {
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-  if (!refreshToken) {
+  const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+  if (!storedRefreshToken) {
     throw new Error("No refresh token found");
   }
 
@@ -50,7 +50,7 @@ const refreshToken = async () => {
       {},
       {
         headers: {
-          Authorization: `Bearer ${refreshToken}`,
+          Authorization: `Bearer ${storedRefreshToken}`,
         },
       }
     );
@@ -62,83 +62,106 @@ const refreshToken = async () => {
         expiresAt,
       } = response.data.data;
 
-      console.log("Token refresh successful");
+      console.log("✅ Token refresh successful");
+
+      // Save the new tokens and expiration time
       saveAuthData({ token, refreshToken: newRefreshToken, expiresAt });
+
+      // (Re-)schedule the next refresh based on the new expiration time.
+      scheduleTokenRefresh();
+
       return token;
     }
+
     throw new Error("Failed to refresh token");
   } catch (error) {
-    console.error("Token refresh failed:", error);
+    console.error("❌ Token refresh failed:", error);
     throw error;
   }
 };
 
-// Request interceptor
+/**
+ * Schedules a background token refresh.
+ * Reads the stored expiration time (expiresAt), and sets a timeout to refresh the token
+ * 1 minute before it expires.
+ */
+const scheduleTokenRefresh = () => {
+  // Clear any previously set timeout
+  if (refreshTimeout) {
+    clearTimeout(refreshTimeout);
+  }
+
+  // Get the expiration time from storage. It should be in a format that the Date constructor can parse.
+  const expiresAt = localStorage.getItem(TOKEN_EXPIRATION_KEY);
+  if (!expiresAt) return;
+
+  const expiresAtDate = new Date(expiresAt);
+  const now = new Date();
+  const msUntilExpiry = expiresAtDate.getTime() - now.getTime();
+
+  // Set the refresh to happen 1 minute before expiration
+  const refreshDelay = msUntilExpiry - 60 * 1000;
+
+  if (refreshDelay <= 0) {
+    // Token is already expired or too close to expiry; refresh immediately.
+    refreshToken().catch(() => {
+      clearAuthData();
+      window.location.href = LOGIN_URL;
+    });
+  } else {
+    console.log(
+      `⏳ Scheduling token refresh in ${Math.floor(
+        refreshDelay / 1000
+      )} seconds`
+    );
+    refreshTimeout = setTimeout(() => {
+      refreshToken().catch(() => {
+        clearAuthData();
+        window.location.href = LOGIN_URL;
+      });
+    }, refreshDelay);
+  }
+};
+
+/**
+ * Axios request interceptor.
+ * Attaches the access token from local storage.
+ * (Note: The background refresh mechanism will keep the token updated even if no requests are made.)
+ */
 api.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (!token) return config;
 
-    // Don't check expiration for refresh token requests
+    // For the refresh endpoint itself, use the token directly.
     if (config.url === API_ENDPOINTS.AUTH.REFRESH) {
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     }
 
-    if (isTokenAboutToExpire()) {
-      if (!isRefreshing) {
-        isRefreshing = true;
-        try {
-          const newToken = await refreshToken();
-          config.headers.Authorization = `Bearer ${newToken}`;
-          isRefreshing = false;
-          processQueue(null, newToken);
-
-          console.log("🟢 Token was refreshed before it expired.");
-        } catch (error) {
-          console.log(
-            `🔴 Could not refresh token. Going to back to login: ${error}`
-          );
-
-          processQueue(error, null);
-          clearAuthData();
-          window.location.href = LOGIN_URL;
-          return Promise.reject(error);
-        }
-      } else {
-        // Wait for the ongoing refresh to complete
-        try {
-          const newToken = await new Promise((resolve, reject) => {
-            refreshSubscribers.push({ resolve, reject });
-          });
-          config.headers.Authorization = `Bearer ${newToken}`;
-        } catch (error) {
-          return Promise.reject(error);
-        }
-      }
-    } else {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // Attach the current access token to every request.
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  (error) => {
-    console.error(error);
-    Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor
+/**
+ * Axios response interceptor.
+ * If a request fails with a 401 error due to an expired token,
+ * it attempts to refresh the token and then replays the original request.
+ */
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
+    // Check for 401 responses due to token expiration (using your backend's error code).
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
       error.response.data?.error?.code === BackendErrorCode.TOKEN_EXPIRED
     ) {
-      console.log(`Retrying original request after auth error: ${JSON.stringify(error.response,null,2 )}`)
       originalRequest._retry = true;
 
       if (!isRefreshing) {
@@ -156,15 +179,15 @@ api.interceptors.response.use(
           return Promise.reject(refreshError);
         }
       } else {
-        // Wait for the ongoing refresh to complete
+        // If a refresh is already in progress, wait for it to complete.
         try {
           const newToken = await new Promise((resolve, reject) => {
             refreshSubscribers.push({ resolve, reject });
           });
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           return api(originalRequest);
-        } catch (error) {
-          return Promise.reject(error);
+        } catch (err) {
+          return Promise.reject(err);
         }
       }
     }
@@ -172,5 +195,10 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// Initialize the background token refresh if a token is already stored.
+if (localStorage.getItem(TOKEN_KEY)) {
+  scheduleTokenRefresh();
+}
 
 export default api;
