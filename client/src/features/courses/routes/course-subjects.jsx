@@ -59,7 +59,6 @@ export default function CourseSubjects() {
 }
 
 function SubjectCard({ subject }) {
-  console.log(subject.color.light);
   return (
     <Card
       style={{

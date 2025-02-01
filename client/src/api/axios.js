@@ -10,8 +10,10 @@ import {
 import { API_ENDPOINTS } from "./endpoints";
 
 const LOGIN_URL = "/";
-
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
+let isRefreshing = false;
+let refreshSubscribers = [];
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -22,95 +24,137 @@ const api = axios.create({
   },
 });
 
+const processQueue = (error, token = null) => {
+  refreshSubscribers.forEach((callback) => {
+    if (error) {
+      callback.reject(error);
+    } else {
+      callback.resolve(token);
+    }
+  });
+  refreshSubscribers = [];
+};
+
 // Lógica para refrescar el token
 const refreshToken = async () => {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
-  if (!refreshToken) throw new Error("No se encuentra el token de refresco");
+  if (!refreshToken) {
+    throw new Error("No refresh token found");
+  }
 
   console.log("🔃 Attempting to refresh token...");
 
-  const response = await axios.post(
-    `${API_BASE_URL}${API_ENDPOINTS.AUTH.REFRESH}`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-    }
-  );
-
-  if (response.data.success) {
-    const {
-      token,
-      refreshToken: newRefreshToken,
-      expiresAt,
-    } = response.data.data;
-
-    console.log(
-      `Success on refresh : ${JSON.stringify(response.data.data, null, 2)}`
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}${API_ENDPOINTS.AUTH.REFRESH}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      }
     );
 
-    saveAuthData({ token, refreshToken: newRefreshToken, expiresAt });
-    console.log(`🔃 Token refreshed successfully`);
-    return token;
-  }
+    if (response.data.success) {
+      const {
+        token,
+        refreshToken: newRefreshToken,
+        expiresAt,
+      } = response.data.data;
 
-  throw new Error("Error al refrescar el token");
+      console.log("Token refresh successful");
+      saveAuthData({ token, refreshToken: newRefreshToken, expiresAt });
+      return token;
+    }
+    throw new Error("Failed to refresh token");
+  } catch (error) {
+    console.error("Token refresh failed:", error);
+    throw error;
+  }
 };
 
-// ==================== Interceptores de AXIOS ====================
-// ================================================================
-
-/**
- * Interceptor de requests para añadir el token JWT a los headers.
- * Renueva el token si está próximo a expirar.
- */
+// Request interceptor
 api.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
-      if (isTokenAboutToExpire()) {
+    if (!token) return config;
+
+    // Don't check expiration for refresh token requests
+    if (config.url === API_ENDPOINTS.AUTH.REFRESH) {
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    }
+
+    if (isTokenAboutToExpire()) {
+      if (!isRefreshing) {
+        isRefreshing = true;
         try {
           const newToken = await refreshToken();
-
           config.headers.Authorization = `Bearer ${newToken}`;
+          isRefreshing = false;
+          processQueue(null, newToken);
         } catch (error) {
+          processQueue(error, null);
           clearAuthData();
-          window.location.href = LOGIN_URL; // Redirect to login on failure
+          window.location.href = LOGIN_URL;
+          return Promise.reject(error);
         }
       } else {
-        config.headers.Authorization = `Bearer ${token}`;
+        // Wait for the ongoing refresh to complete
+        try {
+          const newToken = await new Promise((resolve, reject) => {
+            refreshSubscribers.push({ resolve, reject });
+          });
+          config.headers.Authorization = `Bearer ${newToken}`;
+        } catch (error) {
+          return Promise.reject(error);
+        }
       }
+    } else {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Interceptor para manejar el refresco del token
+// Response interceptor
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    // Verifica si el error es por token expirado (401) y no se ha reintentado antes
-    if (error.response.status === 401 && !originalRequest._retry) {
-      const isTokenExpiredError =
-        error.response.data?.error?.code === BackendErrorCode.TOKEN_EXPIRED;
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      error.response.data?.error?.code === BackendErrorCode.TOKEN_EXPIRED
+    ) {
+      originalRequest._retry = true;
 
-      if (isTokenExpiredError) {
-        originalRequest._retry = true; // Marca la petición como reintentada
-
+      if (!isRefreshing) {
+        isRefreshing = true;
         try {
           const newToken = await refreshToken();
+          isRefreshing = false;
+          processQueue(null, newToken);
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          return api(originalRequest); // Reintenta la petición original
+          return api(originalRequest);
         } catch (refreshError) {
-          clearAuthData(); // Borra los datos de autenticación si falla el refresh
-          window.location.href = LOGIN_URL; // Redirige al login si falla
+          processQueue(refreshError, null);
+          clearAuthData();
+          window.location.href = LOGIN_URL;
           return Promise.reject(refreshError);
+        }
+      } else {
+        // Wait for the ongoing refresh to complete
+        try {
+          const newToken = await new Promise((resolve, reject) => {
+            refreshSubscribers.push({ resolve, reject });
+          });
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return api(originalRequest);
+        } catch (error) {
+          return Promise.reject(error);
         }
       }
     }
