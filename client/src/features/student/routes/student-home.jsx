@@ -6,7 +6,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
@@ -51,8 +51,6 @@ export async function studentHomeLoader({ params }) {
     profileService.getProfileInfo(),
   ]);
 
-  // console.log(JSON.stringify(events.data,null,2))
-
   return {
     events: events.data,
     subjects: subjects.data,
@@ -81,35 +79,35 @@ export default function StudentHome() {
 
   return (
     <>
-      <section className="grid sm:grid-cols-5 gap-6">
+      <section className="grid sm:grid-cols-5 gap-y-6 sm:gap-6">
         <div className="col-span-3 ">
-          {!isProfileComplete && <ProfileCompletionCard />}
-          <h1 className="text-3xl">{greeting}</h1>
-          <Spacer size="4xs" />
-          <div className="flex justify-between items-center mr-5">
-            <h1 className="text-xl">
-              Notificaciones activas ({activeEvents.length})
-            </h1>
-            <RefreshButton />
+          <div>
+            {!isProfileComplete && <ProfileCompletionCard />}
+            <h1 className="text-3xl">{greeting}</h1>
+            <Spacer size="4xs" />
+            <div className="flex justify-between items-center mr-5">
+              <h1 className="text-xl">
+                Notificaciones activas ({activeEvents.length})
+              </h1>
+              <RefreshButton />
+            </div>
+            <Spacer size="5xs" />
           </div>
-          <Spacer size="5xs" />
+          <div className="col-span-5 sm:col-span-3">
+            {activeEvents.length > 0 ? (
+              <EventsContainer
+                className={cn(
+                  "h-[calc(100dvh-22rem)]",
+                  isProfileComplete && "h-[calc(100dvh-14rem)]"
+                )}
+                events={activeEvents}
+              />
+            ) : (
+              <EmptyEventsPanel />
+            )}
+          </div>
         </div>
-      </section>
-      <section className="grid sm:grid-cols-5 gap-12">
-        <div className="col-span-5 sm:col-span-3">
-          {activeEvents.length > 0 ? (
-            <EventsContainer
-              className={cn(
-                "h-[calc(100dvh-22rem)]",
-                isProfileComplete && "h-[calc(100dvh-14rem)]"
-              )}
-              events={activeEvents}
-            />
-          ) : (
-            <EmptyEventsPanel />
-          )}
-        </div>
-        <div className="col-span-5 sm:col-span-2 flex flex-col-reverse sm:flex-col gap-4 sm:gap-8 mt-2  mx-auto ">
+        <div className="col-span-5 sm:col-span-2 flex flex-col-reverse sm:flex-col gap-4 sm:gap-8  mx-auto ">
           <CurrentCourseCard course={course} user={user} />
           <OptionsButtonCard
             to="#"
@@ -117,7 +115,7 @@ export default function StudentHome() {
             label="Calendario"
           />
           <OptionsButtonCard
-            to="#"
+            to={`/courses/${course.id}/schedule`}
             icon={<CalendarDays size={48} />}
             label="Horario"
           />
@@ -144,7 +142,7 @@ function CurrentCourseCard({ course, user }) {
   const classDays = formatClassDaysToArray(course.classDays);
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="sm:w-[30rem]">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>

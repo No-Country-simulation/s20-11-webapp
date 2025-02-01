@@ -22,10 +22,14 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { requireAdmin } from "../../auth/services/auth.service";
 import { courseService } from "../services/course.service";
 import { notificationsService } from "../services/notifications.service";
 
 export async function coursesListLoader() {
+
+  await requireAdmin()
+
   const [courses, coursesStatsResponse, notificationStatsResponse] =
     await Promise.all([
       courseService.getAllCourses(),
