@@ -1,6 +1,7 @@
 import { ResponsiveOutletModal } from "@/components/responsive-outlet-modal.jsx";
 import { cn } from "@/lib/utils";
 import { Utensils } from "lucide-react";
+import { useAuth } from "../../auth/context/AuthContext";
 import { formatTime } from "../utils/time";
 
 export function BlockCard({ block }) {
@@ -81,7 +82,7 @@ export function BlockCard({ block }) {
 }
 
 function EmptyBlockCard({ blockLabel, timeRange, baseClasses, blockId }) {
-  const isAdmin = true;
+  const { isAdmin } = useAuth();
 
   if (isAdmin) {
     return (
@@ -102,9 +103,9 @@ function EmptyBlockCard({ blockLabel, timeRange, baseClasses, blockId }) {
   }
 
   return (
-    <div className={`${baseClasses} bg-background`}>
+    <div className={`${baseClasses} bg-background p-2 `}>
       <h3 className=" text-muted-foreground">{blockLabel}</h3>
-      <p className="bg-background/70 rounded-md w-fit text-sm p-1 px-2">
+      <p className="bg-background/70 rounded-md w-fit  text-sm p-1 px-2">
         {timeRange}
       </p>
     </div>
