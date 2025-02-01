@@ -2,10 +2,7 @@ package no.country.eduplanner.courses.infra.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockRequest;
-import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
-import no.country.eduplanner.courses.application.dto.SubjectRequest;
-import no.country.eduplanner.courses.application.dto.SubjectResponse;
+import no.country.eduplanner.courses.application.dto.*;
 import no.country.eduplanner.courses.application.service.SubjectService;
 import no.country.eduplanner.courses.infra.controller.apidocs.SubjectApi;
 import no.country.eduplanner.shared.application.dto.NotificationRequest;
@@ -36,8 +33,8 @@ public class SubjectController implements SubjectApi {
     }
 
     @PostMapping("/send-notification")
-    public void publishNotificationForSubject(@RequestBody @Valid NotificationRequest request) {
-        eventPublisher.publishEvent(NotificationRequest.forSubject(request));
+    public void publishNotificationForSubject(@RequestBody @Valid SubjectNotificationRequest request) {
+        subjectService.publishNotificationForSubject(request);
     }
 
     @PutMapping("/{courseId}/subjects/add-to-block")
