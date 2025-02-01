@@ -46,8 +46,8 @@ import Profile, {
   profileAction,
   profileLoader,
 } from "./features/profile/routes/profile.jsx";
-import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
+import StudentCalendar, { studentCalendarAction, studentCalendarLoader } from "./features/student/routes/student-calendar.jsx";
 import StudentHome, {
   studentHomeAction,
   studentHomeLoader,
@@ -167,7 +167,9 @@ export const routes = [
           },
           {
             path: "calendar",
-            element: <Calendario />,
+            element: <StudentCalendar />,
+            loader: studentCalendarLoader,
+            action: studentCalendarAction
           },
           {
             path: "calendar/:date",

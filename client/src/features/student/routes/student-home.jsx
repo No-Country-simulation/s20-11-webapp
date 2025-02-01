@@ -110,7 +110,7 @@ export default function StudentHome() {
         <div className="col-span-5 sm:col-span-2 flex flex-col-reverse sm:flex-col gap-4 sm:gap-8  mx-auto ">
           <CurrentCourseCard course={course} user={user} />
           <OptionsButtonCard
-            to="#"
+            to="calendar"
             icon={<Calendar1 size={48} />}
             label="Calendario"
           />
