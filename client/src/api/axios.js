@@ -93,7 +93,13 @@ api.interceptors.request.use(
           config.headers.Authorization = `Bearer ${newToken}`;
           isRefreshing = false;
           processQueue(null, newToken);
+
+          console.log("🟢 Token was refreshed before it expired.");
         } catch (error) {
+          console.log(
+            `🔴 Could not refresh token. Going to back to login: ${error}`
+          );
+
           processQueue(error, null);
           clearAuthData();
           window.location.href = LOGIN_URL;
@@ -115,7 +121,10 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.error(error);
+    Promise.reject(error);
+  }
 );
 
 // Response interceptor

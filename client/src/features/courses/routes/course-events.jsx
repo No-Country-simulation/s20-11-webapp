@@ -70,7 +70,7 @@ export default function CourseEvents() {
           </div>
           <Spacer size="3xs" />
           {events.length <= 0 ? (
-            <EmptyEventsPanel />
+            <EmptyEventsPanel subjects={subjects} />
           ) : (
             <EventsContainer events={eventsToShow} />
           )}
@@ -80,13 +80,13 @@ export default function CourseEvents() {
   );
 }
 
-function EmptyEventsPanel() {
+function EmptyEventsPanel({subjects}) {
   return (
     <div className="bg-secondary/20 border-dashed border-2 border-border/20 rounded shadow p-4 h-[calc(100dvh-25rem)] grid place-content-center text-center">
       <div className="text-muted-foreground flex items-center gap-2 flex-col justify-center">
         <Bell size={30} />
         Aún no hay eventos publicados para este curso.
-        <AddEvent />
+        <CreateEvent subjects={subjects} />
       </div>
     </div>
   );

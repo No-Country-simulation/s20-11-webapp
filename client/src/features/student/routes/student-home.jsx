@@ -142,17 +142,18 @@ function CurrentCourseCard({ course, user }) {
   const classDays = formatClassDaysToArray(course.classDays);
 
   return (
-    <Card className="sm:w-[30rem]">
+    <Card className="sm:w-[30rem] !bg-gradient-to-br from-primary/5 via-card to-primary/10">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>
             <CardTitle className="text-2xl font-bold">{course.name}</CardTitle>
             <p className="text-xs text-muted-foreground mt-1 italic">
-              Integrante desde el {formattedCreatedAt}
+              Eres integrante desde el {formattedCreatedAt}
             </p>
           </div>
           <Badge variant="secondary" className="text-xs">
-            {course.totalStudents} integrantes
+            {course.totalStudents}{" "}
+            {course.totalStudents === 1 ? "integrante" : "integrantes"}
           </Badge>
         </div>
       </CardHeader>
@@ -214,7 +215,7 @@ function EmptyEventsPanel() {
     <div className="bg-secondary/20 border-dashed border-2 border-border/20 rounded shadow p-4 h-[calc(100dvh-25rem)] grid place-content-center text-center">
       <div className="text-muted-foreground flex items-center gap-2 flex-col justify-center">
         <Bell size={30} />
-        ¡Aún no hay eventos publicados para este curso.
+        ¡Aún no hay eventos publicados para este curso!
       </div>
     </div>
   );
