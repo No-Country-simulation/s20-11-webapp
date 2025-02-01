@@ -40,6 +40,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/courses/**").hasAnyRole("ADMIN", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/notifications/**").hasAnyRole("ADMIN", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/subjects/**").hasAnyRole("ADMIN", "STUDENT")
                         .requestMatchers("/docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET).authenticated()
                         .anyRequest().hasRole("ADMIN")
