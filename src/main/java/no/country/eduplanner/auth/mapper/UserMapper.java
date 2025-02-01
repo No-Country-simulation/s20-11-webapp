@@ -4,6 +4,7 @@ import no.country.eduplanner.auth.dto.UserData;
 import no.country.eduplanner.auth.models.Profile;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.models.UserRole;
+import no.country.eduplanner.shared.application.dto.AuditInfo;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,7 +21,8 @@ public class UserMapper {
                 profile != null ? profile.getFirstName() : null,
                 profile != null ? profile.getLastName() : null,
                 profile != null && profile.getImage() != null ? profile.getImage().getOriginalUrl() : null,
-                profile != null && profile.getImage() != null ? profile.getImage().getThumbnailUrl() : null //TODO: apply conversions
+                profile != null && profile.getImage() != null ? profile.getImage().getThumbnailUrl() : null,
+                AuditInfo.fromBaseEntity(user)
         );
 
     }
