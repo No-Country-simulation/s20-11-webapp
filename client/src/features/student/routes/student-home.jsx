@@ -1,5 +1,13 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   Tooltip,
@@ -7,7 +15,19 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { Bell, Calendar1, CalendarDays, RefreshCw, User2 } from "lucide-react";
+import { format, parse } from "date-fns";
+import { es } from "date-fns/locale";
+import {
+  Bell,
+  Calendar,
+  Calendar1,
+  CalendarDays,
+  Clock,
+  Mail,
+  RefreshCw,
+  User2,
+  Utensils,
+} from "lucide-react";
 import { Link, useLoaderData, useRevalidator } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { requireStudent } from "../../auth/services/auth.service";
@@ -15,6 +35,7 @@ import { EventsContainer } from "../../courses/components/events-container";
 import { courseService } from "../../courses/services/course.service";
 import { notificationsService } from "../../courses/services/notifications.service";
 import { subjectService } from "../../courses/services/subject.service";
+import { formatClassDaysToArray } from "../../courses/utils/weekdays";
 import { profileService } from "../../profile/services/profile.service";
 
 export async function studentHomeLoader({ params }) {
@@ -35,7 +56,7 @@ export async function studentHomeLoader({ params }) {
   return {
     events: events.data,
     subjects: subjects.data,
-    user,
+    user: user.data,
     course: currentStudentCourse.data,
   };
 }
@@ -88,7 +109,8 @@ export default function StudentHome() {
             <EmptyEventsPanel />
           )}
         </div>
-        <div className="col-span-5 sm:col-span-2 flex flex-col gap-4 sm:gap-8 mt-2  mx-auto ">
+        <div className="col-span-5 sm:col-span-2 flex flex-col-reverse sm:flex-col gap-4 sm:gap-8 mt-2  mx-auto ">
+          <CurrentCourseCard course={course} user={user} />
           <OptionsButtonCard
             to="#"
             icon={<Calendar1 size={48} />}
@@ -102,6 +124,90 @@ export default function StudentHome() {
         </div>
       </section>
     </>
+  );
+}
+
+function CurrentCourseCard({ course, user }) {
+  // Formateamos la fecha: "dd MMM, yyyy" devolverá "31 ene, 2025"
+  let formattedCreatedAt = format(user.auditInfo.createdAt, "dd MMM, yyyy", {
+    locale: es,
+  });
+
+  const parsedStartTime = parse(course.classStartTime, "HH:mm:ss", new Date());
+
+  let formattedStartTime = format(parsedStartTime, "h:mm a", { locale: es });
+
+  formattedStartTime = formattedStartTime
+    .replace("a. m.", "am")
+    .replace("p. m.", "pm");
+
+  const classDays = formatClassDaysToArray(course.classDays);
+
+  return (
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle className="text-2xl font-bold">{course.name}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1 italic">
+              Integrante desde el {formattedCreatedAt}
+            </p>
+          </div>
+          <Badge variant="secondary" className="text-xs">
+            {course.totalStudents} integrantes
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Clock className="w-4 h-4 mr-2" />
+            <span className="text-sm">
+              Clases desde las {formattedStartTime}
+            </span>
+          </div>
+          <div className="flex items-center">
+            <Utensils className="w-4 h-4 mr-2" />
+            <span className="text-sm">
+              {course.lunchDurationInMinutes} min. almuerzo
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="font-semibold mb-2 flex items-center">
+            <Calendar className="w-4 h-4 mr-2" />
+            Días de clase
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {classDays.map((day, index) => (
+              <Badge key={index} variant="outline">
+                {day}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="font-semibold mb-2">Agenda Diaria</h3>
+          <ul className="space-y-1 text-sm">
+            <li>
+              {course.blocksBeforeLunch} bloques antes de almuerzo (
+              {course.blockDurationInMinutes} min c/u)
+            </li>
+            <li>{course.blocksAfterLunch} bloques después de almuerzo</li>
+            <li>{course.breakDurationInMinutes} min de receso entre bloques</li>
+          </ul>
+        </div>
+      </CardContent>
+      <CardFooter className="!w-full">
+        <a href={`mailto:${course.auditInfo.createdBy}`} className="!w-full">
+          <Button variant="secondary" className="!w-full">
+            <Mail /> Contactar coordinador
+          </Button>
+        </a>
+      </CardFooter>
+    </Card>
   );
 }
 
