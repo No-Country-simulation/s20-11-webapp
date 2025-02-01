@@ -96,8 +96,8 @@ function EmptyBlockCard({ blockLabel, timeRange, baseClasses, blockId }) {
             </p>
           </div>
         }
-        title={"Asignar clase"}
-        description={`Selecciona una clase para asignar al bloque [${timeRange}]`}
+        title={"Asignar materia"}
+        description={`Selecciona una materia para asignar al módulo [${timeRange}]`}
       />
     );
   }
