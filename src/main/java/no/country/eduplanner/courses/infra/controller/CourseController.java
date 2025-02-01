@@ -36,6 +36,11 @@ public class CourseController implements CourseApi {
                              .body(createdCourse);
     }
 
+    @GetMapping("/for-current-student")
+    public CourseResponse.Detailed getCourseForCurrentStudent(){
+        return courseService.getCourseForCurrentStudent();
+    }
+
     @GetMapping
     public List<CourseResponse.Basic> getAllCourses() {
         return courseService.getAllCourses();
