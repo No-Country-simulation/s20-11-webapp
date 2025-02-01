@@ -79,7 +79,7 @@ export default function StudentHome() {
 
   return (
     <>
-      <section className="grid sm:grid-cols-5 gap-y-6 sm:gap-6">
+      <section className="grid lg:grid-cols-5 gap-y-6 sm:gap-6">
         <div className="col-span-3 ">
           <div>
             {!isProfileComplete && <ProfileCompletionCard />}
@@ -93,7 +93,7 @@ export default function StudentHome() {
             </div>
             <Spacer size="5xs" />
           </div>
-          <div className="col-span-5 sm:col-span-3">
+          <div className="col-span-5 lg:col-span-3">
             {activeEvents.length > 0 ? (
               <EventsContainer
                 className={cn(
@@ -107,7 +107,7 @@ export default function StudentHome() {
             )}
           </div>
         </div>
-        <div className="col-span-5 sm:col-span-2 flex flex-col-reverse sm:flex-col gap-4 sm:gap-8  mx-auto ">
+        <div className="col-span-5 lg:col-span-2 flex flex-col-reverse sm:flex-col gap-4 sm:gap-8  mx-auto ">
           <CurrentCourseCard course={course} user={user} />
           <OptionsButtonCard
             to="calendar"
