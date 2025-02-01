@@ -1,61 +1,111 @@
-import { ResponsiveOutletModal } from "@/components/responsive-outlet-modal.jsx";
-/* import { TitleBar } from "@/components/title-bar.jsx"; */
-import { useLoaderData } from "react-router-dom";
-import { profileService } from "../../profile/services/profile.service";
-import { EventDetailList } from "../../student/components/EventDetailList";
-import { calendarService } from "../../student/services/calendar.service";
+import { TitleBar } from "@/components/title-bar.jsx";
+import { Button } from "@/components/ui/button";
+import { Bell, Eye, EyeClosed, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useFetchers, useLoaderData, useRevalidator } from "react-router-dom";
+import { Spacer } from "../../../components/layout/spacer";
+import { requireAdmin } from "../../auth/services/auth.service";
+import { createEvent, CreateEvent } from "../components/create-event";
+import { EventsContainer } from "../components/events-container";
+import { notificationsService } from "../services/notifications.service";
+import { subjectService } from "../services/subject.service";
 
-export async function courseEventsLoader() {
-  const [events, user] = await Promise.all([
-    calendarService.getEvents(),
-    profileService.getProfileInfo(),
+export async function courseEventsLoader({ params }) {
+  await requireAdmin();
+
+  const [events, subjects] = await Promise.all([
+    notificationsService.getCourseEvents(params.courseId),
+    subjectService.getSubjects(params.courseId),
   ]);
 
-  console.log(JSON.stringify(events,null,2))
-  console.log(JSON.stringify(user,null,2))
+  return { events: events.data, subjects: subjects.data };
+}
 
-  return { events, user };
+export async function courseEventsAction({ request }) {
+  await requireAdmin();
+
+  const formData = await request.formData();
+
+  const intent = formData.get("intent");
+
+  switch (intent) {
+    case "create-event": {
+      return await createEvent(formData);
+    }
+  }
 }
 
 export default function CourseEvents() {
-  /* return (
-    <>
-      <TitleBar title="Eventos" />      
-    </>
-  ); */
+  const { events, subjects } = useLoaderData();
 
-  const { events /* , user  */ } = useLoaderData();
+  const activeEvents = events.filter((event) => !event.expired);
 
-  const baseClasses =
-    "select-none justify-center flex justify-center items-center rounded hover:ring-2  hover:ring-primary cursor-pointer transition-all duration-300 border w-[11rem] md:w-[11rem] shadow text-foreground";
+  const [showAll, setShowAll] = useState(false);
+
+  const eventsToShow = showAll ? events : activeEvents;
+
+  const createEventFetcher = useFetchers().filter(
+    (f) => f.key === "create-event"
+  )[0];
+
+  const revalidator = useRevalidator();
+
+  useEffect(() => {
+    revalidator.revalidate();
+  }, [createEventFetcher]);
 
   return (
-    <div className="px-4 sm:px-8 sm:pt-10 md:pt-10 ">
-      <h2 className="pt-4 text-3xl pb-10">Eventos</h2>
-
-      {/* BOTON AGREGAR EVENTO */}
-      <div className="">
-        <ResponsiveOutletModal
-          to={"create-event"}
-          trigger={
-            <div
-              className={`${baseClasses} px-2.5 py-1.5 bg-primary text-foreground flex flex-row items-center gap-2`}
-            >
-              <p className="text-2xl">+</p>
-              <h3>Agregar Evento</h3>
-            </div>
-          }
-          title={"Nuevo anuncio"}
-          titleClassName="bg-card text-xl font-normal pb-3"
-          contentClassName="bg-card"
-        />
+    <>
+      <TitleBar title="Eventos" />
+      <Spacer size="3xs" />
+      <div className="grid lg:grid-cols-5 gap-8">
+        <div className="col-span-3 ">
+          <div className="flex flex-col sm:flex-row justify-between items-center mr-3 gap-2">
+            <h1 className="text-2xl">
+              {showAll ? "Todos los" : "Próximos"} eventos (
+              {eventsToShow.length})
+            </h1>
+            {events.length > 0 && (
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => setShowAll((current) => !current)}
+                  variant="secondary"
+                >
+                  {showAll ? <EyeClosed /> : <Eye />}
+                  {showAll ? "Ocultar Expirados" : "Incluir Expirados"}
+                </Button>
+                <CreateEvent subjects={subjects} />
+              </div>
+            )}
+          </div>
+          <Spacer size="3xs" />
+          {events.length <= 0 ? (
+            <EmptyEventsPanel subjects={subjects} />
+          ) : (
+            <EventsContainer events={eventsToShow} />
+          )}
+        </div>
       </div>
+    </>
+  );
+}
 
-      {/* LISTA DE EVENTOS */}
-      <div className="">
-        <h3 className="py-7 text-2xl">Próximos eventos</h3>
-        <EventDetailList events={events} cardClassName="md:w-[670px]" />
+function EmptyEventsPanel({ subjects }) {
+  return (
+    <div className="bg-secondary/20 border-dashed border-2 border-border/20 rounded shadow p-4 h-[calc(100dvh-25rem)] grid place-content-center text-center">
+      <div className="text-muted-foreground flex items-center gap-2 flex-col justify-center">
+        <Bell size={30} />
+        Aún no hay eventos publicados para este curso.
+        <CreateEvent subjects={subjects} />
       </div>
     </div>
+  );
+}
+
+function AddEvent() {
+  return (
+    <Button>
+      <Plus /> Agregar evento
+    </Button>
   );
 }

@@ -50,12 +50,12 @@ export function AdminFeatures() {
       </h2>
       <div className="flex flex-row justify-center items-center gap-[30px] p-10">
         {adminCards.map((card) => (
-          <AdminCard {...card} />
+          <AdminCard key={card.title} {...card} />
         ))}
       </div>
       <div className="py-20 px-[80px] flex flex-row justify-center ">
         {adminFeatures.map((feat) => (
-          <AdminFeature {...feat} />
+          <AdminFeature key={feat.title} {...feat} />
         ))}
       </div>
     </>

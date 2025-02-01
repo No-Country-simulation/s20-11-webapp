@@ -22,7 +22,6 @@ export const MobileButton = forwardRef(({ Icon, label, ...props }, ref) => {
       ) : (
         <Button
           ref={ref}
-          variant="outline"
           className="w-full sm:w-auto"
           {...props}
         >

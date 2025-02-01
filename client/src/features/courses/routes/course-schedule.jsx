@@ -1,4 +1,5 @@
 import { Spacer } from "@/components/layout/spacer";
+import { TitleBar } from "@/components/title-bar.jsx";
 import {
   Carousel,
   CarouselContent,
@@ -6,12 +7,15 @@ import {
 } from "@/components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile.jsx";
 import { useLoaderData } from "react-router-dom";
-import { TitleBar } from "@/components/title-bar.jsx";
+import { requireAuthenticated } from "../../auth/services/auth.service.js";
 import { BlockCard } from "../components/schedule-block-card.jsx";
 import { courseService } from "../services/course.service.js";
 import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";
 
 export async function courseScheduleLoader({ params }) {
+
+  await requireAuthenticated()
+
   const courseId = params.courseId;
   const courseDetails = await courseService.getCourseDetails(courseId);
 

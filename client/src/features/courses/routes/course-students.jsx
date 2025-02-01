@@ -61,7 +61,7 @@ export default function CourseStudents() {
   const { course, students } = useLoaderData();
   return (
     <>
-      <TitleBar title={`${course.name} - Alumnos`} />
+      <TitleBar title={`${course.name} - Estudiantes`} />
       <Spacer size="3xs" />
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-6 sm:gap-6 ">
         <div className="col-span-1 w-full">
@@ -83,10 +83,15 @@ function StudentsTable({ students }) {
     return firstName || lastName || null;
   };
 
+  const title =
+    students.length === 1
+      ? `${students.length} Estudiante registrado`
+      : `${students.length} Estudiantes registrados`;
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{students.length} Alumnos registrado(s)</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>

@@ -1,4 +1,3 @@
-import HomeStudent, { homeStudentLoader } from "./components/HomeStudent.jsx";
 import { Error } from "./components/layout/error.jsx";
 import Layout, { layoutLoader } from "./components/layout/layout.jsx";
 import Login, {
@@ -18,6 +17,7 @@ import CourseDetails, {
   courseDetailsLoader,
 } from "./features/courses/routes/course-details.jsx";
 import CourseEvents, {
+  courseEventsAction,
   courseEventsLoader,
 } from "./features/courses/routes/course-events.jsx";
 import CourseSchedule, {
@@ -42,20 +42,27 @@ import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
 import App, { loader } from "./features/landing/App.jsx";
+import ProfileUpdate, {
+  profileUpdateAction,
+  profileUpdateLoader,
+} from "./features/profile/routes/profile-update.jsx";
 import Profile, {
   profileAction,
   profileLoader,
 } from "./features/profile/routes/profile.jsx";
-import Calendario from "./features/student/components/Calendario.jsx";
 import DayDetail from "./features/student/components/DayDetail.jsx";
-import CreateEvent, {
-  subjectLoader,
-} from "./features/student/routes/create-event.jsx"; // arreglar
+import StudentCalendar, {
+  studentCalendarAction,
+  studentCalendarLoader,
+} from "./features/student/routes/student-calendar.jsx";
+import StudentHome, {
+  studentHomeAction,
+  studentHomeLoader,
+} from "./features/student/routes/student-home.jsx";
 
 import StudentLayout, {
   studentLayoutLoader,
 } from "./features/student/routes/student-layout.jsx";
-
 
 export const routes = [
   {
@@ -93,6 +100,14 @@ export const routes = [
         element: <Profile />,
         loader: profileLoader,
         action: profileAction,
+        children: [
+          {
+            path: "update",
+            element: <ProfileUpdate />,
+            loader: profileUpdateLoader,
+            action: profileUpdateAction,
+          },
+        ],
       },
 
       /* HOME DEL COORDINADOR */
@@ -148,13 +163,7 @@ export const routes = [
             path: ":courseId/events",
             element: <CourseEvents />,
             loader: courseEventsLoader,
-            children: [
-              {
-                path: "create-event",
-                element: <CreateEvent />,
-                loader: subjectLoader,
-              },
-            ],
+            action: courseEventsAction,
           },
         ],
       },
@@ -167,21 +176,20 @@ export const routes = [
         children: [
           {
             index: true,
-            element: <HomeStudent />,
-            loader: homeStudentLoader,
+            element: <StudentHome />,
+            loader: studentHomeLoader,
+            action: studentHomeAction,
           },
           {
             path: "calendar",
-            element: <Calendario />,
+            element: <StudentCalendar />,
+            loader: studentCalendarLoader,
+            action: studentCalendarAction,
           },
           {
             path: "calendar/:date",
             element: <DayDetail />,
           },
-          /* {
-            path: "schedule",
-            element: //Aca falta el componente de horario estudiante
-          }, */
         ],
       },
       {

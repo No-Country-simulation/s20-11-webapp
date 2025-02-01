@@ -19,12 +19,18 @@ export const clearAuthData = () => {
 // Función para verificar si el token está a punto de expirar
 export const isTokenAboutToExpire = () => {
   const expiresAt = localStorage.getItem(TOKEN_EXPIRATION_KEY);
-  if (!expiresAt) return true;
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  if (!expiresAt || !token) return false;
 
   const expirationTime = new Date(expiresAt).getTime();
   const currentTime = Date.now();
-  const bufferTime = 5 * 60 * 1000; // 5 minutos de margen
+  const bufferTime = 2 * 60 * 1000;
 
-  //Consideramos el token a punto de expirar si el tiempo restante es menor al margen definido
-  return expirationTime - currentTime < bufferTime;
+  const isAboutToExpire = expirationTime - currentTime < bufferTime;
+
+  if (isAboutToExpire) {
+    console.log("Token is about to expire. Will attempt refresh.");
+  }
+  return isAboutToExpire;
 };

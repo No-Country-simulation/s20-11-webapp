@@ -16,7 +16,7 @@ export function ScheduleSection() {
         <img src={Compu} alt="" className="w-[383px] h-[408px]" />
         <div className="flex flex-col gap-[50px]">
           {features.map((feature, index) => (
-            <FeatureLine index={index + 1} feature={feature} />
+            <FeatureLine key={index} index={index + 1} feature={feature} />
           ))}
         </div>
       </div>

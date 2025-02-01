@@ -23,3 +23,19 @@ export const formatClassDays = (days) => {
   });
   return sortedDays.map((day) => WEEKDAY_TRANSLATIONS[day]).join(", ");
 };
+
+export const formatClassDaysToArray = (days) => {
+  const sortedDays = [...days].sort((a, b) => {
+    const order = [
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY",
+      "SATURDAY",
+      "SUNDAY",
+    ];
+    return order.indexOf(a) - order.indexOf(b);
+  });
+  return sortedDays.map((day) => WEEKDAY_TRANSLATIONS[day]);
+};

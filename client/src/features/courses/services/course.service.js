@@ -70,6 +70,19 @@ export const courseService = {
       return error.response.data;
     }
   },
+
+  getCurrentStudentCourse: async () => {
+    try {
+      const { data } = await api.get(
+        API_ENDPOINTS.COURSES.GET_CURRENT_STUDENT_COURSE
+      );
+
+      return data;
+    } catch (error) {
+      console.error("Error en getCurrentStudentCourse:", error.response.data);
+      return error.response.data;
+    }
+  },
 };
 //Endpoints con GET no necesitan saber el estado del response, enviar data.data
 //Endpoints con POST necesitan saber el estado del response, enviar data

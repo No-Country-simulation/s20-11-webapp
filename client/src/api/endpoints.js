@@ -8,14 +8,15 @@ export const API_ENDPOINTS = {
   PROFILE: {
     GET_PROFILE_INFO: "/auth/current-user",
     UPLOAD_PROFILE_PHOTO: "/auth/current-user/photo",
-    UPDATE_PROFILE_INFO: "/auth/current-user/info"
+    UPDATE_PROFILE_INFO: "/auth/current-user/info",
   },
   COURSES: {
     CREATE_COURSE: "/courses",
     GET_ALL_COURSES: "/courses",
     GET_COURSE_DETAILS: (courseId) => `/courses/${courseId}`,
     GET_COURSE_SCHEDULE: (courseId) => `/courses/${courseId}/schedule`,
-    GET_STATS: "/courses/stats"
+    GET_STATS: "/courses/stats",
+    GET_CURRENT_STUDENT_COURSE: "/courses/for-current-student",
   },
   STUDENTS: {
     CREATE_STUDENT: (courseId) => `/courses/${courseId}/students`,
@@ -29,11 +30,11 @@ export const API_ENDPOINTS = {
     REMOVE_SUBJECT_FROM_BLOCK: (courseId) =>
       `/courses/${courseId}/subjects/remove-from-block`,
     SEND_NOTIFICATION: "/subjects/send-notification",
-    PUBLISH_EVENT: (courseId) => `/courses/${courseId}/send-notification`,
+    PUBLISH_EVENT: `/courses/send-notification`,
   },
   EVENTS: {
     GET_ALL_EVENTS: (courseId) => `/notifications/${courseId}`,
     GET_EVENT_DETAILS: (eventId) => `/notifications/details/${eventId}`,
-    GET_STATS: "/notifications/stats"
+    GET_STATS: "/notifications/stats",
   },
 };
