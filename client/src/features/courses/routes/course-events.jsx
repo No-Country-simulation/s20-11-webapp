@@ -1,8 +1,8 @@
 import { TitleBar } from "@/components/title-bar.jsx";
 import { Button } from "@/components/ui/button";
 import { Bell, Eye, EyeClosed, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useFetchers, useLoaderData, useRevalidator } from "react-router-dom";
+import { useState } from "react";
+import { useFetchers, useLoaderData } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { createEvent, CreateEvent } from "../components/create-event";
@@ -48,11 +48,11 @@ export default function CourseEvents() {
     (f) => f.key === "create-event"
   )[0];
 
-  const revalidator = useRevalidator();
+  // const revalidator = useRevalidator();
 
-  useEffect(() => {
-    revalidator.revalidate();
-  }, [createEventFetcher]);
+  // useEffect(() => {
+  //   revalidator.revalidate();
+  // }, [createEventFetcher]);
 
   return (
     <>
