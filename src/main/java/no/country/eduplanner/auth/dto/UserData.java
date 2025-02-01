@@ -1,6 +1,7 @@
 package no.country.eduplanner.auth.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import no.country.eduplanner.shared.application.dto.AuditInfo;
 
 import java.util.Set;
 
@@ -52,6 +53,8 @@ public record UserData(
                 description = "URL del thumbnail de la foto de perfil del usuario",
                 example = "https://example.com/profile-thumbnail.jpg"
         )
-        String profilePhotoThumbnail
+        String profilePhotoThumbnail,
+
+        AuditInfo auditInfo
 ) {
 }
