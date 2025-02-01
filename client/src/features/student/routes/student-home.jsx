@@ -1,9 +1,14 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { Bell, Calendar1, CalendarDays, RefreshCw, User2 } from "lucide-react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useRevalidator } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { requireStudent } from "../../auth/services/auth.service";
 import { EventsContainer } from "../../courses/components/events-container";
@@ -60,9 +65,12 @@ export default function StudentHome() {
           {!isProfileComplete && <ProfileCompletionCard />}
           <h1 className="text-3xl">{greeting}</h1>
           <Spacer size="4xs" />
-          <h1 className="text-xl">
-            Notificaciones activas ({activeEvents.length})
-          </h1>
+          <div className="flex justify-between items-center mr-5">
+            <h1 className="text-xl">
+              Notificaciones activas ({activeEvents.length})
+            </h1>
+            <RefreshButton />
+          </div>
           <Spacer size="5xs" />
         </div>
       </section>
@@ -140,9 +148,23 @@ function ProfileCompletionCard() {
 }
 
 function RefreshButton() {
+  const revalidator = useRevalidator();
+
   return (
-    <Button size="icon">
-      <RefreshCw />
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          onClick={() => revalidator.revalidate()}
+          className="group"
+          variant="outline"
+          size="icon"
+        >
+          <RefreshCw className="group-hover:rotate-180 transition-all duration-700" />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Actualizar notificaciones</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }
