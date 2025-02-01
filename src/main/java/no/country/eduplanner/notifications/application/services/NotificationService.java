@@ -55,7 +55,7 @@ public class NotificationService {
 
         courseAccessPort.verifyUserHasAccessToCourse(courseId);
 
-        return notificationRepository.findAllByCourseIdOrderByScheduledForDesc(courseId)
+        return notificationRepository.findAllByCourseIdOrderByScheduledForAsc(courseId)
                                      .stream()
                                      .map(notificationMapper::toResponse)
                                      .toList();
