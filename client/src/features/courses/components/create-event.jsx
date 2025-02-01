@@ -123,7 +123,7 @@ export function CreateEvent({ subjects }) {
           <input
             type="hidden"
             name="scheduledFor"
-            value={fields.scheduledFor}
+            value={fields.scheduledFor.value}
           />
           <input type="hidden" name="intent" value={"create-event"} />
           <input type="hidden" name="courseId" value={params.courseId} />

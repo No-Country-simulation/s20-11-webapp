@@ -48,6 +48,8 @@ export default function CourseEvents() {
     (f) => f.key === "create-event"
   )[0];
 
+
+
   return (
     <>
       <TitleBar title="Eventos" />
