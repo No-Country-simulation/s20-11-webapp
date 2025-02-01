@@ -96,11 +96,10 @@ export default function CoursesList() {
 
           {courses.length ? (
             <div className="grid xl:grid-cols-2 3xl:grid-cols-3  w-full gap-6">
-              {isMobile && <CreateCourseCard />}
               {filteredCourses.map((course) => (
                 <CourseCard key={course.id} course={course} />
               ))}
-              {!isMobile && <CreateCourseCard />}
+              <CreateCourseCard />
             </div>
           ) : (
             <EmptyCoursesPlaceholder />
