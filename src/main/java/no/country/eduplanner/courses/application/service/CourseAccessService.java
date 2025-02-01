@@ -44,7 +44,7 @@ public class CourseAccessService implements CourseAccessPort {
 
         UserData currentUserData = userDataService.getCurrentUserData();
 
-        boolean hasAccess = currentUserData.roles().contains(UserRole.ADMIN)
+        boolean hasAccess = currentUserData.roles().contains(UserRole.ADMIN.getAuthority())
                 ? verifyAdminAccess(courseId, currentUserData.id())
                 : verifyStudentAccess(courseId, currentUserData.id());
 
