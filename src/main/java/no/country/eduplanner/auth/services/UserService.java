@@ -1,9 +1,10 @@
 package no.country.eduplanner.auth.services;
 
 import lombok.RequiredArgsConstructor;
-import no.country.eduplanner.auth.models.UserEntity;
+import lombok.extern.slf4j.Slf4j;
+import no.country.eduplanner.auth.models.AccountStatus;
 import no.country.eduplanner.auth.repository.UserRepository;
-import org.springframework.security.core.userdetails.User;
+import no.country.eduplanner.auth.security.SecurityUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -23,23 +25,17 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return userRepository.findByEmail(email)
-                             .map(this::toSecurityUser)
+                             .map(SecurityUser::fromUserEntity)
                              .orElseThrow(() -> new UsernameNotFoundException(
                                      "El usuario con correo: [" + email + "] no existe."));
 
 
     }
 
-    private User toSecurityUser(UserEntity ue) {
-        return new User(
-                ue.getEmail(),
-                ue.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                ue.getRoles()
-        );
+
+    public AccountStatus getAccountStatus(String email) {
+        log.info("🔐 Fetching account status for user [{}]", email);
+        return userRepository.findAccountStatusByEmail(email);
     }
 
 

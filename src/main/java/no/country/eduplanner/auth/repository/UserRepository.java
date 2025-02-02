@@ -1,5 +1,6 @@
 package no.country.eduplanner.auth.repository;
 
+import no.country.eduplanner.auth.models.AccountStatus;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.models.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +16,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllByIdsAndRole(List<Long> ids, UserRole role);
 
     boolean existsByEmail(String email);
+
+
+    Optional<UserEntity> findByVerificationToken(String verificationToken);
+
+    Optional<UserEntity> findByUnlockToken(String unlockToken);
+
+    @Query("SELECT u.status FROM UserEntity u WHERE u.email = :email")
+    AccountStatus findAccountStatusByEmail(String email);
 
 }
