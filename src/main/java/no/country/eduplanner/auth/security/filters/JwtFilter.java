@@ -7,9 +7,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.auth.exceptions.AuthenticationException;
+import no.country.eduplanner.auth.security.SecurityUser;
 import no.country.eduplanner.auth.security.jwt.JwtTokenService;
 import no.country.eduplanner.auth.security.jwt.JwtUtils;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -58,16 +59,31 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        UserDetails userDetails = jwtService.buildUserDetailsFromToken(token);
-        authenticateUser(userDetails, request);
+        UserDetails userFromToken = jwtService.buildUserDetailsFromTokenWithDBCall(token); //Could maybe not query db
+
+        if (!userFromToken.isEnabled()) {
+            throw new DisabledException("Account is not active");
+        }
+        if (!userFromToken.isAccountNonLocked()) {
+            throw new LockedException("Account is locked");
+        }
+        if (!userFromToken.isAccountNonExpired()) {
+            throw new AccountExpiredException("Account expired");
+        }
+        if (!userFromToken.isCredentialsNonExpired()) {
+            throw new CredentialsExpiredException("Credentials expired");
+        }
+
+
+        authenticateUser(userFromToken, request);
 
     }
 
-    private void authenticateUser(UserDetails userDetails, HttpServletRequest request) {
+    private void authenticateUser(UserDetails userFromToken, HttpServletRequest request) {
         var authToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
+                userFromToken,
                 null,
-                userDetails.getAuthorities()
+                userFromToken.getAuthorities()
         );
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authToken);
