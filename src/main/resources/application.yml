@@ -1,4 +1,3 @@
-
 spring:
   mail:
     host: ${SMTP_HOST:localhost}
@@ -45,11 +44,14 @@ spring:
     time-zone: America/Argentina/Buenos_Aires
 
 jwt:
-  secret-key : ${JWT_SECRET_KEY}
-  expiration : ${JWT_TIME_EXPIRATION}
-  refresh-token :
-    expiration : ${JWT_REFRESH_TOKEN_EXPIRATION}
+  secret-key: ${JWT_SECRET_KEY}
+  expiration: ${JWT_TIME_EXPIRATION}
+  refresh-token:
+    expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
 app:
+  security:
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS}
   frontend-url: ${FRONTEND_URL:https://placeholder.remove.me}
   datasource:
     database-url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/eduplanner}
