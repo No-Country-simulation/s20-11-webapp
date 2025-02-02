@@ -32,5 +32,31 @@ ALTER TABLE user_roles
     ADD CONSTRAINT fk_user_roles_on_user_entity FOREIGN KEY (user_id) REFERENCES users (id);
 
 -- changeset crist:1738241837006-1
-ALTER TABLE users ADD thumbnail_url VARCHAR(255);
+ALTER TABLE users
+    ADD thumbnail_url VARCHAR(255);
+
+-- changeset crist:1738466775882-2
+ALTER TABLE users
+    ADD account_status VARCHAR(255);
+ALTER TABLE users
+    ADD failed_logins INTEGER;
+ALTER TABLE users
+    ADD last_login_date TIMESTAMP WITHOUT TIME ZONE;
+
+ALTER TABLE users
+    ADD token_expiration TIMESTAMP WITHOUT TIME ZONE;
+ALTER TABLE users
+    ADD unlock_token VARCHAR(255);
+ALTER TABLE users
+    ADD unlock_token_expiration TIMESTAMP WITHOUT TIME ZONE;
+ALTER TABLE users
+    ADD verification_token VARCHAR(255);
+
+-- changeset crist:1738466775882-10
+ALTER TABLE users
+    ADD CONSTRAINT uc_users_email UNIQUE (email);
+
+-- changeset crist:1738466775882-1
+ALTER TABLE users
+    ALTER COLUMN email SET NOT NULL;
 
