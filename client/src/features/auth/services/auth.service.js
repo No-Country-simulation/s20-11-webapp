@@ -28,20 +28,44 @@ const ROLES = {
 export const authService = {
   register: async (credentials) => {
     try {
-      const response = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
-
-      if (response.data.success) {
-        const { tokens, ...userData } = response.data.data;
-
-        saveAuthData(tokens);
-        dispatchAuthStateChange();
-        scheduleTokenRefresh()
-      }
-
-      return response.data;
+      const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
+      return data;
     } catch (error) {
       console.error("Error en el registro:", error);
       return SERVER_ERROR;
+    }
+  },
+  verify: async (token) => {
+    try {
+      const { data } = await api.post(API_ENDPOINTS.AUTH.VERIFY, {
+        token,
+      });
+
+      if (data.success) {
+        const { tokens, ...userData } = data.data;
+
+        saveAuthData(tokens);
+        dispatchAuthStateChange();
+        scheduleTokenRefresh();
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error en verificación:", error);
+      return error.response.data;
+    }
+  },
+  resendVerification: async (email) => {
+    console.log(JSON.stringify(email))
+    try {
+      const { data } = await api.post(API_ENDPOINTS.AUTH.RESEND_VERIFICATION, {
+        email,
+      });
+
+      return data;
+    } catch (error) {
+      console.error("Error en verificación:", error);
+      return error.response.data;
     }
   },
   login: async (credentials) => {
@@ -53,7 +77,7 @@ export const authService = {
 
         saveAuthData(tokens);
         dispatchAuthStateChange();
-        scheduleTokenRefresh()
+        scheduleTokenRefresh();
         return response.data; // can comment this out
       }
 

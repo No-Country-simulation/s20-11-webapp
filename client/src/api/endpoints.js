@@ -4,6 +4,8 @@ export const API_ENDPOINTS = {
     REGISTER: "/auth/register",
     LOGOUT: "/auth/logout",
     REFRESH: "/auth/refresh",
+    VERIFY: "/auth/verify",
+    RESEND_VERIFICATION: "/auth/resend-verification"
   },
   PROFILE: {
     GET_PROFILE_INFO: "/auth/current-user",
