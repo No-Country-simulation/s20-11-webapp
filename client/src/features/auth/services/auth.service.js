@@ -1,5 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-import { redirect } from "react-router-dom";
 import {
   clearAuthData,
   REFRESH_TOKEN_KEY,
@@ -7,8 +5,10 @@ import {
   TOKEN_EXPIRATION_KEY,
   TOKEN_KEY,
 } from "@/api/authStorage.js";
-import api from "../../../api/axios";
 import { API_ENDPOINTS } from "@/api/endpoints.js";
+import { jwtDecode } from "jwt-decode";
+import { redirect } from "react-router-dom";
+import api from "../../../api/axios";
 import { dispatchAuthStateChange } from "../context/AuthContext";
 
 const SERVER_ERROR = {
@@ -168,7 +168,7 @@ export async function requireAnonymous() {
 //Permite solo usuarios autenticados
 export async function requireAuthenticated() {
   if (!authService.isAuthenticated()) {
-    throw redirect("/login");
+    throw redirect("/");
   }
 }
 
