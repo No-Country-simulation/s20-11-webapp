@@ -17,5 +17,10 @@ public enum UserRole implements GrantedAuthority {
         return authority;
     }
 
+    public static UserRole fromAuthority(String authority) {
+        String enumName = authority.startsWith("ROLE_") ? authority.substring(5) : authority;
+        return UserRole.valueOf(enumName);
+    }
+
 
 }
