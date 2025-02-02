@@ -19,7 +19,7 @@ export const ERROR_MESSAGES = {
     path: ["password"],
   },
   [BackendErrorCode.UNVERIFIED_ACCOUNT]: {
-    message: "Correo o contraseña incorrectos",
+    message: "Cuenta sin verificar",
     path: [],
   },
   [BackendErrorCode.ACCOUNT_LOCKED]: {
