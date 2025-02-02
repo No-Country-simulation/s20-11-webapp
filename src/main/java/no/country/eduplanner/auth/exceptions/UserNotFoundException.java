@@ -15,6 +15,8 @@ public class UserNotFoundException extends DomainException {
         super("No se encontró el usuario con email: " + email, HttpStatus.NOT_FOUND, "USER_NOT_FOUND");
     }
 
+
+
     public UserNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
