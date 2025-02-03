@@ -36,13 +36,13 @@ function Hero() {
       style={{ backgroundImage: `url(${ImagenPrincipal})` }}
     >
       <div className="bg-gradient-to-b from-black/20 via-black/70 to-black/20 absolute inset-0 z-10 flex "></div>
-      <div className="z-10 container mx-auto flex sm:flex-row flex-col justify-around md:justify-between items-center p-4 md:p-0  gap-12">
+      <div className="z-10 container mx-auto flex sm:flex-row flex-col justify-around md:justify-between items-center p-4   gap-12">
         <div className="text-white md:w-[523px] text-5xl z-20 flex flex-col justify-center items-center text-center text-balance  md:text-left md:justify-start md:items-start ">
           <div
             style={{
               "--bg-color": "#a593db",
             }}
-            className="font-semibold  w-fit p-2 rounded-lg text-5xl md:text-6xl text-[--bg-color]"
+            className="font-semibold  w-fit pb-1 rounded-lg text-5xl md:text-6xl text-[--bg-color]"
           >
             Educplanner
           </div>
