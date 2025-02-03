@@ -34,7 +34,6 @@ function EventDetailCalendar({ events }) {
             <div className="text-right">
               <p className="text-xs">
                 {formatScheduledFor(event.scheduledFor)}
-                
               </p>
             </div>
           </div>
