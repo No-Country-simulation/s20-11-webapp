@@ -73,7 +73,7 @@ export default function Verify() {
   const location = useLocation();
 
   const params = new URLSearchParams(location.search);
-  const resendSuccess = params.get("resend") === "success";
+  const resendSuccess = params.get("resend") === "success"; // 🤮
 
   if (error) {
     return (
