@@ -31,11 +31,9 @@ export async function registerAction({ request }) {
       { status: submission.status !== "error" ? 400 : 200 }
     );
   }
-  const adminRoute = "/courses";
-  const studentRoute = "/student";
-  const redirectTo = authService.isAdmin() ? adminRoute : studentRoute;
 
-  return redirect(redirectTo);
+
+  return redirect("/verify");
 }
 
 export async function registerLoader() {

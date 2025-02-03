@@ -9,6 +9,11 @@ import Register, {
   registerAction,
   registerLoader,
 } from "./features/auth/routes/register.jsx";
+import { unlockLoader } from "./features/auth/routes/unlock.jsx";
+import Verify, {
+  verifyAction,
+  verifyLoader,
+} from "./features/auth/routes/verify.jsx";
 import AssignClass, {
   assignClassAction,
   assignClassLoader,
@@ -50,7 +55,7 @@ import Profile, {
   profileAction,
   profileLoader,
 } from "./features/profile/routes/profile.jsx";
-import DayDetail from "./features/student/components/DayDetail.jsx";
+import DayDetail, { dayDetailLoader } from "./features/student/components/DayDetail.jsx";
 import StudentCalendar, {
   studentCalendarAction,
   studentCalendarLoader,
@@ -80,6 +85,16 @@ export const routes = [
     ],
   },
   {
+    path: "/verify",
+    element: <Verify />,
+    action: verifyAction,
+    loader: verifyLoader,
+  },
+  {
+    path: "/unlock",
+    loader: unlockLoader,
+  },
+  {
     element: <Layout />,
     errorElement: <Error />,
     loader: layoutLoader,
@@ -89,6 +104,7 @@ export const routes = [
         action: logoutAction,
         loader: logoutLoader,
       },
+   
       {
         path: "/register",
         element: <Register />,
@@ -189,6 +205,7 @@ export const routes = [
           {
             path: "calendar/:date",
             element: <DayDetail />,
+            loader: dayDetailLoader
           },
         ],
       },

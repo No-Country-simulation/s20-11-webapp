@@ -4,6 +4,8 @@ export const API_ENDPOINTS = {
     REGISTER: "/auth/register",
     LOGOUT: "/auth/logout",
     REFRESH: "/auth/refresh",
+    VERIFY: "/auth/verify",
+    RESEND_VERIFICATION: "/auth/resend-verification"
   },
   PROFILE: {
     GET_PROFILE_INFO: "/auth/current-user",
@@ -15,7 +17,7 @@ export const API_ENDPOINTS = {
     GET_ALL_COURSES: "/courses",
     GET_COURSE_DETAILS: (courseId) => `/courses/${courseId}`,
     GET_COURSE_SCHEDULE: (courseId) => `/courses/${courseId}/schedule`,
-    GET_STATS: "/courses/stats",
+    GET_STATS: "/courses/analytics/stats",
     GET_CURRENT_STUDENT_COURSE: "/courses/for-current-student",
   },
   STUDENTS: {

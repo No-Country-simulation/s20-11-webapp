@@ -39,6 +39,7 @@ export default function StudentCalendar() {
   // const { events } = useEvents();
   const { events, user, subjects, course } = useLoaderData();
   const [date, setDate] = useState(new Date());
+
   const navigate = useNavigate();
 
   const isMobile = useIsMobile();
@@ -62,7 +63,7 @@ export default function StudentCalendar() {
 
   const eventsForSelectedDate = events.filter(
     (event) =>
-      new Date(event.scheduledFor).toDateString() === date.toDateString()
+      event.scheduledFor.split("T")[0] === date.toISOString().split("T")[0]
   );
 
   const handleDateClick = (selectedDate) => {

@@ -14,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
-          "border border-card-border text-foreground bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-card-border text-foreground bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground",
         daypicker:
           "border border-card-border text-foreground bg-background shadow-sm hover:bg-accent hover:text-accent-foreground text-start flex justify-start",
         secondary:

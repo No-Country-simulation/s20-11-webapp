@@ -6,6 +6,9 @@ export const BackendErrorCode = {
   TOKEN_EXPIRED: "TOKEN_EXPIRED",
   USER_ALREADY_REGISTERED: "USER_ALREADY_REGISTERED",
   USER_NOT_FOUND: "USER_NOT_FOUND",
+  UNVERIFIED_ACCOUNT: "UNVERIFIED_ACCOUNT",
+  ACCOUNT_LOCKED: "ACCOUNT_LOCKED",
+  USER_ACCOUNT_ALREADY_VERIFIED: "USER_ACCOUNT_ALREADY_VERIFIED",
   SERVER_ERROR: "SERVER_ERROR",
 };
 
@@ -13,11 +16,19 @@ export const BackendErrorCode = {
 export const ERROR_MESSAGES = {
   [BackendErrorCode.INVALID_CREDENTIALS]: {
     message: "Correo o contraseña incorrectos",
-    path: ["password"], // El error se mostrará en el campo de contraseña
+    path: ["password"],
+  },
+  [BackendErrorCode.UNVERIFIED_ACCOUNT]: {
+    message: "Cuenta sin verificar",
+    path: [],
+  },
+  [BackendErrorCode.ACCOUNT_LOCKED]: {
+    message: "Cuenta bloqueada",
+    path: [],
   },
   [BackendErrorCode.INVALID_REFRESH_TOKEN]: {
     message: "Token de refresco inválido",
-    path: [], // Error general del formulario
+    path: [],
   },
   [BackendErrorCode.USER_ALREADY_REGISTERED]: {
     message: "El correo ya está registrado",
@@ -30,6 +41,10 @@ export const ERROR_MESSAGES = {
   [BackendErrorCode.SERVER_ERROR]: {
     message: "Error del servidor. Por favor intenta más tarde",
     path: [],
+  },
+  [BackendErrorCode.USER_ACCOUNT_ALREADY_VERIFIED]: {
+    message: "La cuenta ya se encuentra verificada",
+    path: ["email"],
   },
   // Error por defecto
   DEFAULT: {
