@@ -1,18 +1,3 @@
-#spring:
-#  mail:
-#    host: prod.email.service
-#    port: 587
-#    username: prod.email@gmail.com
-#    password: prod.email-password
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
-# NOT REAL PROD YET 😅
-# Eventually, we will use a different email service for production
-
 spring:
   mail:
     host: ${SMTP_HOST:localhost}
