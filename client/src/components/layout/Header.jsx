@@ -31,7 +31,7 @@ const Header = ({ userData }) => {
               <Link viewTransition to="/register">
                 <div className="bg-gradient-to-r from-primary to-tertiary rounded-[20rem] p-[2px]">
                   <div className="text-nowrap bg-transparent text-background hover:bg-background text-sm hover:text-foreground rounded-[20rem] py-1 px-6 transition-all duration-300">
-                    Registrarse como administrador
+                    Registro
                   </div>
                 </div>
               </Link>

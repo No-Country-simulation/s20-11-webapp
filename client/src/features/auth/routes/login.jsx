@@ -43,7 +43,7 @@ export async function loginLoader() {
   return null;
 }
 
-export default function Login({ classNameMas }) {
+export default function Login() {
   const actionData = useActionData();
   const isPending = useIsPending();
 
@@ -65,7 +65,7 @@ export default function Login({ classNameMas }) {
   });
 
   return (
-    <Card className=" !rounded-lg w-full md:max-w-sm">
+    <Card className="z-20 !rounded-lg w-full md:max-w-sm ">
       <CardHeader>
         <CardTitle className="text-2xl text-center !font-normal">
           Iniciar sesión

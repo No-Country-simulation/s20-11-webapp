@@ -55,12 +55,16 @@ import StudentLayout, {
 import { eventLoader } from "./features/student/services/eventLoader.js";
 export const routes = [
   {
+
+  
     path: "/",
     element: <App />,
+
     errorElement: <Error />,
     loader: loader,
     children: [
       {
+
         index: true,
         element: <Login />,
         action: loginAction,
