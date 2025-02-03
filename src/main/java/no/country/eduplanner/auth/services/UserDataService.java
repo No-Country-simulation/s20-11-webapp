@@ -12,6 +12,8 @@ import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.models.UserRole;
 import no.country.eduplanner.auth.repository.UserRepository;
 import no.country.eduplanner.shared.domain.vo.Image;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -36,15 +38,15 @@ public class UserDataService {
     private final CloudinaryService cloudinaryService;
 
 
-    //TODO: CACHE THIS
+    @Cacheable(value = "userDataCache", key = "#root.target.getCurrentUsername()")
     public UserData getCurrentUserData() {
-        UserDetails currentUser = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String currentUsername = getCurrentUsername();
 
-        log.info("👤 Fetching Info from the database for user [{}]", currentUser.getUsername());
+        log.info("👤 Cache miss - Fetching Info from the database for user [{}]", currentUsername);
 
         UserEntity user = userRepository
-                .findByEmail(currentUser.getUsername())
-                .orElseThrow(() -> new UserNotFoundException(currentUser.getUsername()));
+                .findByEmail(currentUsername)
+                .orElseThrow(() -> new UserNotFoundException(currentUsername));
 
         return userMapper.toUserData(user);
     }
@@ -61,6 +63,7 @@ public class UserDataService {
                          .collect(Collectors.toList());
     }
 
+    @CacheEvict(value = "userDataCache", key = "#root.target.getCurrentUsername()")
     @Transactional
     public UserData updateUserProfilePhoto(MultipartFile file) {
         log.info("📷 Received file : {}", file.getOriginalFilename());
@@ -80,6 +83,7 @@ public class UserDataService {
         return userMapper.toUserData(userRepository.save(user));
     }
 
+    @CacheEvict(value = "userDataCache", key = "#root.target.getCurrentUsername()")
     @Transactional
     public UserData updateUserProfileInfo(@Valid ProfileRequest profileRequest) {
 
@@ -95,6 +99,13 @@ public class UserDataService {
 
 
         return userMapper.toUserData(userRepository.save(user));
+    }
+
+    public String getCurrentUsername() {
+        return ((UserDetails) SecurityContextHolder.getContext()
+                                                   .getAuthentication()
+                                                   .getPrincipal())
+                .getUsername();
     }
 
     private UserEntity getCurrentUserEntity() {
