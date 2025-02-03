@@ -40,6 +40,8 @@ public class UserDataService {
     public UserData getCurrentUserData() {
         UserDetails currentUser = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
+        log.info("👤 Fetching Info from the database for user [{}]", currentUser.getUsername());
+
         UserEntity user = userRepository
                 .findByEmail(currentUser.getUsername())
                 .orElseThrow(() -> new UserNotFoundException(currentUser.getUsername()));

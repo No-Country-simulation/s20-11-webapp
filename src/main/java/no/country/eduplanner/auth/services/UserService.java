@@ -23,7 +23,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         return userRepository.findByEmail(email)
                              .map(SecurityUser::fromUserEntity)
                              .orElseThrow(() -> new UsernameNotFoundException(
