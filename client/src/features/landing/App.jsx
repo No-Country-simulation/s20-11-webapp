@@ -1,5 +1,5 @@
 import "@/App.css";
-import ImagenPrincipal from "@/assets/ImagenPrincipal.png";
+import ImagenPrincipal from "@/assets/ImagenPrincipal2.jpg";
 import Head from "@/assets/head.svg";
 import Student from "@/assets/student.png";
 import "@/index.css";
@@ -35,7 +35,7 @@ function Hero() {
       className="relative min-h-[calc(100vh-65px)]  bg-cover bg-center flex md:flex-row md:justify-between md:items-center"
       style={{ backgroundImage: `url(${ImagenPrincipal})` }}
     >
-      <div className="bg-gradient-to-b from-black/10 via-black/60 to-black/10 absolute inset-0 z-10 flex "></div>
+      <div className="bg-gradient-to-b from-black/20 via-black/70 to-black/20 absolute inset-0 z-10 flex "></div>
       <div className="z-10 container mx-auto flex sm:flex-row flex-col justify-around md:justify-between items-center p-4 md:p-0  gap-12">
         <div className="text-white md:w-[523px] text-5xl z-20 flex flex-col justify-center items-center text-center text-balance  md:text-left md:justify-start md:items-start ">
           <div
