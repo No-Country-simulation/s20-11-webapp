@@ -55,7 +55,7 @@ import Profile, {
   profileAction,
   profileLoader,
 } from "./features/profile/routes/profile.jsx";
-import DayDetail from "./features/student/components/DayDetail.jsx";
+import DayDetail, { dayDetailLoader } from "./features/student/components/DayDetail.jsx";
 import StudentCalendar, {
   studentCalendarAction,
   studentCalendarLoader,
@@ -205,6 +205,7 @@ export const routes = [
           {
             path: "calendar/:date",
             element: <DayDetail />,
+            loader: dayDetailLoader
           },
         ],
       },
