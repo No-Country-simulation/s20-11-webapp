@@ -3,6 +3,7 @@ package no.country.eduplanner.auth.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.auth.exceptions.UserAlreadyRegisteredException;
+import no.country.eduplanner.auth.models.AccountStatus;
 import no.country.eduplanner.auth.models.UserEntity;
 import no.country.eduplanner.auth.models.UserRole;
 import no.country.eduplanner.auth.repository.UserRepository;
@@ -26,7 +27,6 @@ public class StudentUserRegistrationService {
     private final ApplicationEventPublisher eventPublisher;
 
 
-
     public UserEntity registerStudent(String email, String courseName) {
         log.info("👨‍🎓 Student registration event received with email: {}", email);
 
@@ -39,6 +39,7 @@ public class StudentUserRegistrationService {
 
         UserEntity studentUser = UserEntity.builder()
                                            .email(email)
+                                           .status(AccountStatus.ACTIVE)
                                            .password(encodedTmpPassword)
                                            .roles(Set.of(UserRole.STUDENT))
                                            .build();
