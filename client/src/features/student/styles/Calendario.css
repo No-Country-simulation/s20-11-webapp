@@ -85,7 +85,7 @@
   border-radius: 3px;
 }
 
-/* Día seleccionado con barra blanca */
+/* Día con evento seleccionado (con barra blanca) */
 .react-calendar__tile--active {
   background: #7B57E5 !important; /* Fondo violeta */
   color: white !important;
@@ -99,7 +99,7 @@
   display: block;
   width: 80%;
   height: 4px;
-  background-color: white !important; /* Barra blanca */
+  /* background-color: white !important; */ /* Le saco la barra blanca */
   margin: 2px auto 0 auto;
   border-radius: 3px;
 }
