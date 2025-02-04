@@ -19,9 +19,7 @@ import { CreateSubjectSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
 import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
-
-
-export function CreateSubject({trigger}) {
+export function CreateSubject({ trigger }) {
   const createSubjectFecther = useFetcher({ key: "create-subject" });
   const params = useParams();
 

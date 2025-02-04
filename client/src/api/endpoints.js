@@ -5,7 +5,7 @@ export const API_ENDPOINTS = {
     LOGOUT: "/auth/logout",
     REFRESH: "/auth/refresh",
     VERIFY: "/auth/verify",
-    RESEND_VERIFICATION: "/auth/resend-verification"
+    RESEND_VERIFICATION: "/auth/resend-verification",
   },
   PROFILE: {
     GET_PROFILE_INFO: "/auth/current-user",
@@ -33,6 +33,7 @@ export const API_ENDPOINTS = {
       `/courses/${courseId}/subjects/remove-from-block`,
     SEND_NOTIFICATION: "/subjects/send-notification",
     PUBLISH_EVENT: `/courses/send-notification`,
+    UPDATE_INFO: "/courses/subjects/update-info",
   },
   EVENTS: {
     GET_ALL_EVENTS: (courseId) => `/notifications/${courseId}`,

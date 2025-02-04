@@ -1,9 +1,8 @@
-import api from "../../../api/axios";
 import { API_ENDPOINTS } from "@/api/endpoints.js";
+import api from "../../../api/axios";
 
 export const subjectService = {
   createSubject: async (courseId, subject) => {
-    console.log(`Called createSubject with courseId: ${courseId} and subject: ${subject}`);
     try {
       const { data } = await api.post(
         API_ENDPOINTS.SUBJECTS.CREATE_SUBJECT(courseId),
@@ -35,6 +34,19 @@ export const subjectService = {
     } catch (error) {
       console.error("Error al asignar la materia al bloque:", error);
       return SERVER_ERROR;
+    }
+  },
+  updateSubjectData: async (subjectData) => {
+    try {
+      const { data } = await api.put(
+        API_ENDPOINTS.SUBJECTS.UPDATE_INFO,
+        subjectData
+      );
+
+      return data;
+    } catch (error) {
+      console.error("Error en updateSubjectData:", error.response.data);
+      return error.response.data;
     }
   },
 };

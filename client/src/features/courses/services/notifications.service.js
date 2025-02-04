@@ -26,7 +26,6 @@ export const notificationsService = {
     }
   },
   createEvent: async (event) => {
-    console.log(`Received in service: ${JSON.stringify(event, null, 2)}`);
     try {
       const { data } = await api.post(
         API_ENDPOINTS.SUBJECTS.PUBLISH_EVENT,

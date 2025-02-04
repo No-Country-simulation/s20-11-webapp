@@ -14,6 +14,7 @@ import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { createSubject, CreateSubject } from "../components/create-subject";
+import { EditSubject, updateSubject } from "../components/edit-subject";
 import { courseService } from "../services/course.service";
 import { subjectService } from "../services/subject.service";
 
@@ -38,6 +39,14 @@ export async function courseSubjectsAction({ request, params }) {
   switch (intent) {
     case "create-subject":
       return createSubject(formData, params.courseId);
+    case "edit-subject": {
+      const dataObject = Object.fromEntries(formData.entries());
+      console.log(
+        "Edit Subject Form Data:",
+        JSON.stringify(dataObject, null, 2)
+      );
+      return await updateSubject(formData);
+    }
     default:
       return null;
   }
@@ -126,7 +135,7 @@ function SubjectCard({ subject }) {
     return `${hours.toFixed(1)}h`;
   };
 
-  return (
+  const card = (
     <article
       style={{
         "--sc-dark": subject.color.dark,
@@ -161,6 +170,8 @@ function SubjectCard({ subject }) {
       </div>
     </article>
   );
+
+  return <EditSubject trigger={card} subject={subject} />;
 }
 function EmptySubjectsPlaceholder() {
   return (
