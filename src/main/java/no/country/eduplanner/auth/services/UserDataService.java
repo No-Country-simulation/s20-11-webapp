@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.country.eduplanner.auth.dto.ProfileRequest;
 import no.country.eduplanner.auth.dto.UserData;
+import no.country.eduplanner.auth.exceptions.InvalidFileSizeException;
 import no.country.eduplanner.auth.exceptions.UserNotFoundException;
 import no.country.eduplanner.auth.mapper.UserMapper;
 import no.country.eduplanner.auth.models.Profile;
@@ -67,7 +68,7 @@ public class UserDataService {
     @Transactional
     public UserData updateUserProfilePhoto(MultipartFile file) {
         if (file.getSize() > MAX_FILE_SIZE) {
-            throw new InvalidFileException("File size exceeds maximum limit");
+            throw new InvalidFileSizeException();
         }
 
         log.info("📷 Received file : {}", file.getOriginalFilename());
