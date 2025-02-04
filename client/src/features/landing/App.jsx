@@ -95,11 +95,11 @@ function Features() {
 function StudentSection() {
   return (
     <>
-    <div className="z-10 container mx-auto flex flex-col">
-          <h2 className="p-4 text-3xl text-start md:text-4xl font-semibold text-primary pt-10 pb-8 md:pt-24 md:pb-12">
+    <div className="z-10 container mx-auto flex flex-col p-4 ">
+          <h2 className="text-3xl text-start md:text-4xl font-semibold text-primary pt-10 pb-8 md:pt-24 md:pb-12">
             Interfaz del Estudiante: Organizada e Intuitiva
           </h2>
-          <div className="flex flex-col lg:flex-row lg:pl-44 justify-center items-center gap-8 lg:gap-36">
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-36">
               <p className="text-center lg:text-start text-xl lg:text-xl w-[320px] md:w-[478px] lg:w-[600px]">
                 Visualiza tu horario semanal y mensual, con eventos importantes
                 marcados. No te pierdas ni una clase o entrega, mantente al tanto de
