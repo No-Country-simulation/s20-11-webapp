@@ -28,8 +28,6 @@ export function EditSubject({ trigger, subject }) {
   const isPending = editSubjectFetcher.state !== "idle";
   const shouldClose = actionData?.result.status === "success" && !isPending;
 
-  console.log(`ActionData: ${JSON.stringify(actionData, null, 2)}`);
-
   const [open, setOpen] = useDialogAutoClose(shouldClose);
 
   const [form, fields] = useForm({
