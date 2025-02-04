@@ -4,14 +4,14 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
   	extend: {
-		screens: {
-			xs: '480px',
-			sm: '768px', /* cambie de 744 a 768 */
-			md: '1024px', /* cambie de 769 a 1024 */
-			/* lg: '1024px', */
-			xl: '1280px',
-			'2xl': '1536px'
-		},
+  		screens: {
+  			xs: '480px',
+  			sm: '744px',
+  			md: '768px',
+  			lg: '1024px',
+  			xl: '1280px',
+  			'2xl': '1536px'
+  		},
   		textShadow: {
   			default: '0 2px 4px rgba(0,0,0,0.5)',
   			outline: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000'
