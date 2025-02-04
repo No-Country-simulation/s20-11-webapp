@@ -56,7 +56,7 @@ public class EmailService {
             context.setVariable("courseName", event.courseName());
             context.setVariable("email", event.email());
             context.setVariable("password", event.tempPassword());
-            context.setVariable("link", appUrl + "/login");
+            context.setVariable("link", appUrl);
             sendHtmlEmail(event.email(),
                     "Has sido registrado como Estudiante en EducPlanner",
                     "email-template",
