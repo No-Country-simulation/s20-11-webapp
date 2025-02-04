@@ -84,9 +84,9 @@ export default function StudentCalendar() {
 
   return (
     <div className="md:pt-12 sm:px-4 md:px-0">
-      <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-20 md:flex-row md:gap-40">
-        <div>
-          <TitleBar title={"Calendario"} />
+      <TitleBar title={"Calendario"} />
+      <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-20 md:flex-row md:gap-40 ">
+        <div className="w-full flex flex-col items-center sm:items-start">
           <Spacer size="3xs" />
           <Calendar
             onChange={handleDateClick}
