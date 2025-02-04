@@ -9,6 +9,7 @@ import no.country.eduplanner.courses.domain.vo.TimeRange;
 import no.country.eduplanner.shared.domain.base.BaseEntity;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
 
 @Entity
 @Table(name = "schedule_blocks")
@@ -27,7 +28,7 @@ public class ScheduleBlock extends BaseEntity {
     private Schedule schedule;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id") // CAN BE NULL FOR FREE BLOCKS??
+    @JoinColumn(name = "subject_id")
     private Subject subject;
 
     @Embedded
@@ -54,5 +55,9 @@ public class ScheduleBlock extends BaseEntity {
         }
         this.subject = subject;
 
+    }
+
+    public Duration getBlockDuration() {
+        return timeRange.getDuration();
     }
 }

@@ -21,6 +21,9 @@ public class Subject extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "teacher_name")
+    private String teacherName;
+
     @Embedded
     private AdaptableColor color;
 

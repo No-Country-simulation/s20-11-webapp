@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -43,13 +44,39 @@ public class SubjectService {
     private final ApplicationEventPublisher eventPublisher;
 
 
+    public void updateSubject(SubjectUpdateRequest request) {
+        Subject subject = subjectRepository.findById(request.subjectId())
+                                           .orElseThrow(() -> new SubjectNotFoundException(request.subjectId()));
+
+
+        boolean isSameSubject = subject.getName().equals(request.subjectName());
+
+        if (!isSameSubject && subjectRepository.existsByNameAndCourseId(request.subjectName(), subject.getCourse().getId())) {
+            throw new DuplicatedSubjectException(request.subjectName());
+        }
+
+
+        subject.setName(request.subjectName());
+        subject.setTeacherName(request.teacherName() != null ? request.teacherName() : null);
+        subject.setColor(colorUtils.createAdaptableColor(request.color()));
+
+        subjectRepository.save(subject);
+
+    }
+
+
     public SubjectResponse createClassSubjectForCourse(SubjectRequest request, Long courseId) {
 
         Course course = courseAccessService.getCourseWithAccessCheck(courseId);
 
         validateSubjectRequest(request, courseId);
 
-        Subject newSubject = new Subject(request.name(), colorUtils.createAdaptableColor(), SubjectType.CLASS, course);
+        Subject newSubject = Subject.builder()
+                                    .name(request.name())
+                                    .color(colorUtils.createAdaptableColor())
+                                    .type(SubjectType.CLASS)
+                                    .course(course)
+                                    .build();
 
         return mapper.toSubjectResponse(subjectRepository.save(newSubject));
     }

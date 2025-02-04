@@ -32,6 +32,11 @@ public class SubjectController implements SubjectApi {
 
     }
 
+    @PutMapping("/subjects/update-info")
+    public void updateSubject(@RequestBody @Valid SubjectUpdateRequest request) {
+        subjectService.updateSubject(request);
+    }
+
     @PostMapping("/send-notification")
     public void publishNotificationForSubject(@RequestBody @Valid SubjectNotificationRequest request) {
         subjectService.publishNotificationForSubject(request);

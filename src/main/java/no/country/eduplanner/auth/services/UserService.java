@@ -33,7 +33,6 @@ public class UserService implements UserDetailsService {
 
 
     public AccountStatus getAccountStatus(String email) {
-        log.info("🔐 Fetching account status for user [{}]", email);
         return userRepository.findAccountStatusByEmail(email);
     }
 

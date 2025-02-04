@@ -1,16 +1,21 @@
 package no.country.eduplanner.courses.application.mapper;
 
+import lombok.RequiredArgsConstructor;
 import no.country.eduplanner.courses.application.dto.CourseResponse;
 import no.country.eduplanner.courses.application.dto.ScheduleBlockResponse;
 import no.country.eduplanner.courses.application.dto.SubjectResponse;
 import no.country.eduplanner.courses.domain.entity.Course;
 import no.country.eduplanner.courses.domain.entity.ScheduleBlock;
 import no.country.eduplanner.courses.domain.entity.Subject;
+import no.country.eduplanner.courses.infra.persistence.ScheduleBlockRepository;
 import no.country.eduplanner.shared.application.dto.AuditInfo;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CourseMapper {
+
+    private final ScheduleBlockRepository scheduleBlockRepository;
 
     public CourseResponse.Created toCreated(Course course) {
         return new CourseResponse.Created(
@@ -59,9 +64,14 @@ public class CourseMapper {
     }
 
     public SubjectResponse toSubjectResponse(Subject subject) {
+
+        Long assignedTimeInSeconds = scheduleBlockRepository.getTotalDurationInSecondsBySubjectId(subject.getId());
+
         return new SubjectResponse(
                 subject.getId(),
                 subject.getName(),
+                subject.getTeacherName(),
+                assignedTimeInSeconds,
                 subject.getColor()
         );
     }

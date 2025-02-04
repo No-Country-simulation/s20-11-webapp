@@ -17,6 +17,10 @@ public record SubjectResponse(
         )
         String name,
 
+        String teacherName,
+
+        Long assignedTimeInSeconds,
+
         @Schema(
                 description = "Color que representa la asignatura en formato hexadecimal",
                 example = "#FF0000"

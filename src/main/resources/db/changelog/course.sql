@@ -134,3 +134,6 @@ ALTER TABLE subjects ADD light VARCHAR(20);
 
 -- changeset crist:1737570984834-18
 ALTER TABLE subjects DROP COLUMN color;
+
+-- changeset crist:1738632193213-5
+ALTER TABLE subjects ADD teacher_name VARCHAR(255);
