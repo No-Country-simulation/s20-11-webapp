@@ -1,4 +1,4 @@
-import { useIsMobile } from "@/hooks/use-mobile.jsx";
+/* import { useImdobile } from "@/hooks/use-mobile.jsx"; */
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -42,7 +42,7 @@ export default function StudentCalendar() {
 
   const navigate = useNavigate();
 
-  const isMobile = useIsMobile();
+  /* const imdobile = useImdobile(); */
 
   const highlightedDates = Array.from(
     new Set(events.map((event) => new Date(event.scheduledFor).toDateString())) // 🔥 Convierte a Date
@@ -69,7 +69,7 @@ export default function StudentCalendar() {
   const handleDateClick = (selectedDate) => {
     setDate(selectedDate);
 
-    if (isMobile) {
+    /* if (imdobile) {
       // 🔥 Aseguramos que la fecha tenga hora 00:00 en zona horaria local
       const adjustedDate = new Date(
         selectedDate.getFullYear(),
@@ -80,13 +80,27 @@ export default function StudentCalendar() {
 
       navigate(`/student/calendar/${formattedDate}`);
     }
-  };
+  }; */
+
+  if (window.matchMedia("(max-width: 361px)").matches){
+    // 🔥 Aseguramos que la fecha tenga hora 00:00 en zona horaria local
+  const adjustedDate = new Date(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth(),
+    selectedDate.getDate()
+  );
+  const formattedDate = adjustedDate.toISOString().split("T")[0];
+
+  navigate(`/student/calendar/${formattedDate}`);
+}
+  }
+  
 
   return (
-    <div className="md:pt-12 sm:px-4 md:px-0">
+    <div className="lg:pt-12 md:px-4 lg:px-0">
       <TitleBar title={"Calendario"} />
-      <div className="calendario-y-novedades flex flex-row sm:flex-col gap-40 sm:gap-20 md:flex-row md:gap-40 ">
-        <div className="w-full flex flex-col items-center sm:items-start">
+      <div className="calendario-y-novedades flex flex-row md:flex-col gap-40 md:gap-20 lg:flex-row lg:gap-40 ">
+        <div className="w-full flex flex-col items-center md:items-start">
           <Spacer size="3xs" />
           <Calendar
             onChange={handleDateClick}
@@ -109,7 +123,7 @@ export default function StudentCalendar() {
           />
         </div>
 
-        <div className="titulo-y-eventos hidden sm:block md:pt-12 md:w-full">
+        <div className="titulo-y-eventos hidden md:block lg:pt-12 lg:w-full">
           <p className="fecha-seleccionada text-2xl ">
             {date
               .toLocaleDateString("es-ES", {
@@ -120,7 +134,7 @@ export default function StudentCalendar() {
               .replace(",", "")
               .replace(/^\w/, (c) => c.toUpperCase())}
           </p>
-          <div className="listado-eventos pt-4 text-sm w-full md:w-[450px]">
+          <div className="listado-eventos pt-4 text-md w-full lg:w-[450px]">
             <EventDetailCalendar events={eventsForSelectedDate} />
           </div>
         </div>
