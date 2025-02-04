@@ -1,5 +1,4 @@
 import { ErrorList, Field } from "@/components/forms";
-import { MobileButton } from "@/components/mobile-button.jsx";
 import {
   Dialog,
   DialogContent,
@@ -14,16 +13,14 @@ import { useDialogAutoClose } from "@/hooks/use-autoclose.jsx";
 import { createValidationHandler } from "@/lib/validation-handler";
 import { getFormProps, getInputProps, useForm } from "@conform-to/react";
 import { getZodConstraint, parseWithZod } from "@conform-to/zod";
-import { PlusIcon, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
 import { CreateSubjectSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
 import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
-export const CREATE_SUBJECT_INTENT = "create-subject";
-
-export function CreateSubject() {
-  const createSubjectFecther = useFetcher({ key: CREATE_SUBJECT_INTENT });
+export function CreateSubject({ trigger }) {
+  const createSubjectFecther = useFetcher({ key: "create-subject" });
   const params = useParams();
 
   const actionData = createSubjectFecther.data;
@@ -46,7 +43,8 @@ export function CreateSubject() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <MobileButton Icon={PlusIcon} label="Agregar materia" />
+        {/* <MobileButton Icon={PlusIcon} label="Agregar materia" /> */}
+        {trigger}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -64,7 +62,7 @@ export function CreateSubject() {
             }}
             errors={fields.subjectName.errors}
           />
-          <input type="hidden" name="intent" value={CREATE_SUBJECT_INTENT} />
+          <input type="hidden" name="intent" value={"create-subject"} />
           <input type="hidden" name="courseId" value={params.courseId} />
           <ErrorList errors={form.errors} id={form.errorId} />
         </createSubjectFecther.Form>
