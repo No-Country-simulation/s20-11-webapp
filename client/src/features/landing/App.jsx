@@ -36,8 +36,8 @@ function Hero() {
       style={{ backgroundImage: `url(${ImagenPrincipal})` }}
     >
       <div className="bg-gradient-to-b from-black/20 via-black/70 to-black/20 absolute inset-0 z-10 flex "></div>
-      <div className="z-10 container mx-auto flex lg:flex-row flex-col justify-around lg:justify-between items-center p-4 gap-12">
-        <div className="text-white md:w-[523px] text-5xl z-20 flex flex-col justify-center items-center text-center text-balance  lg:text-left lg:justify-start lg:items-start ">
+      <div className="z-10 container mx-auto flex lg:flex-row flex-col justify-around lg:justify-between items-center p-4 gap-12 md:pt-80 lg:p-4">
+        <div className="text-white md:w-[523px] text-5xl z-20 flex flex-col md:gap-10 justify-center items-center text-center text-balance lg:text-left lg:justify-start lg:items-start ">
           <div
             style={{
               "--bg-color": "#a593db",
@@ -58,27 +58,27 @@ function Hero() {
 
 function Features() {
   return (
-      <div className="pt-10 bg-muted dark:bg-muted/20 py-8 w-full ">
+      <div className="pt-10 md:pt-20 lg:pt-24 bg-muted dark:bg-muted/20 py-8 md: w-full ">
           <div className="z-10 container mx-auto flex flex-col items-center justify-center">
               <h2 className="text-3xl md:text-4xl font-semibold text-primary pb-6 md:pb-10">
                 Dos roles, una solución
               </h2>
-              <div className="p-4 md:p-20 flex flex-col gap-8 md:flex-row md:gap-[100px] items-center">
+              <div className="p-4 lg:p-20 flex flex-col gap-8 lg:flex-row lg:gap-[100px] items-center">
                 <div>
-                  <h4 className="text-center md:text-start text-xl font-semibold">
+                  <h4 className="text-center lg:text-start text-xl font-semibold">
                     Estudiante
                   </h4>
-                  <p className="text-center md:text-start text-xl md:text-base w-[320px] md:w-[450px] md:w-[300px]">
+                  <p className="text-center lg:text-start text-xl lg:text-xl w-[320px] md:w-[450px] lg:w-[300px]">
                     Accede a tu horario semanal y mensual, visualiza los eventos
                     importantes, recibe notificaciones, y gestiona tu perfil personal.
                   </p>
                 </div>
                 <img src={Head} alt="" className="w-[195px] h-[195px]" />
                 <div>
-                  <h4 className="text-center md:text-start text-xl font-semibold">
+                  <h4 className="text-center lg:text-start text-xl font-semibold">
                     Administrador
                   </h4>
-                  <p className="text-center md:text-start text-xl md:text-base w-[320px] md:w-[450px] md:w-[300px]">
+                  <p className="text-center lg:text-start text-xl lg:text-xl w-[320px] md:w-[450px] lg:w-[300px]">
                     Gestiona el calendario académico completo, crea y publica eventos,
                     gestiona estudiantes y profesores. Tiene control sobre el horario,
                     materias y estudiantes, facilitando la administración diaria del
@@ -99,8 +99,8 @@ function StudentSection() {
           <h2 className="p-4 text-3xl text-start md:text-4xl font-semibold text-primary pt-10 pb-8 md:pt-24 md:pb-12">
             Interfaz del Estudiante: Organizada e Intuitiva
           </h2>
-          <div className="flex flex-col md:flex-row md:pl-44 justify-center items-center gap-8 md:gap-36">
-              <p className="text-center md:text-start text-xl md:text-xl w-[320px] sm:w-[478px] md:w-[600px]">
+          <div className="flex flex-col lg:flex-row lg:pl-44 justify-center items-center gap-8 lg:gap-36">
+              <p className="text-center lg:text-start text-xl lg:text-xl w-[320px] md:w-[478px] lg:w-[600px]">
                 Visualiza tu horario semanal y mensual, con eventos importantes
                 marcados. No te pierdas ni una clase o entrega, mantente al tanto de
                 las actividades importantes.

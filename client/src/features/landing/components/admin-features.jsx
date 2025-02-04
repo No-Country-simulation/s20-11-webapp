@@ -44,31 +44,31 @@ const adminCards = [
 
 export function AdminFeatures() {
   return (
-    <>
-      <h2 className="text-3xl md:text-4xl text-center md:text-start font-semibold text-primary pt-10 pb-6 md:pt-24 md:pb-12 md:pl-20">
+    <div className="z-10 container mx-auto flex flex-col">
+      <h2 className="text-3xl md:text-4xl lg:text-4xl text-center lg:text-start font-semibold text-primary px-4 pt-10 md:pt-20 lg:pt-24 pb-6 lg:pb-12">
         Panel administrador: Control total
       </h2>
-      <div className="flex flex-col md:flex-row justify-center items-center gap-[30px] p-2 md:p-10">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-[30px] p-2 lg:p-10">
         {adminCards.map((card) => (
           <AdminCard key={card.title} {...card} />
         ))}
       </div>
-      <div className="py-20 px-6 md:px-[60px] flex flex-row justify-center flex-wrap gap-8 md:gap-0">
+      <div className="py-20 px-6 lg:px-[60px] flex flex-row justify-center flex-wrap gap-8 lg:gap-0">
         {adminFeatures.map((feat) => (
           <AdminFeature key={feat.title} {...feat} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
 function AdminCard({ img, title, description }) {
   return (
-    <div className="p-[20px] bg-muted w-[320px] sm:w-[450px] flex flex-row gap-[30px] items-center border border-primary rounded-md">
-      <img src={img} alt="" className="w-[40px] h-[40px] sm:w-[66px] sm:h-[66px]" />
-      <div className="flex flex-col justify-center gap-[10px] md:gap-[15px]">
+    <div className="p-[20px] bg-muted w-[320px] md:w-[450px] flex flex-row gap-[30px] items-center border border-primary rounded-lg">
+      <img src={img} alt="" className="w-[40px] h-[40px] md:w-[66px] md:h-[66px]" />
+      <div className="flex flex-col justify-center gap-[10px] lg:gap-[15px]">
         <h4 className="text-xl font-semibold">{title}</h4>
-        <p className="w-[230px] sm:w-[340px] ">{description}</p>
+        <p className="w-[230px] md:w-[340px] ">{description}</p>
       </div>
     </div>
   );
