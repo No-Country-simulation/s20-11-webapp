@@ -2,13 +2,10 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Fragment } from "react";
 import { Spacer } from "../../../components/layout/spacer";
-import { useIsMobile } from "../../../hooks/use-mobile";
 import { EventCard } from "../components/event-card";
 
 export function EventsContainer({ events, className }) {
-  const isMobile = useIsMobile();
-
-  if (isMobile && events.length < 6) {
+  if (events.length < 6) {
     return (
       <>
         <Spacer size="5xs" />
