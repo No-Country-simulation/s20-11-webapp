@@ -1,7 +1,5 @@
-import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { clearAuthData } from "../../../api/authStorage";
 
 
 
@@ -25,7 +23,7 @@ function EventDetailCalendar({ events }) {
 
 
     return (
-      <div className="listado-eventos pt-4 text-sm w-full">
+      <div className="listado-eventos flex flex-col gap-2 text-sm w-full">
         {events.length > 0 ? (
           events.map((event) => (
             <div className="flex w-full gap-4" key={event.id}>

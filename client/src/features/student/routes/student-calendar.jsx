@@ -5,6 +5,7 @@ import "react-calendar/dist/Calendar.css";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Spacer } from "../../../components/layout/spacer";
 import { TitleBar } from "../../../components/title-bar";
+import { useIsMobile } from "../../../hooks/use-mobile";
 import { requireStudent } from "../../auth/services/auth.service";
 import { courseService } from "../../courses/services/course.service";
 import { notificationsService } from "../../courses/services/notifications.service";
@@ -36,13 +37,12 @@ export async function studentCalendarLoader() {
 export async function studentCalendarAction() {}
 
 export default function StudentCalendar() {
-  // const { events } = useEvents();
-  const { events, user, subjects, course } = useLoaderData();
+  const { events } = useLoaderData();
   const [date, setDate] = useState(new Date());
 
   const navigate = useNavigate();
 
-  /* const imdobile = useImdobile(); */
+  const isMobile = useIsMobile(768);
 
   const highlightedDates = Array.from(
     new Set(events.map((event) => new Date(event.scheduledFor).toDateString())) // 🔥 Convierte a Date
@@ -69,7 +69,7 @@ export default function StudentCalendar() {
   const handleDateClick = (selectedDate) => {
     setDate(selectedDate);
 
-    /* if (imdobile) {
+    if (isMobile) {
       // 🔥 Aseguramos que la fecha tenga hora 00:00 en zona horaria local
       const adjustedDate = new Date(
         selectedDate.getFullYear(),
@@ -80,21 +80,7 @@ export default function StudentCalendar() {
 
       navigate(`/student/calendar/${formattedDate}`);
     }
-  }; */
-
-  if (window.matchMedia("(max-width: 361px)").matches){
-    // 🔥 Aseguramos que la fecha tenga hora 00:00 en zona horaria local
-  const adjustedDate = new Date(
-    selectedDate.getFullYear(),
-    selectedDate.getMonth(),
-    selectedDate.getDate()
-  );
-  const formattedDate = adjustedDate.toISOString().split("T")[0];
-
-  navigate(`/student/calendar/${formattedDate}`);
-}
-  }
-  
+  };
 
   return (
     <div className="lg:pt-12 md:px-4 lg:px-0">
