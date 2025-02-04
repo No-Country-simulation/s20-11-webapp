@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserDataService {
 
-
+    private static final long MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final CloudinaryService cloudinaryService;
@@ -66,6 +66,10 @@ public class UserDataService {
     @CacheEvict(value = "userDataCache", key = "#root.target.getCurrentUsername()")
     @Transactional
     public UserData updateUserProfilePhoto(MultipartFile file) {
+        if (file.getSize() > MAX_FILE_SIZE) {
+            throw new InvalidFileException("File size exceeds maximum limit");
+        }
+
         log.info("📷 Received file : {}", file.getOriginalFilename());
         UserEntity user = getCurrentUserEntity();
 

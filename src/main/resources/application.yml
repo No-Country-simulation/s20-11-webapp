@@ -12,6 +12,11 @@ spring:
             enable: false
           ssl:
             enable: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 5MB
   jpa:
     hibernate:
       ddl-auto: none
