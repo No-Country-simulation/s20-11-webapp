@@ -4,16 +4,19 @@ import no.country.eduplanner.shared.domain.vo.AdaptableColor;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
+import java.util.Random;
 
 @Component
 public class ColorUtils {
 
     private static final double GOLDEN_RATIO_CONJUGATE = 0.618033988749895;
+    private double lastHue = Math.random();
+    private final Random random = new Random();
 
     public String generateHexColor() {
 
-        double lastHue = (Math.random() * GOLDEN_RATIO_CONJUGATE) % 1.0;
-        float randomness = (float) Math.random();
+        lastHue = (lastHue + GOLDEN_RATIO_CONJUGATE) % 1.0;
+        float randomness = random.nextFloat();
 
         float saturation = 0.6f + (float) (randomness * 0.2);
         float brightness = 0.8f + (float) (randomness * 0.2);
