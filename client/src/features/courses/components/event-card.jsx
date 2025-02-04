@@ -42,7 +42,7 @@ export function EventCard({
         "--bg-sc-light": hexToRgbString(color.light, 0.05),
       }}
       className={cn(
-        "bg-gradient-to-r dark:from-[--bg-sc-dark]  from-[--bg-sc-light]  via-transparent to-transparent relative duration-200 border bg-card  pl- rounded-lg shadow flex items-center gap-3 justify-between overflow-hidden transition-all hover:shadow-md group hover:bg-[--bg-sc-light] dark:hover:bg-[--bg-sc-dark]",
+        "bg-gradient-to-r dark:from-[--bg-sc-dark]  from-[--bg-sc-light]  via-transparent to-transparent relative duration-200 border bg-card  pl- rounded-lg shadow flex items-center gap-3 justify-between overflow-hidden transition-all hover:shadow-md group hover:bg-[--bg-sc-light] dark:hover:bg-[--bg-sc-dark] ",
         expired && "opacity-65"
       )}
     >

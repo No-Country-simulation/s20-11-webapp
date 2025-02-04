@@ -79,13 +79,18 @@ export default function StudentHome() {
 
   return (
     <>
-      <section className="grid lg:grid-cols-5 gap-y-6 md:gap-6">
-        <div className="col-span-3 ">
+      <section className="grid lg:grid-cols-5 gap-y-6 md:gap-6 ">
+        <div className="col-span-5 lg:col-span-3 ">
           <div>
-            {!isProfileComplete && <ProfileCompletionCard user={user}/>}
+            {!isProfileComplete && <ProfileCompletionCard user={user} />}
             <h1 className="text-3xl">{greeting}</h1>
             <Spacer size="4xs" />
-            <div className="flex justify-between items-center mr-5">
+            <div
+              className={cn(
+                "flex justify-between items-center ",
+                activeEvents >= 6 && "sm:mr-5"
+              )}
+            >
               <h1 className="text-xl">
                 Notificaciones activas ({activeEvents.length})
               </h1>
@@ -93,7 +98,7 @@ export default function StudentHome() {
             </div>
             <Spacer size="5xs" />
           </div>
-          <div className="col-span-5 lg:col-span-3">
+          <div className="col-span-5 lg:col-span-3 w-full ">
             {activeEvents.length > 0 ? (
               <EventsContainer
                 className={cn(
@@ -107,7 +112,7 @@ export default function StudentHome() {
             )}
           </div>
         </div>
-        <div className="col-span-5 lg:col-span-2 flex flex-col-reverse md:flex-col gap-4 md:gap-8  mx-auto ">
+        <div className="col-span-5 lg:col-span-2 flex flex-col-reverse md:flex-col gap-4 md:gap-8    ">
           <CurrentCourseCard course={course} user={user} />
           <OptionsButtonCard
             to="calendar"
@@ -142,7 +147,7 @@ function CurrentCourseCard({ course, user }) {
   const classDays = formatClassDaysToArray(course.classDays);
 
   return (
-    <Card className="md:w-[30rem] !bg-gradient-to-br from-primary/5 via-card to-primary/10">
+    <Card className=" !bg-gradient-to-br from-primary/5 via-card to-primary/10">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>
@@ -158,16 +163,16 @@ function CurrentCourseCard({ course, user }) {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <Clock className="w-4 h-4 mr-2" />
-            <span className="text-sm">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center ">
+            <Clock className="text-muted-foreground mr-1" size={14} />
+            <span className="text-sm text-nowrap">
               Clases desde las {formattedStartTime}
             </span>
           </div>
           <div className="flex items-center">
-            <Utensils className="w-4 h-4 mr-2" />
-            <span className="text-sm">
+            <Utensils className="text-muted-foreground mr-1" size={14} />
+            <span className="text-sm text-nowrap">
               {course.lunchDurationInMinutes} min. almuerzo
             </span>
           </div>
@@ -175,7 +180,7 @@ function CurrentCourseCard({ course, user }) {
 
         <div>
           <h3 className="font-semibold mb-2 flex items-center">
-            <Calendar className="w-4 h-4 mr-2" />
+            <Calendar className="text-muted-foreground mr-2" size={14} />
             Días de clase
           </h3>
           <div className="flex flex-wrap gap-2">
@@ -191,11 +196,11 @@ function CurrentCourseCard({ course, user }) {
           <h3 className="font-semibold mb-2">Agenda Diaria</h3>
           <ul className="space-y-1 text-md">
             <li>
-              {course.blocksBeforeLunch} bloques antes de almuerzo (
+              <span className="font-black text-primary">{course.blocksBeforeLunch}</span> bloques antes de almuerzo (
               {course.blockDurationInMinutes} min c/u)
             </li>
-            <li>{course.blocksAfterLunch} bloques después de almuerzo</li>
-            <li>{course.breakDurationInMinutes} min de receso entre bloques</li>
+            <li><span className="font-black text-primary">{course.blocksAfterLunch}</span> bloques después de almuerzo</li>
+            <li><span className="font-black text-primary">{course.breakDurationInMinutes}</span> min de receso entre bloques</li>
           </ul>
         </div>
       </CardContent>
