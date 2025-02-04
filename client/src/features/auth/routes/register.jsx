@@ -73,7 +73,7 @@ export default function Register() {
 
   return (
     <main className="sm:border sm:shadow grid lg:grid-cols-2 rounded-xl overflow-clip h-[calc(100dvh-6.5rem)] place-content-stretch">
-      <Card className="!rounded-lg !p-1 sm:!p-12 2xl:!p-32 !w-full h-full !border-none ">
+      <Card className="!rounded-lg !p-1 sm:!p-12 2xl:!p-32 !w-full h-full !border-none !bg-transparent sm:!bg-card">
         <div className="h-[85%]  ">
           <CardHeader>
             <CardTitle className="text-xl sm:text-3xl text-start font-black tracking-normal">
