@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import {
   Bell,
@@ -44,7 +43,6 @@ export async function coursesListLoader() {
 
 export default function CoursesList() {
   const { courses, coursesStats, notificationStats } = useLoaderData();
-  const isMobile = useIsMobile();
 
   const [searchQuery, setSearchQuery] = useState("");
 
