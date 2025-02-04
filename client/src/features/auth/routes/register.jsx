@@ -15,6 +15,7 @@ import { getZodConstraint, parseWithZod } from "@conform-to/zod";
 import { Info } from "lucide-react";
 import { useState } from "react";
 import { data, Form, Link, redirect, useActionData } from "react-router-dom";
+import { useIsMobile } from "../../../hooks/use-mobile";
 import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
 import { ERROR_MESSAGES } from "../utils/auth.errors";
@@ -72,12 +73,13 @@ export default function Register() {
 
   return (
     <main className="border shadow grid lg:grid-cols-2 rounded-xl overflow-clip h-[calc(100dvh-6.5rem)] place-content-stretch">
-        <Card className="!rounded-lg !p-4 sm:!p-12 2xl:!p-32 !w-full h-full !border-none ">
+      <Card className="!rounded-lg !p-4 sm:!p-12 2xl:!p-32 !w-full h-full !border-none ">
+        <div className="h-[85%]  ">
           <CardHeader>
-            <CardTitle className="text-3xl text-start font-black tracking-normal">
+            <CardTitle className="text-xl sm:text-3xl text-start font-black tracking-normal">
               Registro de Coordinador
             </CardTitle>
-            <div className="text-muted-foreground text-sm">
+            <div className="text-muted-foreground text-xs sm:text-sm">
               ¿Ya tienes una cuenta?{" "}
               <Link viewTransition className="text-primary" to={"/"}>
                 Inicia sesión
@@ -170,25 +172,9 @@ export default function Register() {
               .
             </p>
           </CardFooter>
-          <div className="mt-[25%] bg-primary/5 border-l-4 border-primary p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <Info className="h-5 w-5 text-primary" aria-hidden="true" />
-            </div>
-            <div className="ml-3">
-              <p className="text-sm text-primary">
-                Los estudiantes solo pueden ser registrados por un Coordinador.
-                <span className="block">
-                  Si eres estudiante, por favor contacta a tu Coordinador para
-                  obtener acceso.
-                </span>
-              </p>
-            </div>
-          </div>
         </div>
-        </Card>
-       
- 
+        <RegisterAlert />
+      </Card>
       <div
         style={{ backgroundImage: `url(${RegisterImg})` }}
         className="hidden lg:grid h-full relative bg-cover"
@@ -204,3 +190,27 @@ const validateAndRegister = createValidationHandler({
   errorMessages: ERROR_MESSAGES,
   responseKey: "authResponse",
 });
+
+function RegisterAlert() {
+  const isMobile = useIsMobile();
+  return (
+    <div className="bg-primary/5 border-l-4 border-primary p-4">
+      <div className="flex">
+        <div className="flex-shrink-0">
+          <Info className="h-5 w-5 text-primary" aria-hidden="true" />
+        </div>
+        <div className="ml-3">
+          {!isMobile && (
+            <p className="text-sm text-primary">
+              Los estudiantes solo pueden ser registrados por un Coordinador.
+            </p>
+          )}
+          <span className="block text-sm text-primary">
+            Si eres estudiante, por favor contacta a tu Coordinador para obtener
+            acceso.
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
