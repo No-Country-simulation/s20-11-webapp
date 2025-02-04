@@ -120,7 +120,7 @@ export default function StudentCalendar() {
               .replace(",", "")
               .replace(/^\w/, (c) => c.toUpperCase())}
           </p>
-          <div className="listado-eventos pt-4 text-sm sm:w-full w-[595px]">
+          <div className="listado-eventos pt-4 text-sm w-full md:w-[450px]">
             <EventDetailCalendar events={eventsForSelectedDate} />
           </div>
         </div>
