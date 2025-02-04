@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { hexToRgbString } from "../../../lib/color-utils";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { createSubject, CreateSubject } from "../components/create-subject";
 import { EditSubject, updateSubject } from "../components/edit-subject";
@@ -138,10 +139,12 @@ function SubjectCard({ subject }) {
   const card = (
     <article
       style={{
-        "--sc-dark": subject.color.dark,
-        "--sc-light": subject.color.light,
+        "--sc-dark": hexToRgbString(subject.color.dark),
+        "--sc-light": hexToRgbString(subject.color.light),
+        "--bg-sc-dark": hexToRgbString(subject.color.dark, 0.05),
+        "--bg-sc-light": hexToRgbString(subject.color.light, 0.05),
       }}
-      className="p-4 py-6 border shadow rounded-xl transition-all hover:ring-2 hover:ring-[--sc-light] dark:hover:ring-[--sc-dark] cursor-pointer"
+      className="p-4 py-6 bg-gradient-to-t dark:from-[--bg-sc-dark]  from-[--bg-sc-light]  via-transparent to-transparent   border shadow rounded-xl transition-all hover:ring-2 hover:ring-[--sc-light] dark:hover:ring-[--sc-dark] cursor-pointer hover:bg-[--bg-sc-light] dark:hover:bg-[--bg-sc-dark]"
     >
       <div className="flex gap-2 items-center">
         <div

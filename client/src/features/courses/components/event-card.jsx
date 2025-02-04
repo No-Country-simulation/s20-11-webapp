@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { differenceInHours, format, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 import { BellPlus } from "lucide-react";
+import { hexToRgbString } from "../../../lib/color-utils";
 
 const IS_NEW_LIMIT_IN_HOURS = 1;
 
@@ -35,8 +36,13 @@ export function EventCard({
 
   return (
     <div
+      style={{
+     
+        "--bg-sc-dark": hexToRgbString(color.dark, 0.05),
+        "--bg-sc-light": hexToRgbString(color.light, 0.05),
+      }}
       className={cn(
-        "relative duration-200 border bg-card  pl- rounded-lg shadow flex items-center gap-3 justify-between overflow-hidden transition-all hover:shadow-md group",
+        "bg-gradient-to-r dark:from-[--bg-sc-dark]  from-[--bg-sc-light]  via-transparent to-transparent relative duration-200 border bg-card  pl- rounded-lg shadow flex items-center gap-3 justify-between overflow-hidden transition-all hover:shadow-md group hover:bg-[--bg-sc-light] dark:hover:bg-[--bg-sc-dark]",
         expired && "opacity-65"
       )}
     >
@@ -48,7 +54,7 @@ export function EventCard({
             "--border-color-dark": color.dark,
           }}
           className={cn(
-            `w-2 bg-[--border-color-light] dark:bg-[--border-color-dark] group-hover:bg-[--border-color-dark] dark:group-hover:bg-[--border-color-light] transition-colors `,
+            `w-2 bg-[--border-color-light] dark:bg-[--border-color-dark]  transition-colors `,
             expired && "!bg-muted"
           )}
         />
