@@ -5,6 +5,7 @@ import { Spacer } from "../../../components/layout/spacer";
 import { EventCard } from "../components/event-card";
 
 export function EventsContainer({ events, className }) {
+
   if (events.length < 6) {
     return (
       <>

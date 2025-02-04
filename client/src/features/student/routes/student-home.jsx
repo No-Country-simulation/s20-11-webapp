@@ -79,10 +79,10 @@ export default function StudentHome() {
 
   return (
     <>
-      <section className="grid lg:grid-cols-5 gap-y-6 sm:gap-6 ">
-        <div className=" col-span-5 lg:col-span-3 ">
+      <section className="grid lg:grid-cols-5 gap-y-6 md:gap-6">
+        <div className="col-span-3 ">
           <div>
-            {!isProfileComplete && <ProfileCompletionCard user={user} />}
+            {!isProfileComplete && <ProfileCompletionCard user={user}/>}
             <h1 className="text-3xl">{greeting}</h1>
             <Spacer size="4xs" />
             <div className="flex justify-between items-center mr-5">
@@ -107,20 +107,18 @@ export default function StudentHome() {
             )}
           </div>
         </div>
-        <div className="col-span-5 lg:col-span-2 flex flex-col-reverse sm:flex-row-reverse lg:flex-col gap-4 sm:gap-8  mx-auto ">
+        <div className="col-span-5 lg:col-span-2 flex flex-col-reverse md:flex-col gap-4 md:gap-8  mx-auto ">
           <CurrentCourseCard course={course} user={user} />
-          <div className="flex flex-col gap-4 sm:gap-8">
-            <OptionsButtonCard
-              to="calendar"
-              icon={<Calendar1 size={48} />}
-              label="Calendario"
-            />
-            <OptionsButtonCard
-              to={`/courses/${course.id}/schedule`}
-              icon={<CalendarDays size={48} />}
-              label="Horario"
-            />
-          </div>
+          <OptionsButtonCard
+            to="calendar"
+            icon={<Calendar1 size={48} />}
+            label="Calendario"
+          />
+          <OptionsButtonCard
+            to={`/courses/${course.id}/schedule`}
+            icon={<CalendarDays size={48} />}
+            label="Horario"
+          />
         </div>
       </section>
     </>
@@ -191,7 +189,7 @@ function CurrentCourseCard({ course, user }) {
 
         <div>
           <h3 className="font-semibold mb-2">Agenda Diaria</h3>
-          <ul className="space-y-1 text-sm">
+          <ul className="space-y-1 text-md">
             <li>
               {course.blocksBeforeLunch} bloques antes de almuerzo (
               {course.blockDurationInMinutes} min c/u)
@@ -246,7 +244,7 @@ function ProfileCompletionCard({ user }) {
       <AlertTitle>¡Completa tu perfil!</AlertTitle>
       <AlertDescription className="flex items-center justify-between gap-4">
         <div>
-          <p className="mt-2 text-sm">
+          <p className="mt-2 text-md">
             Completa tu perfil para personalizar tu experiencia
           </p>
           <Progress value={progressValue} className="h-2 mt-2 w-48" />

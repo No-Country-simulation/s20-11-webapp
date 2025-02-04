@@ -24,7 +24,7 @@ export function EventDetailList({ cardClassName, events }) {
           return (
             <div
   className={cn(
-    "tarjetita p-2 mb-3 bg-card border rounded-md border-card-border border-l-8 border-subject-color dark:border-subject-color",
+    "tarjetita p-2 mb-3 bg-card border rounded-lg border-card-border border-l-8 border-subject-color dark:border-subject-color",
     cardClassName // Permite clases adicionales desde props
   )}
   style={{
@@ -47,10 +47,10 @@ export function EventDetailList({ cardClassName, events }) {
                     {event.title}
                   </p>
                   {/* FECHA Y HORA */}
-                  <div className="fecha-y-hora text-right h-auto flex flex-col justify-center md:flex md:gap-0.5 md:flex-row">
+                  <div className="fecha-y-hora text-right h-auto flex flex-col justify-center lg:flex lg:gap-0.5 lg:flex-row">
                     {/* FECHA */}
                     <p className="text-xs whitespace-nowrap">{formattedDate}</p>
-                    <span className=" hidden md:block text-xs">|</span>
+                    <span className=" hidden lg:block text-xs">|</span>
                     {/* HORA */}
                     <p className="text-xs whitespace-nowrap">{formattedTime} hs</p>
                   </div>
