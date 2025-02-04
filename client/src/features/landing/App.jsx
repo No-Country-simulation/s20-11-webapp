@@ -32,7 +32,7 @@ function Hero() {
   return (
     <div
       id="desktop"
-      className="relative min-h-[calc(100vh-65px)]  bg-cover bg-center flex md:flex-row md:justify-between md:items-center"
+      className="relative min-h-[calc(100dvh-65px)]  bg-cover bg-center flex md:flex-row md:justify-between md:items-center"
       style={{ backgroundImage: `url(${ImagenPrincipal})` }}
     >
       <div className="bg-gradient-to-b from-black/20 via-black/70 to-black/20 absolute inset-0 z-10 flex "></div>

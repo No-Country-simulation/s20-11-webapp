@@ -10,7 +10,7 @@ export function TitleBar({ title }) {
           <ArrowLeft />
         </Button>
       </Link>
-      <div className="text-lg sm:text-xl  text-nowrap ">
+      <div className="text-lg sm:text-xl  text-nowrap flex-1">
         {title}
       </div>
     </div>
