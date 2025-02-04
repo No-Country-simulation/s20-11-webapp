@@ -47,6 +47,7 @@ import CoursesList, {
   coursesListLoader,
 } from "./features/courses/routes/courses-list.jsx";
 import App, { loader } from "./features/landing/App.jsx";
+import NotFoundPage from "./features/landing/not-found.jsx";
 import ProfileUpdate, {
   profileUpdateAction,
   profileUpdateLoader,
@@ -213,7 +214,7 @@ export const routes = [
       },
       {
         path: "*",
-        element: <>Not Found</>, // mejorar
+        element: <NotFoundPage/>, // mejorar
       },
     ],
   },
