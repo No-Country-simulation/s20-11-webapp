@@ -185,9 +185,11 @@ export default function Register() {
   );
 }
 
+const errors = ERROR_MESSAGES
+
 const validateAndRegister = createValidationHandler({
   serviceCall: (data) => authService.register(data),
-  errorMessages: ERROR_MESSAGES,
+  errorMessages: errors,
   responseKey: "authResponse",
 });
 
