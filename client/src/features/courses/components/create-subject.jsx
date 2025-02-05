@@ -17,7 +17,6 @@ import { Sparkles } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
 import { CreateSubjectSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
-import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
 export function CreateSubject({ trigger }) {
   const createSubjectFecther = useFetcher({ key: "create-subject" });
@@ -101,6 +100,5 @@ export async function createSubject(formData, courseId) {
 const validateAndCreateSubject = createValidationHandler({
   serviceCall: (data) =>
     subjectService.createSubject(data.courseId, data.subjectName),
-  errorMessages: COURSE_ERROR_MESSAGES,
   responseKey: "subjectResponse",
 });

@@ -15,7 +15,6 @@ import { data, Form, redirect, useActionData } from "react-router-dom";
 import { useIsPending } from "../../../hooks/use-pending";
 import { LoginSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
-import { ERROR_MESSAGES } from "../utils/auth.errors";
 
 export async function loginAction({ request }) {
   const formData = await request.formData();
@@ -133,6 +132,5 @@ export default function Login() {
 
 const validateAndLogin = createValidationHandler({
   serviceCall: (data) => authService.login(data),
-  errorMessages: ERROR_MESSAGES,
   responseKey: "authResponse",
 });

@@ -8,7 +8,6 @@ import { data, Form, redirect, useActionData } from "react-router-dom";
 import { requireAdmin } from "../../auth/services/auth.service";
 import { CreateCourseSchema } from "../schemas/course.schemas";
 import { courseService } from "../services/course.service";
-import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
 export async function createCourseAction({ request }) {
   await requireAdmin();
@@ -77,6 +76,5 @@ const validateAndCreateCourse = createValidationHandler({
     courseService.createCourse({
       courseName: data.courseName,
     }),
-  errorMessages: COURSE_ERROR_MESSAGES,
   responseKey: "createdCourse",
 });

@@ -31,7 +31,6 @@ import { Spacer } from "../../../components/layout/spacer";
 import { Button } from "../../../components/ui/button";
 import { CreateEventSchema } from "../schemas/course.schemas";
 import { notificationsService } from "../services/notifications.service";
-import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 import { DateTimePicker } from "./date-time-picker";
 
 export function CreateEvent({ subjects }) {
@@ -170,7 +169,6 @@ const validateAndCreateEvent = createValidationHandler({
       scheduledFor: toUTCISO(data.scheduledFor),
       courseId: data.courseId,
     }),
-  errorMessages: COURSE_ERROR_MESSAGES,
   responseKey: "eventResponse",
 });
 

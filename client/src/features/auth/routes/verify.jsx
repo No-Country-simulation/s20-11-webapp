@@ -22,7 +22,6 @@ import { z } from "zod";
 import { Spacer } from "../../../components/layout/spacer";
 import { useIsPending } from "../../../hooks/use-pending";
 import { authService, requireAnonymous } from "../services/auth.service";
-import { ERROR_MESSAGES } from "../utils/auth.errors";
 
 const ResendTokenSchema = z.object({
   email: z
@@ -169,6 +168,5 @@ function ResendCode() {
 
 const validateAndResendToken = createValidationHandler({
   serviceCall: (data) => authService.resendVerification(data.email),
-  errorMessages: ERROR_MESSAGES,
   responseKey: "resendTokenResponse",
 });

@@ -18,7 +18,6 @@ import {
   RegisterStudentSchema
 } from "../schemas/course.schemas";
 import { studentsService } from "../services/students.service";
-import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
 export const REGISTER_STUDENT_INTENT = "register-student";
 
@@ -99,6 +98,5 @@ export async function registerStudentAction(formData, courseId) {
 
 const validateAndRegisterStudent = createValidationHandler({
   serviceCall: (data) => studentsService.registerStudent(data.courseId, data.email),
-  errorMessages: COURSE_ERROR_MESSAGES,
   responseKey: "studentResponse",
 });

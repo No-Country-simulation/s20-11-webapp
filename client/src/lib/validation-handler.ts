@@ -1,17 +1,19 @@
 import { z } from "zod";
+import { ALL_ERROR_MESSAGES } from "./error-msgs";
 
 export function createValidationHandler<T, R>({
   serviceCall,
-  errorMessages,
+
   responseKey = "responseData",
 }: {
   serviceCall: (
     data: T
   ) => Promise<{ success: boolean; error?: { code: string }; data: R }>;
-  errorMessages: ErrorMessageCollection;
+
   responseKey?: string;
 }) {
   return async function (data: T, ctx: any) {
+    let errorMessages = ALL_ERROR_MESSAGES;
 
     try {
       console.log("ERROR_MESSAGES mapping:", errorMessages);

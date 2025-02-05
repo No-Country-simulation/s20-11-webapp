@@ -18,7 +18,6 @@ import { data, Form, Link, redirect, useActionData } from "react-router-dom";
 import { useIsMobile } from "../../../hooks/use-mobile";
 import { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { authService, requireAnonymous } from "../services/auth.service";
-import { ERROR_MESSAGES } from "../utils/auth.errors";
 
 export async function registerAction({ request }) {
   const formData = await request.formData();
@@ -185,11 +184,11 @@ export default function Register() {
   );
 }
 
-const errors = ERROR_MESSAGES
+
+
 
 const validateAndRegister = createValidationHandler({
   serviceCall: (data) => authService.register(data),
-  errorMessages: errors,
   responseKey: "authResponse",
 });
 

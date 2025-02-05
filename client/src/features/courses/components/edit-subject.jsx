@@ -18,7 +18,6 @@ import { Edit } from "lucide-react";
 import { data, useFetcher, useParams } from "react-router-dom";
 import { EditSubjectSchema } from "../schemas/course.schemas";
 import { subjectService } from "../services/subject.service";
-import { COURSE_ERROR_MESSAGES } from "../utils/course.errors";
 
 export function EditSubject({ trigger, subject }) {
   const editSubjectFetcher = useFetcher({ key: "edit-subject" });
@@ -136,6 +135,5 @@ export async function updateSubject(formData) {
 
 const validateAndUpdateSubject = createValidationHandler({
   serviceCall: (data) => subjectService.updateSubjectData(data),
-  errorMessages: COURSE_ERROR_MESSAGES,
   responseKey: "subjectResponse",
 });
