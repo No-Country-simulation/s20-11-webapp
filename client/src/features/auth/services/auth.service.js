@@ -31,12 +31,28 @@ export const authService = {
       const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
       return data;
     } catch (error) {
-      const responseData =
-      error.response && error.response.data
-        ? error.response.data
-        : { error: { message: "Error durante el registro" } };
-  
-    return responseData;
+      console.error(error)
+      if (error.response && error.response.data) {
+        let { data } = error.response;
+        // If data is a string (which happens in production), try parsing it
+        if (typeof data === 'string') {
+          try {
+            data = JSON.parse(data);
+          } catch (parseError) {
+            console.error('Error parsing error response:', parseError);
+          }
+        }
+        return data;
+      }
+    
+      // Fallback if no response data is available
+      return {
+        success: false,
+        error: {
+          code: 'UNKNOWN_ERROR',
+          message: error.message || 'An unknown error occurred'
+        }
+      };
     }
   },
   verify: async (token) => {
