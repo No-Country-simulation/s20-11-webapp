@@ -31,9 +31,12 @@ export const authService = {
       const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
       return data;
     } catch (error) {
-      console.dir(error)
-      console.error("Error en el registro:", JSON.stringify(error, null, 2));
-      return error.response.data;
+      const responseData =
+      error.response && error.response.data
+        ? error.response.data
+        : { error: { message: "Error durante el registro" } };
+  
+    return responseData;
     }
   },
   verify: async (token) => {
