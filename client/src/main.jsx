@@ -6,10 +6,13 @@ import {
   TooltipProvider
 } from "./components/ui/tooltip";
 import { AuthProvider } from "./features/auth/context/AuthContext.jsx";
+import { ERROR_MESSAGES } from "./features/auth/utils/auth.errors.js";
 import "./index.css";
 import { routes } from "./routes.jsx";
 
 const router = createBrowserRouter(routes);
+
+console.log("ERROR_MESSAGES: ", ERROR_MESSAGES)
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

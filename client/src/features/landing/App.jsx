@@ -6,6 +6,7 @@ import "@/index.css";
 import { Outlet } from "react-router-dom";
 import Header from "../../components/layout/Header";
 import { requireAnonymous } from "../auth/services/auth.service";
+import { ERROR_MESSAGES } from "../auth/utils/auth.errors";
 import { AdminFeatures } from "./components/admin-features";
 import { ScheduleSection } from "./components/schedule-section";
 
@@ -29,6 +30,7 @@ export default function App() {
 }
 
 function Hero() {
+  console.log("ERROR_MESSAGES FROM LANDING: ", ERROR_MESSAGES)
   return (
     <div
       id="desktop"
