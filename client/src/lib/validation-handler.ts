@@ -21,7 +21,15 @@ export function createValidationHandler<T, R>({
           ? errorMessages[result.error.code] || errorMessages.DEFAULT
           : errorMessages.DEFAULT;
 
-     
+        console.log(
+          JSON.stringify(
+            `Error Config before parsing: ${JSON.stringify(
+              errorConfig,
+              null,
+              2
+            )}`
+          )
+        );
 
         if (typeof errorConfig === "string") {
           errorConfig = JSON.parse(errorConfig);
