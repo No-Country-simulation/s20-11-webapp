@@ -197,12 +197,11 @@ api.interceptors.response.use(
 );
 
 api.interceptors.response.use(
-  // Successful responses: return response data directly.
+  // if ok return response data directly.
   (response) => response.data,
-  // Error handler: normalize the error.
+  // else attempt to normalize the error.
   (error) => {
 
-    console.log(`Error from the Interceptor: ${JSON.stringify(error,null,2)}`)
 
     let normalizedError = {
       success: false,
@@ -215,7 +214,7 @@ api.interceptors.response.use(
     if (error.response && error.response.data) {
       let responseData = error.response.data;
 
-      // If the error data is a string, try to parse it.
+      // If the error data is a string, try to parse it. // was never this i think, safe to remove
       if (typeof responseData === "string") {
         try {
           responseData = JSON.parse(responseData);
@@ -249,9 +248,7 @@ api.interceptors.response.use(
         }
       }
     }
-    console.log(
-      `Normalized error: ${JSON.stringify(normalizedError, null, 2)}`
-    );
+  
     // Instead of rejecting the promise, resolve it with the normalized error.
 
     // Instead of rejecting the promise, resolve it with the normalized error.
