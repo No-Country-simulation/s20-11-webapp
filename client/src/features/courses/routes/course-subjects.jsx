@@ -28,7 +28,7 @@ export async function courseSubjectsLoader({ params }) {
   ]);
 
   return {
-    course,
+    course: course.data,
     subjects: subjects.data,
   };
 }

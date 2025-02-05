@@ -27,82 +27,52 @@ const ROLES = {
 
 export const authService = {
   register: async (credentials) => {
-    try {
-      const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
-      return data;
-    } catch (error) {
-      return error.response.data;
-    }
+    const data = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
+    return data;
   },
   verify: async (token) => {
-    try {
-      const { data } = await api.post(API_ENDPOINTS.AUTH.VERIFY, {
-        token,
-      });
+    const data = await api.post(API_ENDPOINTS.AUTH.VERIFY, {
+      token,
+    });
 
-      if (data.success) {
-        const { tokens, ...userData } = data.data;
+    if (data.success) {
+      const { tokens, ...userData } = data.data;
 
-        saveAuthData(tokens);
-        dispatchAuthStateChange();
-        scheduleTokenRefresh();
-      }
-
-      return data;
-    } catch (error) {
-      console.error("Error en verificación:", error);
-      return error.response.data;
+      saveAuthData(tokens);
+      dispatchAuthStateChange();
+      scheduleTokenRefresh();
     }
+    return data;
   },
   resendVerification: async (email) => {
-    console.log(JSON.stringify(email));
-    try {
-      const { data } = await api.post(API_ENDPOINTS.AUTH.RESEND_VERIFICATION, {
-        email,
-      });
+    const data = await api.post(API_ENDPOINTS.AUTH.RESEND_VERIFICATION, {
+      email,
+    });
 
-      return data;
-    } catch (error) {
-      console.error("Error en verificación:", error);
-      return error.response.data;
-    }
+    return data;
   },
   login: async (credentials) => {
-    try {
-      const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
+    const data = await api.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
 
-      if (response.data.success) {
-        const { tokens, ...userData } = response.data.data;
+    if (data.success) {
+      const { tokens, ...userData } = data.data;
 
-        saveAuthData(tokens);
-        dispatchAuthStateChange();
-        scheduleTokenRefresh();
-        return response.data; // can comment this out
-      }
-
-      return response.data; // En caso de error, la respuesta ya tiene el formato correcto
-    } catch (error) {
-      console.error("Backend error:", error.response.data);
-      return error.response.data;
+      saveAuthData(tokens);
+      dispatchAuthStateChange();
+      scheduleTokenRefresh();
     }
+    return data;
   },
 
   logout: async () => {
-    try {
-      const token = localStorage.getItem(TOKEN_KEY);
-      if (token) {
-        // Notificar al backend antes de limpiar el localStorage
-        await api.post(API_ENDPOINTS.AUTH.LOGOUT);
-      }
-    } catch (error) {
-      console.error("Error en el logout:", error);
-      return SERVER_ERROR;
-      // Continuamos con el logout local incluso si falla el backend
-    } finally {
-      // Siempre limpiamos el localStorage
-      clearAuthData();
-      dispatchAuthStateChange();
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      // Notificar al backend antes de limpiar el localStorage
+      await api.post(API_ENDPOINTS.AUTH.LOGOUT);
     }
+    // Siempre limpiamos el localStorage
+    clearAuthData();
+    dispatchAuthStateChange();
   },
   getToken: () => localStorage.getItem(TOKEN_KEY),
 

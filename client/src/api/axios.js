@@ -196,6 +196,44 @@ api.interceptors.response.use(
   }
 );
 
+api.interceptors.response.use(
+  // For successful responses, just return the response data
+  (response) => response.data,
+  // For errors, normalize the error response and resolve it so that
+  // the service call always returns an object with a `success` property.
+  (error) => {
+    // Default normalized error
+    let normalizedError = {
+      success: false,
+      error: {
+        code: "UNKNOWN_ERROR",
+        message: error.message || "Ha ocurrido un error inesperado",
+      },
+    };
+
+    if (error.response && error.response.data) {
+      let responseData = error.response.data;
+
+      // If the error data is a string (e.g. in production), try to parse it.
+      if (typeof responseData === "string") {
+        try {
+          responseData = JSON.parse(responseData);
+        } catch (parseError) {
+          console.error("Error parsing error response:", parseError);
+        }
+      }
+
+      // Use the parsed response if it has our expected structure.
+      if (responseData && typeof responseData === "object") {
+        normalizedError = responseData;
+      }
+    }
+
+    // Instead of rejecting, resolve with the normalized error response.
+    return Promise.resolve(normalizedError);
+  }
+);
+
 // Initialize the background token refresh if a token is already stored.
 if (localStorage.getItem(TOKEN_KEY)) {
   scheduleTokenRefresh();

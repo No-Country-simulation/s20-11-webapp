@@ -13,15 +13,17 @@ import { courseService } from "../services/course.service.js";
 import { WEEKDAY_TRANSLATIONS } from "../utils/weekdays.js";
 
 export async function courseScheduleLoader({ params }) {
-
-  await requireAuthenticated()
+  await requireAuthenticated();
 
   const courseId = params.courseId;
   const courseDetails = await courseService.getCourseDetails(courseId);
 
   const courseSchedule = await courseService.getCourseSchedule(courseId);
 
-  return { courseDetails, courseSchedule };
+  return {
+    courseDetails: courseDetails.data,
+    courseSchedule: courseSchedule.data,
+  };
 }
 
 export default function CourseSchedule() {

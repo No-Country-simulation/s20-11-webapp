@@ -43,7 +43,7 @@ export async function courseDetailsLoader({ params }) {
   ]);
 
   return {
-    courseDetails: course,
+    courseDetails: course.data,
     subjects: subjects.data,
   };
 }

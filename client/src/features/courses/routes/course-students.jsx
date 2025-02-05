@@ -40,7 +40,7 @@ export async function courseStudentsLoader({ params }) {
   ]);
 
   return {
-    course,
+    course: course.data,
     students: students.data,
   };
 }
