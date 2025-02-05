@@ -197,12 +197,10 @@ api.interceptors.response.use(
 );
 
 api.interceptors.response.use(
-  // For successful responses, just return the response data
+  // Successful responses: return response data directly.
   (response) => response.data,
-  // For errors, normalize the error response and resolve it so that
-  // the service call always returns an object with a `success` property.
+  // Error handler: normalize the error.
   (error) => {
-    // Default normalized error
     let normalizedError = {
       success: false,
       error: {
@@ -214,22 +212,42 @@ api.interceptors.response.use(
     if (error.response && error.response.data) {
       let responseData = error.response.data;
 
-      // If the error data is a string (e.g. in production), try to parse it.
+      // If the error data is a string, try to parse it.
       if (typeof responseData === "string") {
         try {
           responseData = JSON.parse(responseData);
         } catch (parseError) {
           console.error("Error parsing error response:", parseError);
+          // Wrap the plain string in an object.
+          responseData = {
+            success: false,
+            error: {
+              code: "UNKNOWN_ERROR",
+              message: responseData,
+            },
+          };
         }
       }
 
-      // Use the parsed response if it has our expected structure.
+      // If we have an object, ensure it has the expected structure.
       if (responseData && typeof responseData === "object") {
-        normalizedError = responseData;
+        // If the parsed object already has an error property, use it.
+        if (responseData.error && responseData.error.message) {
+          normalizedError = responseData;
+        } else if (responseData.message) {
+          // If it only has a message property at the top level, wrap it.
+          normalizedError = {
+            success: false,
+            error: {
+              code: responseData.code || "UNKNOWN_ERROR",
+              message: responseData.message,
+            },
+          };
+        }
       }
     }
 
-    // Instead of rejecting, resolve with the normalized error response.
+    // Instead of rejecting the promise, resolve it with the normalized error.
     return Promise.resolve(normalizedError);
   }
 );
