@@ -28,10 +28,11 @@ const ROLES = {
 export const authService = {
   register: async (credentials) => {
     try {
-      const {data} = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
+      const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
       return data;
     } catch (error) {
-      console.error("Error en el registro:", error);
+      console.dir(error)
+      console.error("Error en el registro:", JSON.stringify(error, null, 2));
       return error.response.data;
     }
   },
@@ -56,7 +57,7 @@ export const authService = {
     }
   },
   resendVerification: async (email) => {
-    console.log(JSON.stringify(email))
+    console.log(JSON.stringify(email));
     try {
       const { data } = await api.post(API_ENDPOINTS.AUTH.RESEND_VERIFICATION, {
         email,
