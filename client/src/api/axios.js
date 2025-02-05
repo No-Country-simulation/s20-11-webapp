@@ -201,6 +201,9 @@ api.interceptors.response.use(
   (response) => response.data,
   // Error handler: normalize the error.
   (error) => {
+
+    console.log(`Error from the Interceptor: ${JSON.stringify(error,null,2)}`)
+
     let normalizedError = {
       success: false,
       error: {
