@@ -17,10 +17,21 @@ export function createValidationHandler<T, R>({
       console.log("Error code from service:", result.error?.code);
 
       if (!result.success) {
-        const errorConfig = result.error?.code
+        let errorConfig = result.error?.code
           ? errorMessages[result.error.code] || errorMessages.DEFAULT
           : errorMessages.DEFAULT;
 
+     
+
+        if (typeof errorConfig === "string") {
+          errorConfig = JSON.parse(errorConfig);
+        }
+
+        console.log(
+          JSON.stringify(
+            `Error Config: ${JSON.stringify(errorConfig, null, 2)}`
+          )
+        );
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: errorConfig.message,
