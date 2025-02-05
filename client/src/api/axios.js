@@ -246,6 +246,10 @@ api.interceptors.response.use(
         }
       }
     }
+    console.log(
+      `Normalized error: ${JSON.stringify(normalizedError, null, 2)}`
+    );
+    // Instead of rejecting the promise, resolve it with the normalized error.
 
     // Instead of rejecting the promise, resolve it with the normalized error.
     return Promise.resolve(normalizedError);
