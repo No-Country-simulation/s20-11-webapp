@@ -28,11 +28,11 @@ const ROLES = {
 export const authService = {
   register: async (credentials) => {
     try {
-      const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
+      const {data} = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
       return data;
     } catch (error) {
       console.error("Error en el registro:", error);
-      return SERVER_ERROR;
+      return error.response.data;
     }
   },
   verify: async (token) => {
