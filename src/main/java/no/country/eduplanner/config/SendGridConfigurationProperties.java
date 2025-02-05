@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "app.sendgrid")
 @Getter
 @Setter
-@Profile("prod")
 public class SendGridConfigurationProperties {
 
     @NotBlank
