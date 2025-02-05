@@ -14,6 +14,7 @@ export function createValidationHandler<T, R>({
   return async function (data: T, ctx: any) {
     try {
       const result = await serviceCall(data);
+      console.log("Error code from service:", result.error?.code);
 
       if (!result.success) {
         const errorConfig = result.error?.code
