@@ -27,6 +27,9 @@ public class EmailService {
     @Value("${app.frontend-url}")
     public String appUrl;
 
+    @Value("${app.mail-from}")
+    public String mailFrom;
+
     public void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
@@ -57,6 +60,7 @@ public class EmailService {
             context.setVariable("email", event.email());
             context.setVariable("password", event.tempPassword());
             context.setVariable("link", appUrl);
+            context.setVariable("contactEmail", mailFrom);
             sendHtmlEmail(event.email(),
                     "Has sido registrado como Estudiante en EducPlanner",
                     "email-template",
@@ -75,6 +79,7 @@ public class EmailService {
             context.setVariable("email", event.email());
             context.setVariable("verificationLink", appUrl + "/verify?token=" + event.verificationToken());
             context.setVariable("verificationExpiration", event.verificationExpiration());
+            context.setVariable("contactEmail", mailFrom);
             sendHtmlEmail(event.email(),
                     "Bienvenido a EducPlanner",
                     "verification-template",
@@ -93,6 +98,7 @@ public class EmailService {
             context.setVariable("appUrl", appUrl);
             context.setVariable("unlockToken", event.unlockToken());
             context.setVariable("unlockTokenExpiration", event.unlockTokenExpiration());
+            context.setVariable("contactEmail", mailFrom);
             sendHtmlEmail(event.email(),
                     "EducPlanner - Cuenta bloqueada",
                     "unlock-template",

@@ -110,7 +110,7 @@
 
     <p class="footer">
         Si no creaste una cuenta en EducPlanner, puedes ignorar este mensaje.<br>
-        ¿Necesitas ayuda? Contáctanos en <a href="mailto:soporte@eduplanner.com">soporte@educplanner.com</a>.
+        ¿Necesitas ayuda? Contáctanos en <a th:href="@{'mailto:' + ${contactEmail}}" th:text="${contactEmail}">soporte@educplanner.com</a>.
     </p>
 </div>
 </body>

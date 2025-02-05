@@ -110,7 +110,7 @@
 
     <p class="footer">
         Si no reconoces esta actividad, por favor contáctanos inmediatamente.<br>
-        Soporte técnico: <a href="mailto:soporte@educplanner.com">soporte@educplanner.com</a>.
+        Soporte técnico: <a th:href="@{'mailto:' + ${contactEmail}}" th:text="${contactEmail}">soporte@educplanner.com</a>.
     </p>
 </div>
 </body>
