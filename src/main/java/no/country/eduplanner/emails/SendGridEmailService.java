@@ -16,6 +16,8 @@ import no.country.eduplanner.shared.application.events.UserAccountLockedEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.modulith.events.ApplicationModuleListener;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -38,6 +40,7 @@ public class SendGridEmailService implements EmailService{
     private String mailFrom;
 
     @Override
+    @Retryable(backoff = @Backoff(delay = 5000))
     public void sendHtmlEmail(String to, String subject, String templateName, Context context) throws MessagingException {
         Email from = new Email(mailFrom);
         Email toEmail = new Email(to);

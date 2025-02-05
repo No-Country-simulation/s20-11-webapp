@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Bienvenido a EducPlanner</title>
     <style>
+        a, a:hover, a:focus, a:active {
+            text-decoration: none;
+            color: inherit;
+        }
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
@@ -52,11 +56,12 @@
         }
 
         .button {
+            cursor:pointer;
             display: inline-block;
             padding: 12px 24px;
             background-color: #7b57e5;
-            color: #ffffff;
-            text-decoration: none;
+            color: #ffffff !important;
+            text-decoration: none !important;
             border-radius: 6px;
             font-size: 16px;
             text-align: center;
@@ -99,12 +104,12 @@
 
     <p>Para comenzar, ingresa a la plataforma utilizando el siguiente enlace:</p>
     <div class="button-container">
-        <a class="button" th:href="${link}">Acceder a EducPlanner</a>
+        <a class="button" clicktracking="off" th:href="${link}">Acceder a EducPlanner</a>
     </div>
 
     <p class="footer">
         Por tu seguridad, te recomendamos cambiar tu contraseña después de iniciar sesión.<br>
-        Si tienes alguna pregunta, no dudes en contactarnos en Soporte técnico: <a th:href="@{'mailto:' + ${contactEmail}}" th:text="${contactEmail}">soporte@educplanner.com</a>.
+        Si tienes alguna pregunta, no dudes en contactarnos en Soporte técnico: <a clicktracking="off" th:href="@{'mailto:' + ${contactEmail}}" th:text="${contactEmail}">soporte@educplanner.com</a>.
     </p>
 </div>
 </body>
