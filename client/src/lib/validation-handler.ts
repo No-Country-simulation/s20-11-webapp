@@ -11,6 +11,7 @@ export function createValidationHandler<T, R>({
   errorMessages: ErrorMessageCollection;
   responseKey?: string;
 }) {
+  console.log("ERROR_MESSAGES mapping:", errorMessages);
   return async function (data: T, ctx: any) {
     try {
       const result = await serviceCall(data);
