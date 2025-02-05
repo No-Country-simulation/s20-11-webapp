@@ -31,37 +31,7 @@ export const authService = {
       const { data } = await api.post(API_ENDPOINTS.AUTH.REGISTER, credentials);
       return data;
     } catch (error) {
-      console.error(error);
-      // Initialize a default error response.
-      let normalizedError = {
-        success: false,
-        error: {
-          code: "UNKNOWN_ERROR",
-          message: error.message || "An unknown error occurred",
-        },
-      };
-
-      // If error.response exists, then we know we got a response from the API.
-      if (error.response) {
-        let responseData = error.response.data;
-
-        // Sometimes in production the response data is a string.
-        if (typeof responseData === "string") {
-          try {
-            responseData = JSON.parse(responseData);
-          } catch (parseError) {
-            console.error("Error parsing error response:", parseError);
-            // Fall back to a default error if we can’t parse.
-            responseData = normalizedError;
-          }
-        }
-
-        // Use the API’s error object if available.
-        if (responseData && typeof responseData === "object") {
-          normalizedError = responseData;
-        }
-      }
-      return normalizedError;
+      return error.response.data;
     }
   },
   verify: async (token) => {
