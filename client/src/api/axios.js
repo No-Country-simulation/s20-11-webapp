@@ -219,7 +219,6 @@ api.interceptors.response.use(
         try {
           responseData = JSON.parse(responseData);
         } catch (parseError) {
-          console.error("Error parsing error response:", parseError);
           // Wrap the plain string in an object.
           responseData = {
             success: false,
